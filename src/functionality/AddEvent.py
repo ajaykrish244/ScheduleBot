@@ -215,6 +215,8 @@ async def add_event(ctx, client):
         await channel.send(
             "Seems like you do not have any existing event types. What should be the name of the new type?:\n"
         )
+        event_msg = await client.wait_for("message", check=check)  # Waits for user input
+        event_msg = event_msg.content  # Strips message to just the text the user entered
         await create_event_type(ctx, client, event_msg)  # Running event_type creation subroutine
 
     event_array.append(event_msg)
