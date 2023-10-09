@@ -1,4 +1,4 @@
-from functionality.shared_functions import create_event_tree, create_type_tree, add_event_to_file, turn_types_to_string
+from functionality.shared_functions import create_event_tree, create_type_tree, add_event_to_file, turn_types_to_string, get_exiting_types
 from types import TracebackType
 from Event import Event
 from parse.match import parse_period
@@ -173,12 +173,47 @@ async def add_event(ctx, client):
 
     create_type_tree(str(ctx.author.id))
     output = turn_types_to_string(str(ctx.author.id))
-    await channel.send(
-        "Tell me what type of event this is. Here are a list of event types I currently know:\n" + output
-    )
-    event_msg = await client.wait_for("message", check=check)  # Waits for user input
-    event_msg = event_msg.content  # Strips message to just the text the user entered
-    await create_event_type(ctx, client, event_msg)  # Running event_type creation subroutine
+    
+    if len(output.strip()) != 0:
+        await channel.send(
+            "Tell me what type of event this is. Here are a list of event types I currently know:\n" + output
+        )
+
+        types_list = get_exiting_types(str(ctx.author.id))
+
+        event_msg = await client.wait_for("message", check=check)  # Waits for user input
+        event_msg = event_msg.content  # Strips message to just the text the user entered
+
+        if event_msg in types_list:
+
+            await channel.send(
+                "Do you want to update the preferred time range for this event type? (Yes/no)"
+            )
+
+            while True:
+                is_update_event = ""
+                is_update_event = await client.wait_for("message", check=check)
+                is_update_event = is_update_event.content
+
+                if is_update_event.lower().strip() == "no":
+                    break
+                
+                if is_update_event.lower().strip() == "yes":
+                    await create_event_type(ctx, client, event_msg)  # Running event_type creation subroutine
+                    break
+
+                await channel.send( "Your response must be either Yes or No \n" +
+                    "Do you want to update the preferred time range for this event type? (Yes/no)"
+                    )
+        else:
+            await create_event_type(ctx, client, event_msg)  # Running event_type creation subroutine
+
+    else:
+        await channel.send(
+            "Seems like you do not have any event type. What should be the name of the type?:\n"
+        )
+        await create_event_type(ctx, client, event_msg)  # Running event_type creation subroutine
+
     event_array.append(event_msg)
     await channel.send(
         "What is the location of the event?(Type None for no location/online)"
