@@ -179,7 +179,7 @@ async def add_event(ctx, client):
             "Tell me what type of event this is. Here are a list of event types I currently know:\n" + output
         )
 
-        types_list = get_exiting_types(str(ctx.author.id))
+        types_list = get_exiting_types(str(ctx.author.id)) # get list of existing type events
 
         event_msg = await client.wait_for("message", check=check)  # Waits for user input
         event_msg = event_msg.content  # Strips message to just the text the user entered
@@ -190,6 +190,7 @@ async def add_event(ctx, client):
                 "Do you want to update the preferred time range for this event type? (Yes/no)"
             )
 
+            # Infinite loop - breaks when user chooses the acceptable option
             while True:
                 is_update_event = ""
                 is_update_event = await client.wait_for("message", check=check)
@@ -206,15 +207,18 @@ async def add_event(ctx, client):
                     "Do you want to update the preferred time range for this event type? (Yes/no)"
                     )
         else:
+            # When user enters new event type
             await create_event_type(ctx, client, event_msg)  # Running event_type creation subroutine
 
     else:
+        # When there are no existing event types
         await channel.send(
-            "Seems like you do not have any event type. What should be the name of the type?:\n"
+            "Seems like you do not have any existing event types. What should be the name of the new type?:\n"
         )
         await create_event_type(ctx, client, event_msg)  # Running event_type creation subroutine
 
     event_array.append(event_msg)
+
     await channel.send(
         "What is the location of the event?(Type None for no location/online)"
     )
