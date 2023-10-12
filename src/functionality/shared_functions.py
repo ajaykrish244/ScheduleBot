@@ -102,6 +102,25 @@ def turn_types_to_string(user_id):
     return output
 
 
+def get_exiting_types(user_id):
+    """
+    Function: get_exiting_types
+    Description: Returns the existing event types
+    Input:
+        user_id - String representing the Discord ID of the user
+    Output:
+        types_list - List of types of events
+    """
+    types_list = list()
+    rows = read_type_file(user_id)
+    line_number = 0
+    for i in rows:
+        if line_number != 0:
+            types_list.append(i[0])
+        line_number += 1
+    return types_list
+
+
 def create_event_directory():
     """
     Function: create_event_directory
