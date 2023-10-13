@@ -6,119 +6,292 @@ from datetime import datetime
 from cryptography.fernet import Fernet
 
 
-def create_type_directory():
+import mysql.connector
+
+
+def connect_to_database():
     """
-    Function: create_type_directory
-    Description: Creates ScheduleBot type directory in users Documents folder if it doesn't exist
+    Function: connect_to_database
+    Description: Connects to the event_types database
     Input: None
-    Output: Creates Type folder if it doesn't exist
+    Output: Returns a connection to the event_types database
     """
 
-    if not os.path.exists(os.path.expanduser("~/Documents/ScheduleBot/Type")):
-        Path(os.path.expanduser("~/Documents/ScheduleBot/Type")).mkdir(parents=True, exist_ok=True)
+    conn = mysql.connector.connect(
+    host="127.0.0.1",
+    user="root",
+    password="*Vishnu01",
+    database="schedulebot")
+
+    return conn
 
 
-def create_type_file(user_id):
-    """
-    Function: create_type_file
-    Description: Checks if the event type file exists, and creates it if it doesn't
-    Input:
-        user_id - String representing the Discord ID of the user
-    Output: Creates the event type file if it doesn't exist
-    """
-    if not os.path.exists(os.path.expanduser("~/Documents") + "/ScheduleBot/Type/" + user_id + "event_types.csv"):
-        with open(
-            os.path.expanduser("~/Documents") + "/ScheduleBot/Type/" + user_id + "event_types.csv",
-            "x",
-            newline="",
-        ) as new_file:
-            csvwriter = csv.writer(new_file, delimiter=",")
-            csvwriter.writerow(["Event Type", "Start time", "End time"])
-        key = check_key(user_id)
-        encrypt_file(key, os.path.expanduser("~/Documents") + "/ScheduleBot/Type/" + user_id + "event_types.csv")
+# def create_type_directory():
+#     """
+#     Function: create_type_directory
+#     Description: Creates ScheduleBot type directory in users Documents folder if it doesn't exist
+#     Input: None
+#     Output: Creates Type folder if it doesn't exist
+#     """
+
+#     if not os.path.exists(os.path.expanduser("~/Documents/ScheduleBot/Type")):
+#         Path(os.path.expanduser("~/Documents/ScheduleBot/Type")).mkdir(parents=True, exist_ok=True)
 
 
-def create_type_tree(user_id):
-    """
-    Function: create_type_tree
-    Description: Checks if the event type directory and file exists, and creates them if they don't
-    Input:
-        user_id - String representing the Discord ID of the user
-    Output: Creates the event type folder and file if they don't exist
-    """
-    create_type_directory()
-    create_type_file(user_id)
+# def create_type_file(user_id):
+#     """
+#     Function: create_type_file
+#     Description: Checks if the event type file exists, and creates it if it doesn't
+#     Input:
+#         user_id - String representing the Discord ID of the user
+#     Output: Creates the event type file if it doesn't exist
+#     """
+#     if not os.path.exists(os.path.expanduser("~/Documents") + "/ScheduleBot/Type/" + user_id + "event_types.csv"):
+#         with open(
+#             os.path.expanduser("~/Documents") + "/ScheduleBot/Type/" + user_id + "event_types.csv",
+#             "x",
+#             newline="",
+#         ) as new_file:
+#             csvwriter = csv.writer(new_file, delimiter=",")
+#             csvwriter.writerow(["Event Type", "Start time", "End time"])
+#         key = check_key(user_id)
+#         encrypt_file(key, os.path.expanduser("~/Documents") + "/ScheduleBot/Type/" + user_id + "event_types.csv")
 
+
+
+# def create_type_tree(user_id):
+#     """
+#     Function: create_type_tree
+#     Description: Checks if the event type directory and file exists, and creates them if they don't
+#     Input:
+#         user_id - String representing the Discord ID of the user
+#     Output: Creates the event type folder and file if they don't exist
+#     """
+#     create_type_directory()
+#     create_type_file(user_id)
+
+
+# def insert_event_type(user_id, event_type, start_time, end_time):
+#     """
+#     Function: insert_event_type
+#     Description: Inserts an event type into the MySQL database
+#     Input:
+#         user_id - String representing the Discord ID of the user
+#         event_type - Event type description
+#         start_time - Start time for the event
+#         end_time - End time for the event
+#     Output: Inserts the event type into the MySQL database
+#     """
+#     try:
+#         # Establish a connection to the MySQL database
+#         db_connection = connect_to_database()
+
+#         # Create a cursor object to execute SQL commands
+#         cursor = db_connection.cursor()
+
+#         # Define the SQL query to insert the event type into the table
+#         insert_query = """
+#         INSERT INTO events (event_type, start_time, end_time)
+#         VALUES (%s, %s, %s)
+#         """
+
+#         # Define the values to be inserted
+#         values = (event_type, start_time, end_time)
+
+#         # Execute the SQL query to insert the data
+#         cursor.execute(insert_query, values)
+
+#         # Commit the changes to the database
+#         db_connection.commit()
+
+#     except mysql.connector.Error as error:
+#         print(f"Error: {error}")
+#     finally:
+#         # Close the cursor and database connection
+#         if db_connection.is_connected():
+#             cursor.close()
+#             db_connection.close()
+
+
+
+
+# def read_type_file(user_id):
+#     """
+#     Function: read_type_file
+#     Description: Reads the event type file
+#     for those event types
+#     Input:
+#         user_id - String representing the Discord ID of the user
+#     Output:
+#         rows - List of rows
+#     """
+
+#     key = load_key(user_id)
+#     decrypt_file(key, os.path.expanduser("~/Documents") + "/ScheduleBot/Type/" + user_id + "event_types.csv")
+
+
+#     # Opens the event type file
+#     with open(
+#         os.path.expanduser("~/Documents") + "/ScheduleBot/Type/" + user_id + "event_types.csv", "r"
+#     ) as type_lines:
+#         type_lines = csv.reader(type_lines, delimiter=",")
+#         current_row = []
+#         rows = []
+#         for line in type_lines:
+#             for text in line:
+#                 current_row.append(text)
+#             rows.append(current_row)
+#             current_row = []
+
+#     encrypt_file(key, os.path.expanduser("~/Documents") + "/ScheduleBot/Type/" + user_id + "event_types.csv")
+#     return rows
 
 def read_type_file(user_id):
     """
-    Function: read_type_file
-    Description: Reads the event type file
-    for those event types
+    Function: read_event_types
+    Description: Reads event types from the MySQL database for a specific user
     Input:
         user_id - String representing the Discord ID of the user
     Output:
-        rows - List of rows
+        event_types - List of event types (rows)
     """
+    event_types = []
 
-    key = load_key(user_id)
-    decrypt_file(key, os.path.expanduser("~/Documents") + "/ScheduleBot/Type/" + user_id + "event_types.csv")
+    try:
+        # Establish a connection to the MySQL database
+        db_connection = connect_to_database()
+        # Create a cursor object to execute SQL commands
+        cursor = db_connection.cursor()
+
+        # Define the SQL query to select event types for the user
+        select_query = "SELECT event_type, start_time, end_time FROM event_types WHERE user_id = %s"
+        
+        # Execute the SQL query
+        cursor.execute(select_query, (user_id,))
+
+        # Fetch all the rows from the result set
+        rows = cursor.fetchall()
+
+        # Process the rows and convert them into a list of event types
+        for row in rows:
+            event_type, start_time, end_time = row
+            event_types.append([event_type, start_time, end_time])
+
+    except mysql.connector.Error as error:
+        print(f"Error: {error}")
+    finally:
+        # Close the cursor and database connection
+        if db_connection.is_connected():
+            cursor.close()
+            db_connection.close()
+
+    return event_types
 
 
-    # Opens the event type file
-    with open(
-        os.path.expanduser("~/Documents") + "/ScheduleBot/Type/" + user_id + "event_types.csv", "r"
-    ) as type_lines:
-        type_lines = csv.reader(type_lines, delimiter=",")
-        current_row = []
-        rows = []
-        for line in type_lines:
-            for text in line:
-                current_row.append(text)
-            rows.append(current_row)
-            current_row = []
 
-    encrypt_file(key, os.path.expanduser("~/Documents") + "/ScheduleBot/Type/" + user_id + "event_types.csv")
-    return rows
+# def turn_types_to_string(user_id):
+#     """
+#     Function: turn_types_to_string
+#     Description: Reads the event types file and turns all of them into a formatted string
+#     Input:
+#         user_id - String representing the Discord ID of the user
+#     Output:
+#         output - Formatted string of rows in event types file
+#     """
+#     output = ""
+#     space = [12, 5, 5]
+#     rows = read_type_file(user_id)
+#     line_number = 0
+#     for i in rows:
+#         if line_number != 0:
+#             output += f"{i[0]:<{space[0]}} Preferred range of {i[1]:<{space[1]}} - {i[2]:<{space[2]}}\n"
+#         line_number += 1
+#     return output
 
 
 def turn_types_to_string(user_id):
     """
     Function: turn_types_to_string
-    Description: Reads the event types file and turns all of them into a formatted string
+    Description: Retrieves event types from the MySQL database and turns them into a formatted string
     Input:
         user_id - String representing the Discord ID of the user
     Output:
-        output - Formatted string of rows in event types file
+        output - Formatted string of retrieved event types
     """
     output = ""
     space = [12, 5, 5]
-    rows = read_type_file(user_id)
+    event_types = read_type_file(user_id)
     line_number = 0
-    for i in rows:
-        if line_number != 0:
-            output += f"{i[0]:<{space[0]}} Preferred range of {i[1]:<{space[1]}} - {i[2]:<{space[2]}}\n"
+    for event_type, start_time, end_time in event_types:
+        print("________________________")
+        start_time_f = start_time.strftime("%I:%M %p")
+        end_time_f= end_time.strftime("%I:%M %p")
+        print(start_time_f, end_time_f)
+        print(type(start_time), type(end_time))
+        output += f"{event_type:<{space[0]}} Preferred range of {start_time_f:<{space[1]}} - {end_time_f:<{space[2]}}\n"
         line_number += 1
     return output
 
 
-def get_exiting_types(user_id):
+# def get_exiting_types(user_id):
+#     """
+#     Function: get_exiting_types
+#     Description: Returns the existing event types
+#     Input:
+#         user_id - String representing the Discord ID of the user
+#     Output:
+#         types_list - List of types of events
+#     """
+#     types_list = list()
+#     rows = read_type_file(user_id)
+#     line_number = 0
+#     for i in rows:
+#         if line_number != 0:
+#             types_list.append(i[0])
+#         line_number += 1
+#     return types_list
+
+def get_existing_types(user_id):
     """
-    Function: get_exiting_types
-    Description: Returns the existing event types
+    Function: retrieve_existing_types
+    Description: Retrieves existing event types for a specific user from the MySQL database
     Input:
         user_id - String representing the Discord ID of the user
     Output:
-        types_list - List of types of events
+        types_list - List of existing event types for the user
     """
-    types_list = list()
-    rows = read_type_file(user_id)
-    line_number = 0
-    for i in rows:
-        if line_number != 0:
-            types_list.append(i[0])
-        line_number += 1
+    types_list = []
+    try:
+        # Establish a connection to the MySQL database
+        db_connection = connect_to_database()
+
+        # Create a cursor object to execute SQL commands
+        cursor = db_connection.cursor()
+
+        # Define the SQL query to retrieve existing event types for the user
+        select_query = "SELECT DISTINCT event_type FROM event_types WHERE user_id = %s"
+
+        # Execute the SQL query with the provided parameter
+        cursor.execute(select_query, (user_id,))
+
+        # Fetch all rows
+        rows = cursor.fetchall()
+
+        for row in rows:
+            event_type = row[0]
+            types_list.append(event_type)
+
+    except mysql.connector.Error as error:
+        print(f"Error: {error}")
+    finally:
+        # Close the cursor and database connection
+        if db_connection.is_connected():
+            cursor.close()
+            db_connection.close()
+
     return types_list
+
+
 
 
 def create_event_directory():
