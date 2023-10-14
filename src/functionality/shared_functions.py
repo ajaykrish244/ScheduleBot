@@ -7,9 +7,7 @@ from cryptography.fernet import Fernet
 
 import mysql.connector
 
-cnx = mysql.connector.connect(user='sukhad', password='sukhad1998',
-                              host='127.0.0.1',
-                              database='schedulebot')
+from config import DB_USER, DB_PASSWORD, DB_NAME, DB_HOST
 
 
 def connect_to_database():
@@ -21,10 +19,10 @@ def connect_to_database():
     """
 
     conn = mysql.connector.connect(
-    host="127.0.0.1",
-    user="root",
-    password="*Vishnu01",
-    database="schedulebot")
+    host=DB_HOST,
+    user=DB_USER,
+    password=DB_PASSWORD,
+    database=DB_NAME)
 
     return conn
 
