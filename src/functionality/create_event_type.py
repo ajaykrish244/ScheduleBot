@@ -21,7 +21,7 @@ async def create_event_type(ctx, client, event_msg):
         - A new event type added to the user's calendar file or the time range will be update for the existing event type
         - A message sent to the context saying an event type was successfully added or updated
     """
-
+    print("i am in event type creation")
     channel = await ctx.author.create_dm()
     print(ctx.author.id)
 
@@ -141,7 +141,7 @@ async def create_event_type(ctx, client, event_msg):
             # Stores the current row in an array of rows if the row is not a new-line character
             # This check prevents an accidental empty lines from being kept in the updated file
             for line in calendar_lines:
-
+                print(line)
                 if len(line) > 0:
 
                     # If the file already has the same event type then inform user and exit loop

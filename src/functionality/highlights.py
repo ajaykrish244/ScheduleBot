@@ -1,6 +1,6 @@
 import re
 import datetime
-from functionality.shared_functions import read_event_file, create_event_tree
+from functionality.shared_functions import read_event_file
 
 
 async def get_highlight(ctx, arg):
@@ -19,7 +19,6 @@ async def get_highlight(ctx, arg):
     day = get_date(arg)
 
     # Open and read user's calendar file
-    create_event_tree(str(ctx.author.id))
     rows = read_event_file(str(ctx.author.id))
 
     print(str(ctx.author.id))

@@ -5,6 +5,11 @@ from Event import Event
 from datetime import datetime
 from cryptography.fernet import Fernet
 
+import mysql.connector
+
+cnx = mysql.connector.connect(user='sukhad', password='sukhad1998',
+                              host='127.0.0.1',
+                              database='schedulebot')
 
 def create_type_directory():
     """
@@ -121,55 +126,6 @@ def get_exiting_types(user_id):
     return types_list
 
 
-def create_event_directory():
-    """
-    Function: create_event_directory
-    Description: Creates ScheduleBot event directory in users Documents folder if it doesn't exist
-    Input: None
-    Output: Creates Event folder if it doesn't exist
-    """
-    if not os.path.exists(os.path.expanduser("~/Documents/ScheduleBot/Event")):
-        Path(os.path.expanduser("~/Documents/ScheduleBot/Event")).mkdir(parents=True, exist_ok=True)
-
-
-def create_event_file(user_id):
-    """
-    Function: create_event_file
-    Description: Checks if the calendar file exists, and creates it if it doesn't
-    Input:
-        user_id - String representing the Discord ID of the user
-    Output: Creates the calendar file if it doesn't exist
-    """
-    # Checks if the calendar file exists, and creates it if it doesn't
-    if not os.path.exists(os.path.expanduser("~/Documents") + "/ScheduleBot/Event/" + user_id + ".csv"):
-        with open(
-            os.path.expanduser("~/Documents") + "/ScheduleBot/Event/" + user_id + ".csv",
-            "x",
-            newline="",
-        ) as new_file:
-            csvwriter = csv.writer(new_file, delimiter=",")
-            csvwriter.writerow(["ID", "Name", "Start Date", "End Date", "Priority", "Type", "Notes","Location"])
-
-        key = check_key(user_id)
-        encrypt_file(key , os.path.expanduser("~/Documents") + "/ScheduleBot/Event/" + user_id + ".csv")
-
-
-
-
-
-
-def create_event_tree(user_id):
-    """
-    Function: create_event_tree
-    Description: Checks if the calendar directory and file exists, and creates them if they don't
-    Input:
-        user_id - String representing the Discord ID of the user
-    Output: Creates the calendar folder and file if they don't exist
-    """
-    create_event_directory()
-    create_event_file(user_id)
-
-
 def read_event_file(user_id):
     """
     Function: read_event_file
@@ -179,22 +135,34 @@ def read_event_file(user_id):
     Output:
         rows - List of rows
     """
+    rows = []
+    cursor = cnx.cursor()
 
-    key = load_key(user_id)
-    decrypt_file(key, os.path.expanduser("~/Documents") + "/ScheduleBot/Event/" + user_id + ".csv")
+    query = """SELECT id, name, start_date, end_date, priority, type, notes, location 
+            FROM EVENT WHERE user_id='{user_id}'""".format(user_id=user_id)
+    cursor.execute(query)
 
-    # Opens the current user's csv calendar file
-    with open(os.path.expanduser("~/Documents") + "/ScheduleBot/Event/" + user_id + ".csv", "r") as calendar_lines:
-        calendar_lines = csv.reader(calendar_lines, delimiter=",")
-        rows = []
-        # Stores the current row in an array of rows if the row is not a new-line character
-        # This check prevents an accidental empty lines from being kept in the updated file
-        for row in calendar_lines:
-            if len(row) > 0:
-                rows.append(row)
+    rows.append(["ID", "Name", "Start Date", "End Date", "Priority", "Type", "Notes", "Location"])
+
+    for r in cursor:
+        rows.append(list(r))
+
+    # key = load_key(user_id)
+    # decrypt_file(key, os.path.expanduser("~/Documents") + "/ScheduleBot/Event/" + user_id + ".csv")
+
+    # # Opens the current user's csv calendar file
+    # with open(os.path.expanduser("~/Documents") + "/ScheduleBot/Event/" + user_id + ".csv", "r") as calendar_lines:
+    #     calendar_lines = csv.reader(calendar_lines, delimiter=",")
+    #     rows = []
+    #     # Stores the current row in an array of rows if the row is not a new-line character
+    #     # This check prevents an accidental empty lines from being kept in the updated file
+    #     for row in calendar_lines:
+    #         if len(row) > 0:
+    #             rows.append(row)
 
 
-    encrypt_file(key, os.path.expanduser("~/Documents") + "/ScheduleBot/Event/" + user_id + ".csv")
+    # encrypt_file(key, os.path.expanduser("~/Documents") + "/ScheduleBot/Event/" + user_id + ".csv")
+    cursor.close()
     return rows
 
 def add_event_to_file(user_id, current):
@@ -206,87 +174,70 @@ def add_event_to_file(user_id, current):
         current - Event to be added to calendar
     Output: None
     """
-    line_number = 0
-    rows = read_event_file(user_id)
-    # If the file already has events
-    if len(rows) > 1:
-        for i in rows:
-            # Skips check with empty lines
-            if len(i) > 0 and line_number != 0:
+    # line_number = 0
+    # rows = read_event_file(user_id)
+    # # If the file already has events
+    # if len(rows) > 1:
+    #     for i in rows:
+    #         # Skips check with empty lines
+    #         if len(i) > 0 and line_number != 0:
 
-                # Temporarily turn each line into an Event object to compare with the object we are trying to add
-                temp_event = Event(
-                    "",
-                    datetime.strptime(i[2], "%Y-%m-%d %H:%M:%S"),
-                    datetime.strptime(i[3], "%Y-%m-%d %H:%M:%S"),
-                    "",
-                    "",
-                    "",
-                    "",
-                )
-                # If the current Event occurs before the temp Event, insert the current at that position
-                if current < temp_event:
-                    rows.insert(line_number, [""] + current.to_list())
-                    break
+    #             # Temporarily turn each line into an Event object to compare with the object we are trying to add
+    #             temp_event = Event(
+    #                 "",
+    #                 datetime.strptime(i[2], "%Y-%m-%d %H:%M:%S"),
+    #                 datetime.strptime(i[3], "%Y-%m-%d %H:%M:%S"),
+    #                 "",
+    #                 "",
+    #                 "",
+    #                 "",
+    #             )
+    #             # If the current Event occurs before the temp Event, insert the current at that position
+    #             if current < temp_event:
+    #                 rows.insert(line_number, [""] + current.to_list())
+    #                 break
 
-                # If we have reached the end of the array and not inserted, append the current Event to the array
-                if line_number == len(rows) - 1:
-                    rows.insert(len(rows), [""] + current.to_list())
-                    break
-            line_number += 1
-    else:
-        rows.insert(len(rows), [""] + current.to_list())
-    # Open current user's calendar file for writing
-    with open(
-        os.path.expanduser("~/Documents") + "/ScheduleBot/Event/" + user_id + ".csv",
-        "w",
-        newline="",
-    ) as calendar_file:
-        # Write to column headers and array of rows back to the calendar file
-        csvwriter = csv.writer(calendar_file)
-        csvwriter.writerows(rows)
+    #             # If we have reached the end of the array and not inserted, append the current Event to the array
+    #             if line_number == len(rows) - 1:
+    #                 rows.insert(len(rows), [""] + current.to_list())
+    #                 break
+    #         line_number += 1
+    # else:
+    #     rows.insert(len(rows), [""] + current.to_list())
+    # # Open current user's calendar file for writing
+    # with open(
+    #     os.path.expanduser("~/Documents") + "/ScheduleBot/Event/" + user_id + ".csv",
+    #     "w",
+    #     newline="",
+    # ) as calendar_file:
+    #     # Write to column headers and array of rows back to the calendar file
+    #     csvwriter = csv.writer(calendar_file)
+    #     csvwriter.writerows(rows)
 
-    key = load_key(user_id)
-    encrypt_file(key, os.path.expanduser("~/Documents") + "/ScheduleBot/Event/" + user_id + ".csv")
+    # key = load_key(user_id)
+    # encrypt_file(key, os.path.expanduser("~/Documents") + "/ScheduleBot/Event/" + user_id + ".csv")
+
+    print(current.start_date)
+    cursor = cnx.cursor()
+    query = """ INSERT INTO EVENT (name, start_date, end_date, priority, type, notes, location, user_id)
+                VALUES('{name}', '{start_date}', '{end_date}', {priority}, '{type}', '{notes}', '{location}', '{user_id}') 
+            """.format(name=current.name, start_date=current.start_date, end_date=current.end_date, 
+                       priority=current.priority, type=current.event_type, notes=current.description, location=current.location,
+                       user_id=user_id)
+
+    cursor.execute(query)
+    cnx.commit()
+    cursor.close()
+
 
 def delete_event_from_file(user_id, to_remove):
-    rows = read_event_file(user_id)
-    typeRows = read_type_file(user_id)
-    print("Rowns: "+rows.__str__())
-
-    for row in rows:
-        if to_remove['name'] == row[1]:
-            rows.remove(row)
-
-    for type_row in typeRows:
-        print("Type Row "+type_row.__str__())
-        if to_remove['desc'] == str(type_row[0]):
-            typeRows.remove(type_row)
-
-    # Open current user's calendar file for writing
-    with open(
-            os.path.expanduser("~/Documents") + "/ScheduleBot/Event/" + user_id + ".csv",
-            "w",
-            newline="",
-    ) as calendar_file:
-        # Write to column headers and array of rows back to the calendar file
-        csvwriter = csv.writer(calendar_file)
-        csvwriter.writerows(rows)
-
-    key = load_key(user_id)
-    encrypt_file(key, os.path.expanduser("~/Documents") + "/ScheduleBot/Event/" + user_id + ".csv")
-
-    with open(
-            os.path.expanduser("~/Documents") + "/ScheduleBot/Type/" + user_id + "event_types.csv",
-            "w",
-            newline="",
-    ) as new_file:
-        csvwriter = csv.writer(new_file, delimiter=",")
-        csvwriter.writerows(typeRows)
-
-    key = check_key(user_id)
-    encrypt_file(key, os.path.expanduser("~/Documents") + "/ScheduleBot/Type/" + user_id + "event_types.csv")
-
+    cursor = cnx.cursor()
+    query = """ DELETE FROM EVENT WHERE name='{name}' and user_id={user_id}
+            """.format(name=to_remove["name"], user_id=user_id)
+    cursor.execute(query)
+    cnx.commit()
+    cursor.close()    
+    
 
 def create_key_directory():
     """
