@@ -22,7 +22,7 @@ async def create_event_type(ctx, client, event_msg):
         - A message sent to the context saying an event type was successfully added or updated
     """
 
-    channel = await ctx.author.create_dm()
+    channel = ctx.channel
     print(ctx.author.id)
 
     def check(m):

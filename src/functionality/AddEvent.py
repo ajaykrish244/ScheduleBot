@@ -6,7 +6,7 @@ from functionality.create_event_type import create_event_type
 from functionality.distance import get_distance
 from datetime import datetime, timedelta
 from parse.match import parse_period24
-
+import discord
 
 def check_complete(start, start_date, end, end_date, array):
     """
@@ -43,7 +43,7 @@ async def add_event(ctx, client):
         - A message sent to the context saying an event was successfully created
     """
 
-    channel = await ctx.author.create_dm()
+    channel = ctx.channel
 
     def check(m):
         return m.content is not None and m.channel == channel and m.author == ctx.author
@@ -276,9 +276,29 @@ async def add_event(ctx, client):
     # Tries to create an Event object from the user input
     try:
         current = Event(event_array[0], event_array[1], event_array[2], event_array[3], event_array[4], event_array[6],event_array[5])
+
+        if isinstance(ctx.channel, discord.channel.DMChannel):
+            create_event_tree(str(ctx.author.id))
+            add_event_to_file(str(ctx.author.id), current)
+
+        else:
+            await channel.send("Mention people")
+            users = []
+            mentioned_members = await client.wait_for("message", check=check)
+            mentioned_members = mentioned_members.content
+
+            for member in mentioned_members.split():
+                member_id = member[2:-1]
+                print("this is", member_id)
+                user = discord.utils.find(lambda m : m.id == int(member_id), channel.members)
+                users.append(user.id)
+            print(users)
+
+            for i in users:
+                create_event_tree(str(i))
+                add_event_to_file(str(i), current)
+
         await channel.send("Your event was successfully created!")
-        create_event_tree(str(ctx.author.id))
-        add_event_to_file(str(ctx.author.id), current)
     except Exception as e:
         # Outputs an error message if the event could not be created
         print(e)
@@ -286,3 +306,4 @@ async def add_event(ctx, client):
         await channel.send(
             "There was an error creating your event. Make sure your formatting is correct and try creating the event again."
         )
+    
