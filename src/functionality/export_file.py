@@ -1,8 +1,8 @@
 import os
 import csv
 import discord
-
-from functionality.shared_functions import load_key, decrypt_file, encrypt_file
+from pathlib import Path
+from functionality.shared_functions import read_event_file
 
 
 async def export_file(ctx):
@@ -21,10 +21,13 @@ async def export_file(ctx):
     print(ctx.author.id)
 
     user_id = str(ctx.author.id)
+    rows = read_event_file(user_id)
 
-    # key = load_key(user_id)
-    # decrypt_file(key, os.path.expanduser("~/Documents") + "/ScheduleBot/Event/" + user_id + ".csv")
+    if not os.path.exists(os.path.expanduser("../tmp/")):
+        Path(os.path.expanduser("../tmp/")).mkdir(parents=True, exist_ok=True)
 
-    # await channel.send(file=discord.File(os.path.expanduser("~/Documents") + "/ScheduleBot/Event/" + user_id + ".csv"))
-
-    # encrypt_file(key, os.path.expanduser("~/Documents") + "/ScheduleBot/Event/" + user_id + ".csv")
+    with open("../tmp/"+user_id+".csv", "w+") as f:
+        writer = csv.writer(f)
+        writer.writerows(rows)
+    
+    await channel.send(file=discord.File(os.path.expanduser("../tmp/"+user_id+".csv")))
