@@ -277,6 +277,12 @@ async def add_event(ctx, client):
     try:
         current = Event(event_array[0], event_array[1], event_array[2], event_array[3], event_array[4], event_array[6],event_array[5])
 
+        """
+        Check if the command is called in the DM or in general channel
+        If DMed then add event to the author
+        else ask mentions and save the event to the corresponding author ids
+        """
+        
         if isinstance(ctx.channel, discord.channel.DMChannel):
             create_event_tree(str(ctx.author.id))
             add_event_to_file(str(ctx.author.id), current)
@@ -299,6 +305,7 @@ async def add_event(ctx, client):
                 add_event_to_file(str(i), current)
 
         await channel.send("Your event was successfully created!")
+
     except Exception as e:
         # Outputs an error message if the event could not be created
         print(e)
