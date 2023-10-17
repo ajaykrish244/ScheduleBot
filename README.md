@@ -30,6 +30,28 @@
 ### Target Audience ###
 This bot can be configured and used by any individual who wants to organize his/her schedule using an automated service
 
+### Use Cases for ScheduleBot ###
+1. **Business Meetings and Collaboration**:
+   - In a professional server or workspace, ScheduleBot can assist in organizing and coordinating business meetings, webinars, or collaborative sessions. Members can use the bot to propose meeting times, and it can find a time slot that works for everyone.
+
+2. **Study Groups and Tutoring**:
+   - For educational Discord servers, ScheduleBot can help students create study sessions, group tutoring, or classroom events. It can notify participants when the session is about to start and provide study materials.
+
+3. **Community Events and Server Announcements**:
+   - Discord servers for communities, clubs, or forums can use ScheduleBot to plan and announce community events, such as town hall meetings, workshops, or special announcements.
+
+4. **Appointment Booking**:
+   - For professional services or medical servers, ScheduleBot can allow clients to book appointments with practitioners or doctors by checking their availability and booking an available slot.
+
+5. **Volunteer and Nonprofit Organizations**:
+   - Nonprofit organizations can use ScheduleBot to plan volunteer shifts, charity events, and fundraising activities, ensuring that volunteers are well-informed about their commitments.
+
+6. **Social Events and Parties**:
+   - Friends and family Discord servers can employ ScheduleBot to plan social events, parties, and get-togethers, keeping everyone in the loop about the date, time, and location.
+
+7. **Coding and Hackathons**:
+    - In programming and hackathon communities, the bot can schedule coding sessions, hackathons, or coding challenges, helping participants collaborate and track their progress.
+
 ### Version 3 Submission Video
 Click on the image below to check out the video!
 
