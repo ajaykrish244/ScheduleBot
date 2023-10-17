@@ -179,6 +179,8 @@ def add_event_to_file(user_id, current):
                        priority=current.priority, type=current.event_type, notes=current.description, location=current.location,
                        user_id=user_id)
 
+    print(query)
+
     cursor.execute(query)
     db_connection.commit()
     cursor.close()
