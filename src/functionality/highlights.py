@@ -36,10 +36,10 @@ async def get_highlight(ctx, arg):
         for row in rows[1:]:
             # Get event details
             event['name'] = row[1]
-            start = row[2].split()
+            start = str(row[2]).split()
             event['startDate'] = start[0]
             event['startTime'] = convert_to_12(start[1][:-3])  # Convert to 12 hour format
-            end = row[3].split()
+            end = str(row[3]).split()
             event['endDate'] = end[0]
             event['endTime'] = convert_to_12(end[1][:-3])  # Convert to 12 hour format
             event['type'] = row[4]
@@ -74,7 +74,7 @@ async def get_highlight(ctx, arg):
                     await channel.send(f"You have {e['name']} scheduled , from {e['startTime']} to {e['endTime']}")
                 elif e['flag'] == 2:
                     await channel.send(
-                        "You have {e['name']} scheduled, from {e['startTime']} to {e['endTime']} on {e['endDate']}")
+                        f"You have {e['name']} scheduled, from {e['startTime']} to {e['endTime']} on {e['endDate']}")
                 elif e['flag'] == 3:
                     await channel.send(f"You have {e['name']} scheduled, till {e['endTime']}")
         else:
