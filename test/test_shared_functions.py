@@ -9,12 +9,6 @@ from Event import Event
 from datetime import datetime
 from functionality.shared_functions import (
     add_event_to_file,
-    create_event_file,
-    create_event_tree,
-    create_event_directory,
-    create_type_directory,
-    create_type_file,
-    create_type_tree,
     read_event_file,
     read_type_file,
     add_event_to_file,
@@ -24,37 +18,12 @@ from functionality.shared_functions import (
 import pytest
 
 
-def test_create_type_directory():
-    create_type_directory()
-
-
-def test_create_type_file():
-    create_type_file("Test")
-
-
-def test_create_type_tree():
-    create_type_tree("Test")
-
-
 def test_read_type_file():
     read_type_file("Test")
 
 
 def test_turn_types_to_string():
     turn_types_to_string("Test")
-
-
-def test_create_event_directory():
-    create_event_directory()
-
-
-def test_create_event_file():
-    create_event_file("Test")
-
-
-def test_create_event_tree():
-    create_event_tree("Test")
-
 
 def test_read_event_file():
     read_event_file("Test")

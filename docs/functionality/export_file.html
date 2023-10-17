@@ -31,7 +31,7 @@ import csv
 import discord
 from functionality.shared_functions import create_event_file, create_event_directory
 
-from functionality.shared_functions import load_key, decrypt_file, encrypt_file
+from functionality.shared_functions import , decrypt_file, encrypt_file
 
 
 async def export_file(ctx):
@@ -56,7 +56,7 @@ async def export_file(ctx):
         create_event_directory()
         create_event_file(user_id)
 
-    key = load_key(user_id)
+    key = (user_id)
     decrypt_file(key, os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Event/&#34; + user_id + &#34;.csv&#34;)
 
     await channel.send(file=discord.File(os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Event/&#34; + user_id + &#34;.csv&#34;))
@@ -111,7 +111,7 @@ async def export_file(ctx):
         create_event_directory()
         create_event_file(user_id)
 
-    key = load_key(user_id)
+    key = (user_id)
     decrypt_file(key, os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Event/&#34; + user_id + &#34;.csv&#34;)
 
     await channel.send(file=discord.File(os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Event/&#34; + user_id + &#34;.csv&#34;))

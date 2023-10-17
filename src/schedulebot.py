@@ -1,9 +1,11 @@
 import discord  # type: ignore
-from discord.ext import commands  # type: ignore
+from discord.ext import commands, tasks  # type: ignore
 import os
 import json
 
 from discord.ext.commands.help import MinimalHelpCommand
+from discord import ui, app_commands
+# drom datetime import datetime
 
 from functionality.AddEvent import add_event  # type: ignore
 from functionality.highlights import get_highlight
@@ -21,6 +23,13 @@ intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="!", intents=intents)  # Creates the bot with a command prefix of '!'
 bot.remove_command("help")  # Removes the help command, so it can be created using Discord embed pages later
 g_flag=0
+
+class my_modal(ui.Modal, title="Bot modal"):
+    answer=ui.TextInput(label="enter something", style=discord.TextStyle.short, placeholder="Yes")
+    async def on_submit(self, ctx):
+        await ctx.channel.send("hello world")
+
+
 
 @bot.group(invoke_without_command=True)
 async def help(ctx):
@@ -116,7 +125,8 @@ async def on_reaction_add(reaction, user):
             print(user.name + " (" + user.id + ") does not have DM permissions set correctly")
             pass
         
-@bot.command()
+# @bot.command()
+@tasks.loop(seconds=5)
 async def summary(ctx):
     """
     Function:
@@ -129,6 +139,7 @@ async def summary(ctx):
     Output:
         - A message sent to the context with all the events that start and/or end today
     """
+    print("executed now")
     await get_highlight(ctx, "today")
 
 @bot.command()
@@ -144,6 +155,8 @@ async def schedule(ctx):
         - A new event added to the user's calendar file
         - A message sent to the context saying an event was successfully created
     """
+    print(type(ctx))
+    # await ctx.interaction.response.send_modal(my_modal())
     await add_event(ctx, bot)
 
 @bot.command()

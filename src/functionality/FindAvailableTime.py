@@ -5,7 +5,7 @@ import re
 
 from Event import Event
 from functionality.create_event_type import create_event_type
-from functionality.export_file import load_key, encrypt_file, decrypt_file
+from functionality.shared_functions import load_key, encrypt_file, decrypt_file
 
 
 async def find_avaialbleTime(ctx, client):

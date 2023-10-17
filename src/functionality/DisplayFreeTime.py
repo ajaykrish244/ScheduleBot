@@ -4,7 +4,7 @@ import os
 import csv
 from datetime import timedelta
 from datetime import time
-from functionality.export_file import load_key, encrypt_file, decrypt_file
+from functionality.shared_functions import load_key, encrypt_file, decrypt_file
 
 
 async def get_free_time(ctx, bot):

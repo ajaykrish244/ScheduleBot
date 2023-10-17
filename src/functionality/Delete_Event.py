@@ -1,6 +1,6 @@
 import discord
 from functionality.highlights import convert_to_12
-from functionality.shared_functions import read_event_file, create_event_tree, delete_event_from_file
+from functionality.shared_functions import read_event_file, delete_event_from_file
 
 
 async def delete_event(ctx, arg):
@@ -24,7 +24,6 @@ async def delete_event(ctx, arg):
         return m.content is not None and m.channel == channel and m.author == ctx.author
 
     # Open and read user's calendar file
-    create_event_tree(str(ctx.author.id))
     rows = read_event_file(str(ctx.author.id))
     print(str(ctx.author.id))
     print("\n\n\n\n\n")
@@ -41,10 +40,10 @@ async def delete_event(ctx, arg):
         for row in rows[1:]:
             # Get event details
             event['name'] = row[1]
-            start = row[2].split()
+            start = str(row[2]).split()
             event['startDate'] = start[0]
             event['startTime'] = convert_to_12(start[1][:-3])  # Convert to 12 hour format
-            end = row[3].split()
+            end = str(row[3]).split()
             event['endDate'] = end[0]
             event['endTime'] = convert_to_12(end[1][:-3])  # Convert to 12 hour format
             event['type'] = row[4]
@@ -73,8 +72,8 @@ async def delete_event(ctx, arg):
                 else:
                     embed.add_field(name="Location:", value='None', inline=False)
                 
-                await channel.send(f"You have {e['name']} scheduled , from {e['startTime']} to {e['endTime']}")
-                #await ctx.send(embed=embed)
+                #await channel.send(f"You have {e['name']} scheduled , from {e['startTime']} to {e['endTime']}")
+                await channel.send(embed=embed)
         else:
             await channel.send("You don't have any event scheduled..!!")
     else:
@@ -99,8 +98,10 @@ async def delete_event(ctx, arg):
                     delete_event_from_file(str(ctx.author.id), e)
                     print("Deleted")
                     await channel.send(f"The event: {e['name']} was deleted..!!")
-                else:
-                    print("The entered event name does not exists..!! Please try again")
-                    await channel.send(
+                    
+                    return
+            
+            print("The entered event name does not exists..!! Please try again")
+            await channel.send(
                     "The entered event name does not exists..!! Please try again"
                     )

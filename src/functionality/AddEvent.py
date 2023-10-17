@@ -1,4 +1,4 @@
-from functionality.shared_functions import create_event_tree, create_type_tree, add_event_to_file, turn_types_to_string, get_exiting_types
+from functionality.shared_functions import add_event_to_file, turn_types_to_string, get_existing_types
 from types import TracebackType
 from Event import Event
 from parse.match import parse_period
@@ -171,7 +171,7 @@ async def add_event(ctx, client):
                 "Please enter a number between 1-5\n")  # Handles when user enters non numeric entries
             continue
 
-    create_type_tree(str(ctx.author.id))
+    # create_type_tree(str(ctx.author.id))
     output = turn_types_to_string(str(ctx.author.id))
     
     if len(output.strip()) != 0:
@@ -179,7 +179,7 @@ async def add_event(ctx, client):
             "Tell me what type of event this is. Here are a list of event types I currently know:\n" + output
         )
 
-        types_list = get_exiting_types(str(ctx.author.id)) # get list of existing type events
+        types_list = get_existing_types(str(ctx.author.id)) # get list of existing type events
 
         event_msg = await client.wait_for("message", check=check)  # Waits for user input
         event_msg = event_msg.content  # Strips message to just the text the user entered
@@ -254,14 +254,9 @@ async def add_event(ctx, client):
             
             current = Event("Travel",strt, end, "1", "", "", "")
             await channel.send("Your Travel event was successfully created!")
-            create_event_tree(str(ctx.author.id))
             add_event_to_file(str(ctx.author.id), current)
             
             
-            
-            
-            
-        
     await channel.send("Any additional description you want me to add about the event? If not, enter 'done'")
     event_msg = await client.wait_for("message", check=check)  # Waits for user input
     event_msg = event_msg.content  # Strips message to just the text the user entered
@@ -284,7 +279,6 @@ async def add_event(ctx, client):
         """
         
         if isinstance(ctx.channel, discord.channel.DMChannel):
-            create_event_tree(str(ctx.author.id))
             add_event_to_file(str(ctx.author.id), current)
 
         else:
@@ -301,11 +295,9 @@ async def add_event(ctx, client):
             print(users)
 
             for i in users:
-                create_event_tree(str(i))
                 add_event_to_file(str(i), current)
 
         await channel.send("Your event was successfully created!")
-
     except Exception as e:
         # Outputs an error message if the event could not be created
         print(e)

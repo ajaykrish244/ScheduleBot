@@ -4,7 +4,7 @@ import discord
 import pandas as pd
 import tempfile
 from discord import Attachment
-from functionality.shared_functions import create_event_tree, create_type_tree, add_event_to_file, turn_types_to_string
+from functionality.shared_functions import add_event_to_file, turn_types_to_string
 from Event import Event
 from parse.match import parse_period
 from icalendar import Calendar
@@ -181,9 +181,6 @@ async def import_file(ctx, client):
     if not verify_csv(data):
         await channel.send("Unexpected CSV Format. Import has failed.")
         return
-
-    # creates an event tree if one doesn't exist yet.
-    create_event_tree(str(ctx.author.id))
 
     for index, row in data.iterrows():
         print(convert_time(row['Start Date']) + ' ' + convert_time(row['End Date']))
