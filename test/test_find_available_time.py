@@ -9,7 +9,7 @@ import discord
 import discord.ext.commands as commands
 import discord.ext.test as test
 from functionality.FindAvailableTime import getEventsOnDate
-from functionality.shared_functions import create_event_tree, add_event_to_file
+from functionality.shared_functions import add_event_to_file
 from Event import Event
 
 @pytest.fixture
@@ -48,7 +48,6 @@ async def test_get_events_on_date(bot, client):
     end = datetime(2021, 9, 30, 23, 59)
 
     current = Event("SE project", start, end, 2, "homework", "Finish it")
-    create_event_tree(str(message.author.id))
     add_event_to_file(str(message.author.id), current)
 
     getEventsOnDate(message, start)

@@ -5,7 +5,7 @@ from datetime import datetime
 from types import TracebackType
 from event_type import event_type
 # from functionality.shared_functions import create_type_directory, create_type_file
-from functionality.shared_functions import load_key, decrypt_file, encrypt_file
+from functionality.shared_functions import decrypt_file, encrypt_file
 from functionality.shared_functions import connect_to_database
 
 async def create_event_type(ctx, client, event_msg):

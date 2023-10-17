@@ -9,7 +9,7 @@ import discord
 import discord.ext.commands as commands
 import discord.ext.test as test
 from functionality.DisplayFreeTime import compute_free_time, get_free_time
-from functionality.shared_functions import create_event_tree, add_event_to_file
+from functionality.shared_functions import add_event_to_file
 from Event import Event
 
 
@@ -57,7 +57,6 @@ async def test_get_free_time(bot, client):
     end = datetime(2021, 9, 30, 23, 59)
 
     current = Event("SE project", start, end, 2, "homework", "Finish it")
-    create_event_tree(str(message.author.id))
     add_event_to_file(str(message.author.id), current)
 
     await get_free_time(message, bot)

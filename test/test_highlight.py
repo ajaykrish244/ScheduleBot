@@ -12,7 +12,7 @@ import discord.ext.test as test
 
 from random import randint
 from functionality.highlights import check_start_or_end, convert_to_12, get_highlight, get_date
-from functionality.shared_functions import create_event_tree, add_event_to_file
+from functionality.shared_functions import add_event_to_file
 from Event import Event
 
 
@@ -62,7 +62,6 @@ async def test_get_free_time(bot, client):
     end = datetime.datetime(2021, 9, 30, 23, 59)
 
     current = Event("SE project", start, end, 2, "homework", "Finish it")
-    create_event_tree(str(message.author.id))
     add_event_to_file(str(message.author.id), current)
 
     await get_highlight(message, 'today')
