@@ -36,7 +36,7 @@ Click on the image below to check out the video!
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/3UVs0_7Tcxk/0.jpg)](http://www.youtube.com/watch?v=3UVs0_7Tcxk "ScheduleBot CSC 510 Project Group 5 NSCU")
 
 ScheduleBot is a Python application that helps you calendarize events and work through a Discord bot. Want to try it out? Simply follow the steps outlined in the [For Developers](#For-Developers) section. ScheduleBot can be configured to run on your Discord server by adding just one line of code!
-
+ 
 
 With ScheduleBot you can quickly schedule events, state your prefered times for certain types of activities (exercise, homework, meetings, etc.) and quickly find out which times you have available to do more stuff.
 
