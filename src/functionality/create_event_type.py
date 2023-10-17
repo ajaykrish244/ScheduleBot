@@ -21,8 +21,8 @@ async def create_event_type(ctx, client, event_msg):
         - A new event type added to the user's calendar file or the time range will be update for the existing event type
         - A message sent to the context saying an event type was successfully added or updated
     """
-    print("i am in event type creation")
-    channel = await ctx.author.create_dm()
+
+    channel = ctx.channel
     print(ctx.author.id)
 
     def check(m):
