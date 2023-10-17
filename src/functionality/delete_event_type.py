@@ -4,139 +4,71 @@ import csv
 from pathlib import Path
 from types import TracebackType
 from functionality.export_file import load_key, encrypt_file, decrypt_file
-
-def delete_type(rows, msg_content):
-    """
-    Function:
-        delete_type
-    Description:
-        A existing event type is deleted from the user's calendar file   
-    Input:
-        rows: lsit of lines in calendar
-        msg_content: event type to be deleted
-    Output:
-        - A existing event type is deleted from the user's calendar file 
-    """
-    flag=0
-    line_number = 0
-    new_row=[]
-    for line in rows:
-        if str(line[0]) == msg_content :
-            flag=1
-        else:
-            new_row.append(line)
-            line_number+=1
-    temp=[new_row, flag, line_number]
-    return temp
-
-def print_type(calendar_lines):
-    """
-    Function:
-        print_type
-    Description:
-        Sends the lsit of all event type in csv file
-    Input:
-        calendar_lines - object for csv.reader for user's calendar file
-    Output:
-        -  Sends the lsit of all event types as list and string
-    """
-    list_types=''
-    rows = []
-    #print (calendar_lines)
-    for line in calendar_lines:
-
-        if len(line) > 0:
-            rows.append(line)
-            list_types= list_types + "\nEvent Type: " + str(line[0]) + " prefered time range from " + str(line[1]) +" to " +str(line[2])
-    temp1= [rows, str(list_types)]
-    return temp1
+import mysql.connector
+from functionality.shared_functions import connect_to_database
 
 
 async def delete_event_type(ctx, client):
     """
-    Function:
-        delete_event_type
-    Description:
-        Walks a user through deleting the existing event types in the calender file
+    Function: delete_event_type
+    Description: Walks a user through deleting existing event types in the calendar database
     Input:
         ctx - Discord context window
         client - Discord bot user
     Output:
-        - A existing event type is deleted from the user's calendar file 
+        - An existing event type is deleted from the user's calendar in the database
         - A message sent to the context saying an event type was successfully deleted
     """
-    line_number = 0
     channel = await ctx.author.create_dm()
-    print(ctx.author.id)
-    key = load_key(str(ctx.author.id))
+    user_id = str(ctx.author.id)
+    event_type = None
+
     def check(m):
         return m.content is not None and m.channel == channel and m.author == ctx.author
 
-    filename =str(ctx.author.id) + "event_types"
     try:
+        # Establish a connection to the MySQL database
+        db_connection = connect_to_database()
+        # Create a cursor object to execute SQL commands
+        cursor = db_connection.cursor()
 
-        # Checks if the calendar csv file exists
-        if not os.path.exists(os.path.expanduser("~/Documents") + "/ScheduleBot/Type/" + str(filename) + ".csv"):
-            await channel.send("You have not created any events type yet!!")
+        # Query the database to fetch the list of available event types for the user
+        select_query = "SELECT event_type FROM event_types WHERE user_id = %s"
+        cursor.execute(select_query, (user_id,))
+        event_types = cursor.fetchall()
+
+        # Check if there are event types for the user
+        if event_types:
+            event_type_names = [event[0] for event in event_types]
+            await channel.send("List of your available event types are: " + ", ".join(event_type_names))
+
+            await channel.send("Please enter the event type to be deleted")
+            event_msg = await client.wait_for("message", check=check)
+            event_type = event_msg.content
+
+            # Check if the specified event type exists for the user
+            if event_type in event_type_names:
+                # Delete the event type from the database
+                delete_query = "DELETE FROM event_types WHERE user_id = %s AND event_type = %s"
+                cursor.execute(delete_query, (user_id, event_type))
+                db_connection.commit()
+                await channel.send("Event type " + event_type + " has been deleted.")
+            else:
+                await channel.send("Event type does not exist.")
         else:
-            # Decrypt the file
-            decrypt_file(key, os.path.expanduser("~/Documents") + "/ScheduleBot/Type/" + str(ctx.author.id) + "event_types" + ".csv")
-            dec = True
-            # Opens the current user's csv calendar file
-            with open(
-                os.path.expanduser("~/Documents") + "/ScheduleBot/Type/" + str(filename) + ".csv", "r"
-            ) as calendar_lines:
-                calendar_lines = csv.reader(calendar_lines, delimiter=",")
-                fields = next(calendar_lines)  # The column headers will always be the first line of the csv file
-                
-                new_row=[]
-                #printing the list of event type
-                temp1=print_type(calendar_lines)
-                rows = temp1[0]
-                list_types=temp1[1]
+            await channel.send("You have not created any event types yet.")
 
-                if list_types=='':
-                    await channel.send("You have not created any events type yet!!")
-                else:
-                    await channel.send("List of your available events types are:" + list_types)
+    except mysql.connector.Error as error:
+        print(f"Error: {error}")
+    finally:
+        # Close the cursor and database connection
+        if db_connection.is_connected():
+            cursor.close()
+            db_connection.close()
 
-                    await channel.send("Please enter the event type to be deleted")
-                    # Waits for user input
-                    event_msg = await client.wait_for("message", check=check)
-                    # Strips message to just the text the user entered
-                    msg_content = str(event_msg.content)
+    # Check if an event type was deleted and send a confirmation message
+    if event_type:
+        await channel.send("Event type " + event_type + " has been deleted from your calendar.")
 
-                    # Searching and deleting the event type
-                    temp= delete_type(rows, msg_content)
-                    new_row=temp[0]
-                    flag= temp[1]
-                    line_number = temp[2]
-                
-                    if flag==0:
-                        await channel.send("Event type does not exist")
-                    if flag==1:
-                        await channel.send("Event type " + msg_content +" has been deleted.")
-
-                 # Open current user's calendar file for writing
-                with open(
-                    os.path.expanduser("~/Documents") + "/ScheduleBot/Type/" + str(filename) + ".csv", "w", newline=""
-                ) as calendar_file:
-                    # Write to column headers and array of rows back to the calendar file
-                    csvwriter = csv.writer(calendar_file)
-               # print (str(fields))
-               # print (str(new_row))
-                    csvwriter.writerow(fields)
-                    if line_number > 1:
-                        csvwriter.writerows(new_row)
-                    elif line_number == 1:
-                        csvwriter.writerow(new_row[0])
-            encrypt_file(key, os.path.expanduser("~/Documents") + "/ScheduleBot/Type/" + str(ctx.author.id) + "event_types" + ".csv")
-    except Exception as e:
-        # Outputs an error message if the event could not be created
-        print(e)
-
-        if dec:
-            encrypt_file(key, os.path.expanduser("~/Documents") + "/ScheduleBot/Type/" + str(ctx.author.id) + "event_types" + ".csv")
-        await channel.send(
-            "There was an error deleting your event."
-        )
+# Example usage:
+# Call delete_event_type with ctx and client when a user wants to delete an event type
