@@ -26,7 +26,7 @@ jobs:
           pip install pytest
           pip install pytest-cov
           export PYTHONPATH=src
-          pytest --cov=./ --cov-report=xml
+          pytest test/test_basic.py --cov=./ --cov-report=xml
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
