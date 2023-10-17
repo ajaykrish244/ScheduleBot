@@ -82,11 +82,11 @@ def turn_types_to_string(user_id):
     event_types = read_type_file(user_id)
     line_number = 0
     for event_type, start_time, end_time in event_types:
-        print("________________________")
+        # print("________________________")
         start_time_f = start_time.strftime("%I:%M %p")
         end_time_f= end_time.strftime("%I:%M %p")
-        print(start_time_f, end_time_f)
-        print(type(start_time), type(end_time))
+        # print(start_time_f, end_time_f)
+        # print(type(start_time), type(end_time))
         output += f"{event_type:<{space[0]}} Preferred range of {start_time_f:<{space[1]}} - {end_time_f:<{space[2]}}\n"
         line_number += 1
     return output
