@@ -27,6 +27,9 @@
   <a href="#muscle-whats-new-in-v3">What's new in V3</a>
 </p>
 
+### Target Audience ###
+This bot can be configured and used by any individual who wants to organize his/her schedule using an automated service
+
 ### Version 3 Submission Video
 Click on the image below to check out the video!
 
