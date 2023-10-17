@@ -31,4 +31,4 @@ def test_read_event_file():
 
 def test_add_event_to_file():
 
-    add_event_to_file("Test", Event("", datetime(2021, 9, 29, 20, 30), datetime(2021, 9, 29, 20, 45), "", "", ""))
+    add_event_to_file("Test", Event("", datetime(2021, 9, 29, 20, 30), datetime(2021, 9, 29, 20, 45), "5", "", ""))

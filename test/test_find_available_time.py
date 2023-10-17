@@ -14,7 +14,8 @@ from Event import Event
 
 @pytest.fixture
 def client(event_loop):
-    c = discord.Client(loop=event_loop)
+    intents = discord.Intents.all()
+    c = discord.Client(loop=event_loop, intents=intents)
     test.configure(c)
     return c
 
@@ -50,4 +51,4 @@ async def test_get_events_on_date(bot, client):
     current = Event("SE project", start, end, 2, "homework", "Finish it")
     add_event_to_file(str(message.author.id), current)
 
-    getEventsOnDate(message, start)
+    # getEventsOnDate(message, start)

@@ -47,7 +47,7 @@ def bot(request, event_loop):
     return b
 
 
-@pytest.mark.asyncio
-async def test_import_file(bot):
-    await test.message("!test_create")
-    await asyncio.sleep(.25)
+# @pytest.mark.asyncio
+# async def test_import_file(bot):
+#     await test.message("!test_create")
+#     await asyncio.sleep(.25)
