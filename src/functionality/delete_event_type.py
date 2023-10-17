@@ -3,7 +3,7 @@ import re
 import csv
 from pathlib import Path
 from types import TracebackType
-from functionality.export_file import load_key, encrypt_file, decrypt_file
+from functionality.shared_functions import load_key, encrypt_file, decrypt_file
 
 def delete_type(rows, msg_content):
     """
