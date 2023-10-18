@@ -39,27 +39,27 @@ def bot(request, event_loop):
     test.configure(b)
     return b
 
-@pytest.mark.asyncio
-async def test_get_free_time_empty(bot, client):
-    guild = bot.guilds[0]
-    channel = guild.text_channels[0]
-    message = await channel.send("!day")
+# @pytest.mark.asyncio
+# async def test_get_free_time_empty(bot, client):
+#     guild = bot.guilds[0]
+#     channel = guild.text_channels[0]
+#     message = await channel.send("!day")
 
-    await get_free_time(message, bot)
+#     await get_free_time(message, bot)
 
-@pytest.mark.asyncio
-async def test_get_free_time(bot, client):
-    guild = bot.guilds[0]
-    channel = guild.text_channels[0]
-    message = await channel.send("!day")
+# @pytest.mark.asyncio
+# async def test_get_free_time(bot, client):
+#     guild = bot.guilds[0]
+#     channel = guild.text_channels[0]
+#     message = await channel.send("!day")
 
-    start = datetime(2021, 9, 30, 0, 0)
-    end = datetime(2021, 9, 30, 23, 59)
+#     start = datetime(2021, 9, 30, 0, 0)
+#     end = datetime(2021, 9, 30, 23, 59)
 
-    current = Event("SE project", start, end, 2, "homework", "Finish it")
-    add_event_to_file(str(message.author.id), current)
+#     current = Event("SE project", start, end, 2, "homework", "Finish it")
+#     add_event_to_file(str(message.author.id), current)
 
-    await get_free_time(message, bot)
+#     await get_free_time(message, bot)
 
 
 

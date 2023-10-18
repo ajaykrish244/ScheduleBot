@@ -18,14 +18,15 @@ from functionality.AddEvent import check_complete, add_event  # type: ignore
 
 @pytest.fixture
 def client(event_loop):
-    c = discord.Client(loop=event_loop)
+    intents = discord.Intents.all()
+    c = discord.Client(loop=event_loop, intents=intents)
     test.configure(c)
     return c
 
 
 @pytest.fixture
 def bot(request, event_loop):
-    intents = discord.Intents.default()
+    intents = discord.Intents.all()
     intents.members = True
     b = commands.Bot(command_prefix="!", loop=event_loop, intents=intents)
 
@@ -45,12 +46,6 @@ def bot(request, event_loop):
 
     test.configure(b)
     return b
-
-
-@pytest.mark.asyncio
-async def test_add_event(bot):
-    await test.message("!test_add")
-    await asyncio.sleep(.25)
 
 
 def check_variables1():

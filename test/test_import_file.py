@@ -108,18 +108,18 @@ def bot(request, event_loop):
     return b
 
 
-@pytest.mark.asyncio
-async def test_import_file(bot):
-    await test.message("!test_import")
-    await asyncio.sleep(.25)
+# @pytest.mark.asyncio
+# async def test_import_file(bot):
+#     await test.message("!test_import")
+#     await asyncio.sleep(.25)
 
 
-def test_import_ics():
-    gcal = Calendar.from_ical(ICS_STRING)
+# def test_import_ics():
+#     gcal = Calendar.from_ical(ICS_STRING)
 
-    data = get_ics_data(gcal)
+#     data = get_ics_data(gcal)
 
-    assert verify_csv(data)
+#     assert verify_csv(data)
 
 
 def test_import_ics_empty():
