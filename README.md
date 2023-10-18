@@ -149,7 +149,20 @@ When you look for available times, you now can use `!find` to find only the avai
   ```
   TOKEN = ************(your discord bot token)
   ```
-  
+
+### Install and Run MySQL Server
+
+Install the appropriate MySQL server version from [here](https://dev.mysql.com/downloads/mysql/).
+Once you install the MySQL server, add following details to `config.py`:
+
+```
+  DB_USER = "xxxxx"
+  DB_PASSWORD = "xxxxx"
+  DB_HOST = "xxxx"
+  DB_NAME = "schedulebot"
+```
+
+
 ### Intall required packages
   ```
   pip install -r requirements.txt
