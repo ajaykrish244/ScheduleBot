@@ -25,10 +25,16 @@
   <a href="#dizzy-features-in-v2">Features in V2</a>
   ::
   <a href="#muscle-whats-new-in-v3">What's new in V3</a>
+  ::
+  <a href="#muscle-whats-new-in-v4">What's new in V4</a>
 </p>
 
 ### Target Audience ###
 This bot can be configured and used by any individual who wants to organize his/her schedule using an automated service
+
+### Version 4 Submission Video
+
+Watch the demonstration of ScheduleBot with new feature here: https://www.youtube.com/watch?v=SOvLwvlyjiE
 
 ### Version 3 Submission Video
 Click on the image below to check out the video!
@@ -230,6 +236,7 @@ Thank you for caring for this project and getting involved. To start, please che
 
 Check out the [internal documentation](https://htmlpreview.github.io/?https://github.com/qchen59/ScheduleBot/blob/main/docs/src/index.html) if you want to contribute or find out about the inner workings of ScheduleBot.
 
+
 :muscle: What's new in V3:
 ---
 Following are the new features that we have implemented for version 3 : 
@@ -278,6 +285,11 @@ User can check their next 10 events in the google calendar
 
 https://user-images.githubusercontent.com/89954066/144730470-7700507e-b2e9-4175-88c0-749c15097702.mp4
 
+:muscle: What's new in V4:
+
+As an upgrade we have added a group scheduling feature. Previously, the bot was able to schedule events and event types for a single user in DMs. However, now ,one can mention the users of the channel and for each mentioned user, the schedule gets created.
+
+Previously, the events and all other data were stored in a file-folder hierarchy and in csv files. Now, all the data gets stored efficiently in a mySQL database. Schedules are now read, written and updated on the configured database. 
 
 
 ## Future features
