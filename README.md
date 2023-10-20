@@ -343,3 +343,9 @@ In this project, you can edit the events from discord. For future implemetation,
 
 ### Add a "How to do" documentation for discord connection
 Help user understand the process of adding the Discord bot to their server.
+
+### Support:
+
+For support regarding V4 updates, errors or configurations, feel free to contact:
+@sjoshi32@ncsu.edu
+@verapal@ncsu.edu
