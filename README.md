@@ -34,7 +34,7 @@ This bot can be configured and used by any individual who wants to organize his/
 
 ### Version 4 Submission Video
 
-Watch the demonstration of ScheduleBot with new feature here: https://www.youtube.com/watch?v=SOvLwvlyjiE
+Watch the demonstration of ScheduleBot with new feature here: https://www.youtube.com/watch?v=dpqK9mt-y28
 
 ### Version 3 Submission Video
 Click on the image below to check out the video!
