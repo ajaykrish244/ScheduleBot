@@ -2,6 +2,7 @@ import discord  # type: ignore
 from discord.ext import commands, tasks  # type: ignore
 import os
 import json
+from dotenv import load_dotenv
 
 from discord.ext.commands.help import MinimalHelpCommand
 from discord import ui, app_commands
@@ -23,6 +24,9 @@ intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="!", intents=intents)  # Creates the bot with a command prefix of '!'
 bot.remove_command("help")  # Removes the help command, so it can be created using Discord embed pages later
 g_flag=0
+
+load_dotenv()
+TOKEN = os.getenv('DISCORD_TOKEN')
 
 class my_modal(ui.Modal, title="Bot modal"):
     answer=ui.TextInput(label="enter something", style=discord.TextStyle.short, placeholder="Yes")
@@ -323,8 +327,7 @@ async def freetime(ctx):
 
 # Runs the bot (local machine)
 if __name__ == "__main__":
-    from config import TOKEN
-
+    
     bot.run(TOKEN)
     
 

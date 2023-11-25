@@ -7,8 +7,10 @@ from cryptography.fernet import Fernet
 
 import mysql.connector
 
-from config import DB_USER, DB_PASSWORD, DB_NAME, DB_HOST
-
+DB_HOST = os.getenv('DB_HOST')
+DB_USER = os.getenv('DB_USER')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_NAME = os.getenv('DB_NAME')
 
 def connect_to_database():
     """
@@ -45,7 +47,7 @@ def read_type_file(user_id):
 
         # Define the SQL query to select event types for the user
         select_query = "SELECT event_type, start_time, end_time FROM event_types WHERE user_id = %s"
-        
+
         # Execute the SQL query
         cursor.execute(select_query, (user_id,))
 
@@ -148,7 +150,7 @@ def read_event_file(user_id):
     rows = []
     cursor = db_connection.cursor()
 
-    query = """SELECT id, name, start_date, end_date, priority, type, notes, location 
+    query = """SELECT id, name, start_date, end_date, priority, type, notes, location
             FROM EVENT WHERE user_id='{user_id}'""".format(user_id=user_id)
     cursor.execute(query)
 
@@ -174,8 +176,8 @@ def add_event_to_file(user_id, current):
 
     cursor = db_connection.cursor()
     query = """ INSERT INTO EVENT (name, start_date, end_date, priority, type, notes, location, user_id)
-                VALUES('{name}', '{start_date}', '{end_date}', {priority}, '{type}', '{notes}', '{location}', '{user_id}') 
-            """.format(name=current.name, start_date=current.start_date, end_date=current.end_date, 
+                VALUES('{name}', '{start_date}', '{end_date}', {priority}, '{type}', '{notes}', '{location}', '{user_id}')
+            """.format(name=current.name, start_date=current.start_date, end_date=current.end_date,
                        priority=current.priority, type=current.event_type, notes=current.description, location=current.location,
                        user_id=user_id)
 
@@ -193,8 +195,8 @@ def delete_event_from_file(user_id, to_remove):
             """.format(name=to_remove["name"], user_id=user_id)
     cursor.execute(query)
     db_connection.commit()
-    cursor.close()    
-    
+    cursor.close()
+
 
 def create_key_directory():
     """
