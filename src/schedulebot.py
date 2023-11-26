@@ -19,14 +19,19 @@ from functionality.import_file import import_file
 from functionality.Google import connect_google
 from functionality.GoogleEvent import get_events
 from functionality.Delete_Event import delete_event
+from functionality.edit_event_type import edit_event_type
+
+discord_bot_command_prefix = '!'
 
 intents = discord.Intents.all()
-bot = commands.Bot(command_prefix="!", intents=intents)  # Creates the bot with a command prefix of '!'
+bot = commands.Bot(command_prefix=discord_bot_command_prefix, intents=intents)  # Creates the bot with a command prefix of '!'
 bot.remove_command("help")  # Removes the help command, so it can be created using Discord embed pages later
 g_flag=0
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
+
+print(TOKEN)
 
 class my_modal(ui.Modal, title="Bot modal"):
     answer=ui.TextInput(label="enter something", style=discord.TextStyle.short, placeholder="Yes")
@@ -49,7 +54,7 @@ async def help(ctx):
     """
     em = discord.Embed(
         title="ScheduleBot Commands",
-        description="Here are all the commands to use ScheduleBot\nAll events are prefaced by an '!'",
+        description=f"Here are all the commands to use ScheduleBot\nAll events are prefaced by an '{discord_bot_command_prefix}'",
     )
     em.add_field(name="help", value="Displays all commands and their descriptions", inline=False)
     em.add_field(name="schedule", value="Creates an event", inline=False)
@@ -61,6 +66,7 @@ async def help(ctx):
                                    "4/20/22 (On Apr 20, 2022)", inline=False)
     em.add_field(name="typecreate", value="Creates a new event type", inline=True)
     em.add_field(name="typedelete", value="Deletes an event type", inline=True)
+    em.add_field(name="typeedit", value = "Edits an event type",inline = True)
     em.add_field(name="exportfile", value="Exports a CSV file of your events", inline=False)
     em.add_field(name="importfile", value="Import events from a CSV or ICS file", inline=False)
     em.add_field(name="GoogleEvents", value="Import next 10 events from Google Calendar", inline=False)
@@ -258,6 +264,11 @@ async def typecreate(ctx):
     event_msg = event_msg.content  # Strips message to just the text the user entered
 
     await create_event_type(ctx, bot, event_msg)
+
+# editing event type
+@bot.command()
+async def typeedit(ctx):
+    await edit_event_type(ctx, bot)
 
 #delete event 
 @bot.command()
