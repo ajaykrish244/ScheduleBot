@@ -25,6 +25,22 @@ async def edit_event_type(ctx, client):
         db_connection = connect_to_database()
         # Create a cursor object to execute SQL commands
         cursor = db_connection.cursor()
+        # Add database query to fetch available event types
+        select_query = "SELECT event_type FROM event_types WHERE user_id = %s"
+        cursor.execute(select_query, (user_id,))
+        event_types = cursor.fetchall()
+
+        # Check if there are event types for the user
+        if event_types:
+            event_type_names = [event[0] for event in event_types]
+            await channel.send("List of your available event types are: " + ", ".join(event_type_names))
+
+            await channel.send("Please enter the event type to be edited")
+            event_msg = await client.wait_for("message", check=check)
+            event_type = event_msg.content
+
+            # Check if the specified event type exists for the user
+
     except Exception as error:
         print(f"Error: {error}")
     finally:
