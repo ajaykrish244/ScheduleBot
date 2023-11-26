@@ -52,7 +52,7 @@ async def delete_event_type(ctx, client):
                 delete_query = "DELETE FROM event_types WHERE user_id = %s AND event_type = %s"
                 cursor.execute(delete_query, (user_id, event_type))
                 db_connection.commit()
-                await channel.send("Event type " + event_type + " has been deleted.")
+                # await channel.send("Event type " + event_type + " has been deleted.")
             else:
                 await channel.send("Event type does not exist.")
         else:
@@ -68,7 +68,7 @@ async def delete_event_type(ctx, client):
 
     # Check if an event type was deleted and send a confirmation message
     if event_type:
-        await channel.send("Event type " + event_type + " has been deleted from your calendar.")
+        await channel.send(f"Event type '{event_type}' has been deleted from your calendar!")
 
 # Example usage:
 # Call delete_event_type with ctx and client when a user wants to delete an event type

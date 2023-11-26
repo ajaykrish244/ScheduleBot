@@ -145,6 +145,7 @@ async def create_event_type(ctx, client, event_msg):
         cursor.close()
         db_connection.close()
 
+        await channel.send(f"Event type '{current.event_name}' has been created in your calendar!")
 
         return True
 
