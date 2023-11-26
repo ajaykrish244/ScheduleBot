@@ -4,9 +4,11 @@ from pathlib import Path
 from Event import Event
 from datetime import datetime
 from cryptography.fernet import Fernet
+from dotenv import load_dotenv
 
 import mysql.connector
 
+load_dotenv()
 DB_HOST = os.getenv('DB_HOST')
 DB_USER = os.getenv('DB_USER')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
