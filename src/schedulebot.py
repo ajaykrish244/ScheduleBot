@@ -66,6 +66,7 @@ async def help(ctx):
                                    "4/20/22 (On Apr 20, 2022)", inline=False)
     em.add_field(name="typecreate", value="Creates a new event type", inline=True)
     em.add_field(name="typedelete", value="Deletes an event type", inline=True)
+    em.add_field(name="typeedit", value = "Edits an event type",inline = True)
     em.add_field(name="exportfile", value="Exports a CSV file of your events", inline=False)
     em.add_field(name="importfile", value="Import events from a CSV or ICS file", inline=False)
     em.add_field(name="GoogleEvents", value="Import next 10 events from Google Calendar", inline=False)
