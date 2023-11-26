@@ -104,8 +104,10 @@ async def edit_event_type(ctx, client):
                     break  # Exit the loop if the details are successfully updated
             else:
                 await channel.send("Event type does not exist.")
+                event_type = None
         else:
             await channel.send("You have not created any event types yet.")
+            event_type = None
 
     except Exception as error:
         print(f"Error: {error}")
@@ -117,4 +119,4 @@ async def edit_event_type(ctx, client):
 
     # Check if an event type was edited and send a confirmation message
     if event_type:
-        await channel.send(f"Event type {event_type} has been edited in your calendar.")
+        await channel.send(f"Event type '{event_type}' has been edited in your calendar!")
