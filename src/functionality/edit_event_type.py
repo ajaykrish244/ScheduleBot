@@ -40,7 +40,18 @@ async def edit_event_type(ctx, client):
             event_type = event_msg.content
 
             # Check if the specified event type exists for the user
+            if event_type in event_type_names:
+                while True:
+                    await channel.send("Please enter the new details for the event type in the following format:\n"
+                                       "New Event Type Name\n"
+                                       "New Start Time (in hh:mm am/pm format)\n"
+                                       "New End Time (in hh:mm am/pm format)\n\nFor Example,\nStudy\n01:00 pm\n02:00 pm"
+                                       )
 
+                    # Wait for user input for the new details
+                    new_details_msg = await client.wait_for("message", check=check)
+                    new_details = new_details_msg.content.strip()
+                    new_details_array = re.split("\s", new_details)
     except Exception as error:
         print(f"Error: {error}")
     finally:
