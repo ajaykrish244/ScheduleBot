@@ -123,7 +123,8 @@ async def on_reaction_add(reaction, user):
         - The 'help' command is automatically run
     """
     emoji = reaction.emoji
-    if emoji == "⏰" and not user.bot:  # if user is not a bot...
+    author = reaction.message.author
+    if emoji == "⏰" and not user.bot and author==bot.user:  # if user is not a bot and the message author is the bot itself
         try:
             await user.send(
                 "Nice to meet you "
