@@ -1,7 +1,10 @@
-import discord  # type: ignore
+from typing import List, Literal, Optional
+import discord
+from discord.components import SelectOption  # type: ignore
 from discord.ext import commands, tasks  # type: ignore
 import os
 import json
+from discord.utils import MISSING
 from dotenv import load_dotenv
 
 from discord.ext.commands.help import MinimalHelpCommand
@@ -21,27 +24,95 @@ from functionality.GoogleEvent import get_events
 from functionality.Delete_Event import delete_event
 from functionality.edit_event_type import edit_event_type
 
-discord_bot_command_prefix = '!'
-
-intents = discord.Intents.all()
-bot = commands.Bot(command_prefix=discord_bot_command_prefix, intents=intents)  # Creates the bot with a command prefix of '!'
-bot.remove_command("help")  # Removes the help command, so it can be created using Discord embed pages later
-g_flag=0
-
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-
 print(TOKEN)
+
+discord_bot_command_prefix = '/'
+intents = discord.Intents.all()
+bot = commands.Bot(command_prefix=discord_bot_command_prefix, intents=intents, )  # Creates the bot with a command prefix of '!'
+bot.remove_command("help")  # Removes the help command, so it can be created using Discord embed pages later
+
 
 class my_modal(ui.Modal, title="Bot modal"):
     answer=ui.TextInput(label="enter something", style=discord.TextStyle.short, placeholder="Yes")
-    async def on_submit(self, ctx):
-        await ctx.channel.send("hello world")
+    async def on_submit(self, interaction: discord.Interaction):
+        await interaction.response.send_message("hello world")
+
+
+# https://gist.github.com/AbstractUmbra/a9c188797ae194e592efe05fa129c57f#file-03-syncing_gotchas_and_tricks-md
+@bot.command()
+async def sync(ctx: commands.Context, spec: Optional[Literal["~", "*", "^"]] = None) -> None:
+    try:
+        if spec == "~":
+            synced = await ctx.bot.tree.sync(guild=ctx.guild)
+        elif spec == "*":
+            print('Global...')
+            synced = await ctx.bot.tree.sync()
+        elif spec == "^":
+            print('Clearing...')
+            ctx.bot.tree.clear_commands(guild=ctx.guild)
+            await ctx.bot.tree.sync(guild=ctx.guild)
+            synced = []
+        else:
+            print('Local...')
+            ctx.bot.tree.copy_global_to(guild=ctx.guild)
+            synced = await ctx.bot.tree.sync(guild=ctx.guild)
+
+        await ctx.send(
+            f"Synced {len(synced)} command(s) {'globally' if spec=='*' else 'to the current guild.'}"
+        )
+
+        print(
+            f"Synced {len(synced)} command(s) {'globally' if spec=='*' else 'to the current guild.'}"
+        )
+
+    except Exception as e:
+        print(e)
+        
+    return
+
+
+@bot.tree.command(name="hello", description='First Hello Slash Command')
+async def hello(interaction: discord.Interaction):
+    await interaction.response.send_message(
+        f"Hey {interaction.user.mention}! This is a slash command!",
+        ephemeral=True
+    )
+
+@bot.tree.command(name="mymodal", description='Modal Command')
+async def mymodal(interaction: discord.Interaction):
+    await interaction.response.send_modal(my_modal())
+
+@bot.tree.command(name="say", description='Says something')
+@app_commands.describe(thing_to_say = 'What should I say?')
+async def say(interaction: discord.Interaction, thing_to_say: str):
+    await interaction.response.send_message(f"{interaction.user.name} said: \"{thing_to_say}\"")
+
+@bot.tree.command(name="choosecolor", description='Chooses a color')
+@app_commands.describe(color = 'Colors to choose')
+@app_commands.choices(color=[
+    app_commands.Choice(name='Red', value=1),
+    app_commands.Choice(name='Blu', value=2),
+    app_commands.Choice(name='Grn', value=3),
+])
+async def color(interaction: discord.Interaction, color: app_commands.Choice[int]):
+    await interaction.response.send_message(f"Chose color: `{color.name}`")
+
+@bot.tree.command(name="choosedate", description='Chooses a Date')
+@app_commands.describe(year = 'Year', month = 'Month', day = 'Day')
+@app_commands.choices(
+    month=[app_commands.Choice(name=str(i), value=i) for i in range(1,13)],
+    day=[app_commands.Choice(name=str(i), value=i) for i in range(1,20)]
+)
+async def date(interaction: discord.Interaction, year: int, month: app_commands.Choice[int], day: app_commands.Choice[int]):
+    await interaction.response.send_message(f"Chosen date: `{year}`-`{month.value}`-`{day.value}`")
+
 
 
 
 @bot.group(invoke_without_command=True)
-async def help(ctx):
+async def help(ctx: commands.Context):
     """
     Function:
         help
@@ -52,6 +123,8 @@ async def help(ctx):
     Output:
         An embed window sent to the context with all commands/descriptions
     """
+    
+    view = helpDropdown(ctx.author)
     em = discord.Embed(
         title="ScheduleBot Commands",
         description=f"Here are all the commands to use ScheduleBot\nAll events are prefaced by an '{discord_bot_command_prefix}'",
@@ -64,16 +137,17 @@ async def help(ctx):
                                    "should follow:\n!day "
                                    "today\\tomorrow\\yesterday\n!day 3 (3 days from now)\n!day -3 (3 days ago)\n!day "
                                    "4/20/22 (On Apr 20, 2022)", inline=False)
-    em.add_field(name="typecreate", value="Creates a new event type", inline=True)
-    em.add_field(name="typedelete", value="Deletes an event type", inline=True)
-    em.add_field(name="typeedit", value = "Edits an event type",inline = True)
+    em.add_field(name="typecreate", value="Creates a new event type", inline=False)
+    em.add_field(name="typedelete", value="Deletes an event type", inline=False)
+    em.add_field(name="typeedit", value = "Edits an event type",inline=False)
     em.add_field(name="exportfile", value="Exports a CSV file of your events", inline=False)
     em.add_field(name="importfile", value="Import events from a CSV or ICS file", inline=False)
     em.add_field(name="GoogleEvents", value="Import next 10 events from Google Calendar", inline=False)
     em.add_field(name="deleteEvent", value = "Deletes selected event",inline = False)
     em.add_field(name="summary", value="Get todays summary", inline=False)
     em.add_field(name="stop", value="ExitBot", inline=False)
-    await ctx.send(embed=em)
+    
+    await ctx.send(embed=em, view=view)
 
 
 @bot.event
@@ -95,6 +169,7 @@ async def on_ready():
 
     text_channel_count = 0
     for channel in channels:
+        break
         if str(channel.type) != 'text':
             continue
 
@@ -107,10 +182,10 @@ async def on_ready():
 
         await msg.add_reaction("⏰")
     print("Sent Welcome Message to", text_channel_count, "Channel(s)")
-
+    
 
 @bot.event
-async def on_reaction_add(reaction, user):
+async def on_reaction_add(reaction: discord.Reaction, user):
     """
     Function: on_reaction_add
     Description: The bot sends a message to the user when reacting to the server startup message
