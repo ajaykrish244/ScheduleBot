@@ -23,6 +23,8 @@ from functionality.Google import connect_google
 from functionality.GoogleEvent import get_events
 from functionality.Delete_Event import delete_event
 from functionality.edit_event_type import edit_event_type
+from functionality.quick_schedule import quick_schedule
+
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -139,6 +141,12 @@ class helpDropdown(discord.ui.View):
                 description=f"List of commands for working with events.",
             )
             embed.add_field(name="schedule", value="Creates an event", inline=False)
+            embed.add_field(
+              name="quickschedule",
+              value="Finds and schedules the first available time slot within the next 24 hours for the specified event type.\n"
+                  "Usage: `!quickschedule <event_type>`",
+              inline=False
+            )
             embed.add_field(name="deleteevent", value = "Deletes selected event",inline = False)
             await interaction.response.edit_message(embed=embed, view=self)
         
@@ -203,6 +211,11 @@ async def help(ctx: commands.Context):
     )
     em.add_field(name="help", value="Displays all commands and their descriptions", inline=False)
     em.add_field(name="schedule", value="Creates an event", inline=False)
+    em.add_field(
+        name="quickschedule",
+        value="Schedule the first available time slot within the next 24 hrs",
+        inline=False
+    )
     em.add_field(name="deleteevent", value = "Deletes selected event",inline = False)
     em.add_field(name="summary", value="Get todays summary", inline=False)
     em.add_field(name="day", value="Shows everything on your schedule for a specific date", inline=False)
@@ -479,6 +492,23 @@ async def freetime(ctx):
         - A message sent to the user channel stating every free time slot that is available today
     """
     await get_free_time(ctx, bot)
+
+@bot.command()
+async def quickschedule(ctx, event_type: str):
+    """
+    Function:
+        schedulefind
+    Description:
+        Finds and schedules the first available X contiguous hours, on your preferred hours of the specified type.
+    Input:
+        ctx - Discord context window
+        event_type - Type of event to find
+        contiguous_hours - Number of contiguous hours to find
+    Output:
+        - Schedules the event and notifies the user
+    """
+    await quick_schedule(ctx, event_type)
+
 
 
 # Runs the bot (local machine)
