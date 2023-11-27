@@ -20,6 +20,8 @@ from functionality.Google import connect_google
 from functionality.GoogleEvent import get_events
 from functionality.Delete_Event import delete_event
 from functionality.edit_event_type import edit_event_type
+from functionality.quick_schedule import quick_schedule
+
 
 discord_bot_command_prefix = '!'
 
@@ -72,6 +74,13 @@ async def help(ctx):
     em.add_field(name="GoogleEvents", value="Import next 10 events from Google Calendar", inline=False)
     em.add_field(name="deleteEvent", value = "Deletes selected event",inline = False)
     em.add_field(name="summary", value="Get todays summary", inline=False)
+    em.add_field(
+        name="quickschedule",
+        value="Finds and schedules the first available time slot within the next 24 hours for the specified event type.\n"
+              "Usage: `!quickschedule <event_type>`",
+        inline=False
+    )
+
     em.add_field(name="stop", value="ExitBot", inline=False)
     await ctx.send(embed=em)
 
@@ -334,6 +343,23 @@ async def freetime(ctx):
         - A message sent to the user channel stating every free time slot that is available today
     """
     await get_free_time(ctx, bot)
+
+@bot.command()
+async def quickschedule(ctx, event_type: str):
+    """
+    Function:
+        schedulefind
+    Description:
+        Finds and schedules the first available X contiguous hours, on your preferred hours of the specified type.
+    Input:
+        ctx - Discord context window
+        event_type - Type of event to find
+        contiguous_hours - Number of contiguous hours to find
+    Output:
+        - Schedules the event and notifies the user
+    """
+    await quick_schedule(ctx, event_type)
+
 
 
 # Runs the bot (local machine)
