@@ -108,7 +108,44 @@ async def color(interaction: discord.Interaction, color: app_commands.Choice[int
 async def date(interaction: discord.Interaction, year: int, month: app_commands.Choice[int], day: app_commands.Choice[int]):
     await interaction.response.send_message(f"Chosen date: `{year}`-`{month.value}`-`{day.value}`")
 
+class helpDropdown(discord.ui.View):
+    def __init__(self, user):
+        super().__init__()
+        self.user = user
 
+
+    @discord.ui.select(
+        placeholder="Choose your help page", min_values=1, max_values=1,
+        options=[
+            discord.SelectOption(label='Overview', description='Help overview'),
+            discord.SelectOption(label='schedule', description='Schedule'),
+        ]
+    )
+    async def help_callback(self, interaction: discord.Interaction, select):
+        if interaction.user.id != self.user.id:
+            em = discord.Embed(
+                title="No U",
+                description="This is not for you!",
+                color=discord.Color.red(),
+            )
+            return await interaction.response.send_message(embed=em, ephemeral=True)
+        select.placeholder = f"{select.values[0]} Help Page"
+        
+        if select.values[0] == "Overview":
+            embed = discord.Embed(
+                title=f"Overview Commands:",
+                description=f"Support Server: [Click Here!](https://discord.gg/xA3hBtujg7) || `help [category]` for other information.",
+            )
+            embed.add_field(name="Schedule", value="Creates an event", inline=False)
+            await interaction.response.edit_message(embed=embed, view=self)
+        
+        if select.values[0] == "schedule":
+            embed = discord.Embed(
+                title=f"schedule Commands:",
+                description=f"Support Server: [Click Here!](https://discord.gg/xA3hBtujg7) || `help [category]` for other information.",
+            )
+            embed.add_field(name="schedule", value="Creates an event", inline=False)
+            await interaction.response.edit_message(embed=embed, view=self)
 
 
 @bot.group(invoke_without_command=True)
