@@ -63,3 +63,30 @@ def get_preferred_hours(event_type, user_id):
         # Close the cursor and connection
         cursor.close()
         db_connection.close()
+
+
+def is_time_slot_available(start_date, end_date, user_id):
+    # Connect to your MySQL database
+    db_connection = connect_to_database()
+
+    cursor = db_connection.cursor()
+
+    try:
+        # Query to check if there are any events within the specified time range
+        query = (
+            "SELECT * FROM EVENT "
+            "WHERE user_id = %s AND ((start_date <= %s AND end_date >= %s) OR (start_date <= %s AND end_date >= %s))"
+        )
+
+        cursor.execute(query, (user_id, start_date, start_date, end_date, end_date))
+
+        # Fetch all rows
+        rows = cursor.fetchall()
+
+        # If there are no rows, the time slot is available
+        return len(rows) == 0
+    finally:
+        # Close the cursor and connection
+        cursor.close()
+        db_connection.close()
+
