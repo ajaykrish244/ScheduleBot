@@ -33,3 +33,33 @@ async def quick_schedule(ctx, event_type):
     else:
         error_message = f"Event type '{event_type}' not found."
         await channel.send(error_message)
+
+
+def get_preferred_hours(event_type, user_id):
+    # Establish a MySQL connection (update with your database credentials)
+    db_connection = connect_to_database()
+
+    cursor = db_connection.cursor()
+
+    try:
+        # Select the start_time and end_time for the specified event type and user_id
+        query = f"SELECT start_time, end_time FROM event_types WHERE event_type = '{event_type}' AND user_id = '{user_id}'"
+        cursor.execute(query)
+
+        # Fetch the result
+        result = cursor.fetchone()
+
+        if result:
+            start_time, end_time = result
+            return start_time, end_time
+        else:
+            return None, None  # Event type not found
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return None, None
+
+    finally:
+        # Close the cursor and connection
+        cursor.close()
+        db_connection.close()
