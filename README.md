@@ -347,5 +347,7 @@ Help user understand the process of adding the Discord bot to their server.
 ### Support:
 
 For support regarding V4 updates, errors or configurations, feel free to contact:
-@sjoshi32@ncsu.edu
-@verapal@ncsu.edu
+@ktelapr@ncsu.edu
+@rrajpur@ncsu.edu
+@araveen@ncsu.edu
+
