@@ -4,6 +4,16 @@ from datetime import datetime, timedelta
 
 
 async def quick_schedule(ctx, event_type):
+    """
+    Schedules an event of the specified type within the next 24 hours if available.
+    
+    Args:
+        ctx (discord.ext.commands.Context): Discord context object
+        event_type (str): Type of event to schedule
+    
+    Returns:
+        None
+    """
     current_time = datetime.now()
     next_24_hours = current_time + timedelta(days=1)
     user_id = ctx.author.id
@@ -36,7 +46,17 @@ async def quick_schedule(ctx, event_type):
 
 
 def get_preferred_hours(event_type, user_id):
-    # Establish a MySQL connection (update with your database credentials)
+    """
+    Retrieves the preferred start and end time for a given event type and user.
+    
+    Args:
+        event_type (str): Type of event
+        user_id (str): Discord user ID
+    
+    Returns:
+        tuple: Tuple containing start time and end time (or None, None if event type not found)
+    """
+    # Connect to MySQL database
     db_connection = connect_to_database()
 
     cursor = db_connection.cursor()
@@ -66,7 +86,18 @@ def get_preferred_hours(event_type, user_id):
 
 
 def is_time_slot_available(start_date, end_date, user_id):
-    # Connect to your MySQL database
+    """
+    Checks if the specified time slot is available for scheduling an event.
+    
+    Args:
+        start_date (datetime): Start date and time of the event
+        end_date (datetime): End date and time of the event
+        user_id (str): Discord user ID
+    
+    Returns:
+        bool: True if the time slot is available, False otherwise
+    """
+    # Connect to MySQL database
     db_connection = connect_to_database()
 
     cursor = db_connection.cursor()
