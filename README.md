@@ -150,7 +150,7 @@ When you look for available times, you now can use `!find` to find only the avai
  Follow this [tutorial](https://www.freecodecamp.org/news/create-a-discord-bot-with-python/) to create your discord bot account.
 
 ### Token
-  To "login" to your bot through our program, place a file named `config.py` in your src directory with the content:
+  To "login" to your bot through our program, create a file named `.env` in your src directory with the content:
   
   ```
   TOKEN = ************(your discord bot token)
@@ -159,7 +159,7 @@ When you look for available times, you now can use `!find` to find only the avai
 ### Install and Run MySQL Server
 
 Install the appropriate MySQL server version from [here](https://dev.mysql.com/downloads/mysql/).
-Once you install the MySQL server, add following details to `config.py`:
+Once you install the MySQL server, add following details to `.env` file :
 
 ```
   DB_USER = "xxxxx"
