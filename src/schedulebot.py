@@ -28,9 +28,9 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 print(TOKEN)
 
-discord_bot_command_prefix = '/'
+dcprefix = '/'
 intents = discord.Intents.all()
-bot = commands.Bot(command_prefix=discord_bot_command_prefix, intents=intents, )  # Creates the bot with a command prefix of '!'
+bot = commands.Bot(command_prefix=dcprefix, intents=intents, )  # Creates the bot with a command prefix of '!'
 bot.remove_command("help")  # Removes the help command, so it can be created using Discord embed pages later
 
 
@@ -117,8 +117,10 @@ class helpDropdown(discord.ui.View):
     @discord.ui.select(
         placeholder="Choose your help page", min_values=1, max_values=1,
         options=[
-            discord.SelectOption(label='Overview', description='Help overview'),
-            discord.SelectOption(label='schedule', description='Schedule'),
+            discord.SelectOption(label='Event', description='Events help'),
+            discord.SelectOption(label='View', description='View events'),
+            discord.SelectOption(label='Event type', description='Event types help'),
+            discord.SelectOption(label='Others', description='Help on other commands'),
         ]
     )
     async def help_callback(self, interaction: discord.Interaction, select):
@@ -131,20 +133,53 @@ class helpDropdown(discord.ui.View):
             return await interaction.response.send_message(embed=em, ephemeral=True)
         select.placeholder = f"{select.values[0]} Help Page"
         
-        if select.values[0] == "Overview":
+        if select.values[0] == "Event":
             embed = discord.Embed(
-                title=f"Overview Commands:",
-                description=f"Support Server: [Click Here!](https://discord.gg/xA3hBtujg7) || `help [category]` for other information.",
-            )
-            embed.add_field(name="Schedule", value="Creates an event", inline=False)
-            await interaction.response.edit_message(embed=embed, view=self)
-        
-        if select.values[0] == "schedule":
-            embed = discord.Embed(
-                title=f"schedule Commands:",
-                description=f"Support Server: [Click Here!](https://discord.gg/xA3hBtujg7) || `help [category]` for other information.",
+                title=f"Event Commands:",
+                description=f"List of commands for working with events.",
             )
             embed.add_field(name="schedule", value="Creates an event", inline=False)
+            embed.add_field(name="deleteevent", value = "Deletes selected event",inline = False)
+            await interaction.response.edit_message(embed=embed, view=self)
+        
+        if select.values[0] == "View":
+            embed = discord.Embed(
+                title=f"View Commands:",
+                description=f"List of commands for viewing events",
+            )
+            embed.add_field(name="summary", value="Get todays summary", inline=False)
+            embed.add_field(name="day",value=
+                            "Shows everything on your schedule for a specific date\n"
+                            "Here is the format you should follow:\n"
+                            f"{dcprefix}day today\\tomorrow\\yesterday\n"
+                            f"{dcprefix}day 3 (3 days from now)\n"
+                            f"{dcprefix}day -3 (3 days ago)\n"
+                            f"{dcprefix}day 4/20/22 (On Apr 20, 2022)",
+                            
+                            inline=False)
+            embed.add_field(name="freetime", value="Displays when you are available today", inline=False)
+            await interaction.response.edit_message(embed=embed, view=self)
+
+        if select.values[0] == "Event type":
+            embed = discord.Embed(
+                title=f"Event Type Commands:",
+                description=f"List of commands for working with event types.",
+            )
+            embed.add_field(name="typecreate", value="Creates a new event type", inline=False)
+            embed.add_field(name="typedelete", value="Deletes an event type", inline=False)
+            embed.add_field(name="typeedit", value = "Edits an event type",inline=False)
+            await interaction.response.edit_message(embed=embed, view=self)
+
+        if select.values[0] == "Others":
+            embed = discord.Embed(
+                title=f"Other Commands:",
+                description=f"List of other bot commands.",
+            )
+            embed.add_field(name="ConnectGoogle", value="Connect to Google Calendar", inline=False)
+            embed.add_field(name="GoogleEvents", value="Import next 10 events from Google Calendar", inline=False)
+            embed.add_field(name="importfile", value="Import events from a CSV or ICS file", inline=False)
+            embed.add_field(name="exportfile", value="Exports a CSV file of your events", inline=False)
+            embed.add_field(name="stop", value="ExitBot", inline=False)
             await interaction.response.edit_message(embed=embed, view=self)
 
 
@@ -164,24 +199,21 @@ async def help(ctx: commands.Context):
     view = helpDropdown(ctx.author)
     em = discord.Embed(
         title="ScheduleBot Commands",
-        description=f"Here are all the commands to use ScheduleBot\nAll events are prefaced by an '{discord_bot_command_prefix}'",
+        description=f"Here are all the commands to use ScheduleBot\nAll events are prefaced by an '{dcprefix}'",
     )
     em.add_field(name="help", value="Displays all commands and their descriptions", inline=False)
     em.add_field(name="schedule", value="Creates an event", inline=False)
-    em.add_field(name="ConnectGoogle", value="Connect to Google Calendar", inline=False)
+    em.add_field(name="deleteevent", value = "Deletes selected event",inline = False)
+    em.add_field(name="summary", value="Get todays summary", inline=False)
+    em.add_field(name="day", value="Shows everything on your schedule for a specific date", inline=False)
     em.add_field(name="freetime", value="Displays when you are available today", inline=False)
-    em.add_field(name="day", value="Shows everything on your schedule for a specific date\nHere is the format you "
-                                   "should follow:\n!day "
-                                   "today\\tomorrow\\yesterday\n!day 3 (3 days from now)\n!day -3 (3 days ago)\n!day "
-                                   "4/20/22 (On Apr 20, 2022)", inline=False)
     em.add_field(name="typecreate", value="Creates a new event type", inline=False)
     em.add_field(name="typedelete", value="Deletes an event type", inline=False)
     em.add_field(name="typeedit", value = "Edits an event type",inline=False)
-    em.add_field(name="exportfile", value="Exports a CSV file of your events", inline=False)
-    em.add_field(name="importfile", value="Import events from a CSV or ICS file", inline=False)
+    em.add_field(name="ConnectGoogle", value="Connect to Google Calendar", inline=False)
     em.add_field(name="GoogleEvents", value="Import next 10 events from Google Calendar", inline=False)
-    em.add_field(name="deleteEvent", value = "Deletes selected event",inline = False)
-    em.add_field(name="summary", value="Get todays summary", inline=False)
+    em.add_field(name="importfile", value="Import events from a CSV or ICS file", inline=False)
+    em.add_field(name="exportfile", value="Exports a CSV file of your events", inline=False)
     em.add_field(name="stop", value="ExitBot", inline=False)
     
     await ctx.send(embed=em, view=view)
