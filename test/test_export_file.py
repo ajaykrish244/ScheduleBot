@@ -11,7 +11,7 @@ sys.path.append(os.path.realpath(os.path.dirname(__file__) + "/../src"))
 import pytest
 from datetime import datetime
 
-from src.functionality.export_file import export_file  # type: ignore
+from functionality.export_file import export_file  # type: ignore
 
 
 @pytest.fixture

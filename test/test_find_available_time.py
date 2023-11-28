@@ -8,9 +8,9 @@ from datetime import time
 import discord
 import discord.ext.commands as commands
 import discord.ext.test as test
-from src.functionality.FindAvailableTime import getEventsOnDate
-from src.functionality.shared_functions import add_event_to_file
-from src.Event import Event
+from functionality.FindAvailableTime import getEventsOnDate
+from functionality.shared_functions import add_event_to_file
+from Event import Event
 
 @pytest.fixture
 def client(event_loop):

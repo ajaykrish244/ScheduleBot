@@ -4,9 +4,9 @@ import discord
 import pandas as pd
 import tempfile
 from discord import Attachment
-from src.functionality.shared_functions import add_event_to_file, turn_types_to_string
-from src.Event import Event
-from src.parse.match import parse_period
+from functionality.shared_functions import add_event_to_file, turn_types_to_string
+from Event import Event
+from parse.match import parse_period
 from icalendar import Calendar
 
 import fnmatch

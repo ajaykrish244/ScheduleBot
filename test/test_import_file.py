@@ -12,7 +12,7 @@ import threading
 from icalendar import Calendar
 import time
 from schedulebot import importfile
-from src.functionality.import_file import verify_csv, convert_time, import_file, get_ics_data
+from functionality.import_file import verify_csv, convert_time, import_file, get_ics_data
 
 ICS_STRING = "BEGIN:VCALENDAR\n" \
              "PRODID:-//Google Inc//Google Calendar 70.9054//EN\n" \

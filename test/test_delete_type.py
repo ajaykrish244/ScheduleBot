@@ -7,7 +7,7 @@ import datetime
 import string
 from random import randint, choices
 import pytest
-from src.event_type import event_type
+from event_type import event_type
 
 def test_delete_type():
     rows=[['hw1', '10:10 am', '12:10 pm'], ['hw2', '11:10 am', '12:20 pm']]

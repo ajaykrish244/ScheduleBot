@@ -1,11 +1,11 @@
-from src.functionality.shared_functions import add_event_to_file, turn_types_to_string, get_existing_types
+from functionality.shared_functions import add_event_to_file, turn_types_to_string, get_existing_types
 from types import TracebackType
-from src.Event import Event
-from src.parse.match import parse_period
-from src.functionality.create_event_type import create_event_type
-from src.functionality.distance import get_distance
+from Event import Event
+from parse.match import parse_period
+from functionality.create_event_type import create_event_type
+from functionality.distance import get_distance
 from datetime import datetime, timedelta
-from src.parse.match import parse_period24
+from parse.match import parse_period24
 import discord
 
 def check_complete(start, start_date, end, end_date, array):

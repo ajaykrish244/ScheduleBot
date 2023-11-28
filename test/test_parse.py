@@ -8,7 +8,7 @@ import string
 import pytest
 from random import randint, choices
 
-from src.parse.match import parse_period
+from parse.match import parse_period
 
 NUM_ITER = 1000
 

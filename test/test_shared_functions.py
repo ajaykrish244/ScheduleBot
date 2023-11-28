@@ -5,9 +5,9 @@ import sys, os
 sys.path.append(os.path.realpath(os.path.dirname(__file__) + "/../src"))
 
 import os
-from src.Event import Event
+from Event import Event
 from datetime import datetime
-from src.functionality.shared_functions import (
+from functionality.shared_functions import (
     add_event_to_file,
     read_event_file,
     read_type_file,

@@ -13,7 +13,7 @@ sys.path.append(os.path.realpath(os.path.dirname(__file__) + "/../src"))
 import pytest
 from datetime import datetime
 
-from src.functionality.AddEvent import check_complete, add_event  # type: ignore
+from functionality.AddEvent import check_complete, add_event  # type: ignore
 
 
 @pytest.fixture

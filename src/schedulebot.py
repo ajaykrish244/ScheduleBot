@@ -3,6 +3,8 @@ import discord
 from discord.components import SelectOption  # type: ignore
 from discord.ext import commands, tasks  # type: ignore
 import os
+import sys
+import pathlib
 import json
 from discord.utils import MISSING
 from dotenv import load_dotenv
@@ -11,19 +13,21 @@ from discord.ext.commands.help import MinimalHelpCommand
 from discord import ui, app_commands
 # drom datetime import datetime
 
-from src.functionality.AddEvent import add_event  # type: ignore
-from src.functionality.highlights import get_highlight
-from src.functionality.create_event_type import create_event_type
-from src.functionality.FindAvailableTime import find_avaialbleTime
-from src.functionality.delete_event_type import delete_event_type
-from src.functionality.DisplayFreeTime import get_free_time
-from src.functionality.export_file import export_file
-from src.functionality.import_file import import_file
-from src.functionality.Google import connect_google
-from src.functionality.GoogleEvent import get_events
-from src.functionality.Delete_Event import delete_event
-from src.functionality.edit_event_type import edit_event_type
-from src.functionality.schedule import SchedModal
+sys.path.insert(0, str(pathlib.Path(__file__).parent))
+
+from functionality.AddEvent import add_event  # type: ignore
+from functionality.highlights import get_highlight
+from functionality.create_event_type import create_event_type
+from functionality.FindAvailableTime import find_avaialbleTime
+from functionality.delete_event_type import delete_event_type
+from functionality.DisplayFreeTime import get_free_time
+from functionality.export_file import export_file
+from functionality.import_file import import_file
+from functionality.Google import connect_google
+from functionality.GoogleEvent import get_events
+from functionality.Delete_Event import delete_event
+from functionality.edit_event_type import edit_event_type
+from functionality.schedule import SchedModal
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')

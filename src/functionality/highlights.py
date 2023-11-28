@@ -1,6 +1,6 @@
 import re
 import datetime
-from src.functionality.shared_functions import read_event_file
+from functionality.shared_functions import read_event_file
 
 
 async def get_highlight(ctx, arg):
