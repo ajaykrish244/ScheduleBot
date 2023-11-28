@@ -3,9 +3,9 @@ import re
 import csv
 from pathlib import Path
 from types import TracebackType
-from functionality.shared_functions import load_key, encrypt_file, decrypt_file
+from src.functionality.shared_functions import load_key, encrypt_file, decrypt_file
 import mysql.connector
-from functionality.shared_functions import connect_to_database
+from src.functionality.shared_functions import connect_to_database
 
 
 async def delete_event_type(ctx, client):

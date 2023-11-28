@@ -11,18 +11,19 @@ from discord.ext.commands.help import MinimalHelpCommand
 from discord import ui, app_commands
 # drom datetime import datetime
 
-from functionality.AddEvent import add_event  # type: ignore
-from functionality.highlights import get_highlight
-from functionality.create_event_type import create_event_type
-from functionality.FindAvailableTime import find_avaialbleTime
-from functionality.delete_event_type import delete_event_type
-from functionality.DisplayFreeTime import get_free_time
-from functionality.export_file import export_file
-from functionality.import_file import import_file
-from functionality.Google import connect_google
-from functionality.GoogleEvent import get_events
-from functionality.Delete_Event import delete_event
-from functionality.edit_event_type import edit_event_type
+from src.functionality.AddEvent import add_event  # type: ignore
+from src.functionality.highlights import get_highlight
+from src.functionality.create_event_type import create_event_type
+from src.functionality.FindAvailableTime import find_avaialbleTime
+from src.functionality.delete_event_type import delete_event_type
+from src.functionality.DisplayFreeTime import get_free_time
+from src.functionality.export_file import export_file
+from src.functionality.import_file import import_file
+from src.functionality.Google import connect_google
+from src.functionality.GoogleEvent import get_events
+from src.functionality.Delete_Event import delete_event
+from src.functionality.edit_event_type import edit_event_type
+from src.functionality.schedule import SchedModal
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -83,6 +84,10 @@ async def hello(interaction: discord.Interaction):
 @bot.tree.command(name="mymodal", description='Modal Command')
 async def mymodal(interaction: discord.Interaction):
     await interaction.response.send_modal(my_modal())
+
+@bot.tree.command(name="schedevent", description='Schedule event using a form')
+async def schedevent(interaction: discord.Interaction):
+    await interaction.response.send_modal(SchedModal())
 
 @bot.tree.command(name="say", description='Says something')
 @app_commands.describe(thing_to_say = 'What should I say?')

@@ -1,6 +1,6 @@
 import discord
-from functionality.highlights import convert_to_12
-from functionality.shared_functions import read_event_file, delete_event_from_file
+from src.functionality.highlights import convert_to_12
+from src.functionality.shared_functions import read_event_file, delete_event_from_file
 
 
 async def delete_event(ctx, arg):

@@ -11,7 +11,7 @@ sys.path.append(os.path.realpath(os.path.dirname(__file__) + "/../src"))
 import pytest
 from datetime import datetime
 
-from functionality.create_event_type import create_event_type  # type: ignore
+from src.functionality.create_event_type import create_event_type  # type: ignore
 
 
 @pytest.fixture

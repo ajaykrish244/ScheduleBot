@@ -7,6 +7,19 @@ from src.functionality.distance import get_distance
 from datetime import datetime, timedelta
 from src.parse.match import parse_period24
 import discord
+from discord import ui
+
+class SchedModal(ui.Modal, title="Schedule Event"):
+    name=ui.TextInput(label="Name", style=discord.TextStyle.short, placeholder="Mom's Birthday")
+    start=ui.TextInput(label="Start Date + Time", style=discord.TextStyle.short, placeholder="mm/dd/yy hh:mm (24hr)")
+    end=ui.TextInput(label="End Date + Time", style=discord.TextStyle.short, placeholder="mm/dd/yy hh:mm (24hr)")
+    priority=ui.TextInput(label="Priority", style=discord.TextStyle.short, placeholder="1(low)-5(high)")
+    event_type=ui.TextInput(label="Event Type", style=discord.TextStyle.short, placeholder="Party")
+    # location=ui.TextInput(label="Location", style=discord.TextStyle.short, placeholder="...")
+    # additional_notes=ui.TextInput(label="Additional Notes", style=discord.TextStyle.short, placeholder="...")
+    
+    async def on_submit(self, interaction: discord.Interaction):
+        await interaction.response.send_message(f"Event Scheduled")
 
 def check_complete(start, start_date, end, end_date, array):
     """

@@ -11,9 +11,9 @@ import discord.ext.commands as commands
 import discord.ext.test as test
 
 from random import randint
-from functionality.highlights import check_start_or_end, convert_to_12, get_highlight, get_date
-from functionality.shared_functions import add_event_to_file
-from Event import Event
+from src.functionality.highlights import check_start_or_end, convert_to_12, get_highlight, get_date
+from src.functionality.shared_functions import add_event_to_file
+from src.Event import Event
 
 
 NUM_ITER = 1000

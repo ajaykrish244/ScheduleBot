@@ -2,7 +2,7 @@ import os
 import csv
 import discord
 from pathlib import Path
-from functionality.shared_functions import read_event_file
+from src.functionality.shared_functions import read_event_file
 
 
 async def export_file(ctx):

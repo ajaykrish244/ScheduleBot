@@ -8,9 +8,9 @@ from datetime import time
 import discord
 import discord.ext.commands as commands
 import discord.ext.test as test
-from functionality.DisplayFreeTime import compute_free_time, get_free_time
-from functionality.shared_functions import add_event_to_file
-from Event import Event
+from src.functionality.DisplayFreeTime import compute_free_time, get_free_time
+from src.functionality.shared_functions import add_event_to_file
+from src.Event import Event
 
 
 @pytest.fixture

@@ -1,7 +1,7 @@
 import os
 import csv
 from pathlib import Path
-from Event import Event
+from src.Event import Event
 from datetime import datetime
 from cryptography.fernet import Fernet
 from dotenv import load_dotenv

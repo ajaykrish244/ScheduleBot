@@ -1,6 +1,6 @@
 import re
 from datetime import datetime
-from functionality.shared_functions import connect_to_database
+from src.functionality.shared_functions import connect_to_database
 
 async def edit_event_type(ctx, client):
     """
