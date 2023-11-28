@@ -14,8 +14,8 @@ async def search_event_by_name(ctx, event_name):
 
     try:
         # Use a parameterized query to prevent SQL injection
-        query = "SELECT * FROM event WHERE name = %s"
-        cursor.execute(query, (event_name,))
+        query = f'SELECT * FROM EVENT WHERE name = "{str(event_name)}"'
+        cursor.execute(query)
 
         # Fetch the result
         result = cursor.fetchone()

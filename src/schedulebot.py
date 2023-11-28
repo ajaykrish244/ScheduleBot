@@ -1,23 +1,23 @@
-from typing import List, Literal, Optional
-import discord
-from discord.components import SelectOption  # type: ignore
-from discord.ext import commands, tasks  # type: ignore
 import os
 import sys
 import pathlib
-import json
-from discord.utils import MISSING
 from dotenv import load_dotenv
+from typing import Literal, Optional
 
-from discord.ext.commands.help import MinimalHelpCommand
+import discord
+from discord.components import SelectOption  # type: ignore
+from discord.ext import commands  # type: ignore
 from discord import ui, app_commands
-# drom datetime import datetime
 
-sys.path.insert(0, str(pathlib.Path(__file__).parent))
-
-from functionality.AddEvent import add_event  # type: ignore
-from functionality.highlights import get_highlight
-from functionality.create_event_type import create_event_type
+from functionality.schedule import SchedModal
+from functionality.edit_event_type import edit_event_type
+from functionality.Delete_Event import delete_event
+from functionality.GoogleEvent import get_events
+from functionality.Google import connect_google
+from functionality.import_file import import_file
+from functionality.export_file import export_file
+from functionality.DisplayFreeTime import get_free_time
+from functionality.delete_event_type import delete_event_type
 from functionality.FindAvailableTime import find_avaialbleTime
 from functionality.delete_event_type import delete_event_type
 from functionality.DisplayFreeTime import get_free_time
@@ -35,21 +35,52 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 print(TOKEN)
 
-dcprefix = '/'
+DCPREFIX = '/'
 intents = discord.Intents.all()
-bot = commands.Bot(command_prefix=dcprefix, intents=intents, )  # Creates the bot with a command prefix of '!'
-bot.remove_command("help")  # Removes the help command, so it can be created using Discord embed pages later
+# Creates the bot with a command prefix of '/'
+bot = commands.Bot(command_prefix=DCPREFIX, intents=intents, )
+# Removes the help command, so it can be created using Discord embed pages later
+bot.remove_command("help")
 
 
-class my_modal(ui.Modal, title="Bot modal"):
-    answer=ui.TextInput(label="enter something", style=discord.TextStyle.short, placeholder="Yes")
-    async def on_submit(self, interaction: discord.Interaction):
-        await interaction.response.send_message("hello world")
+# class my_modal(ui.Modal, title="Bot modal"):
+#     answer=ui.TextInput(label="enter something", style=discord.TextStyle.short, placeholder="Yes")
+#     async def on_submit(self, interaction: discord.Interaction):
+#         await interaction.response.send_message("hello world")
 
 
 # https://gist.github.com/AbstractUmbra/a9c188797ae194e592efe05fa129c57f#file-03-syncing_gotchas_and_tricks-md
 @bot.command()
 async def sync(ctx: commands.Context, spec: Optional[Literal["~", "*", "^"]] = None) -> None:
+    """
+    Synchronize commands between the global command tree and the current guild's command tree.
+
+    Parameters:
+    - ctx (commands.Context): The context of the command invocation.
+    - spec (Optional[Literal["~", "*", "^"]]): Optional specifier for synchronization:
+        - "~": Synchronize commands only within the current guild.
+        - "*": Synchronize commands globally across all guilds.
+        - "^": Clear all local guild commands before synchronization.
+            This option is followed by a synchronization of global commands to the current guild.
+        - Default (None): Synchronize local guild commands with the global command tree.
+
+    Returns:
+    - None
+
+    Raises:
+    - Exception: Any unexpected exception that may occur during synchronization.
+
+    Example Usage:
+    ```
+    /sync               # Synchronize local guild commands with the global command tree.
+    /sync ~             # Synchronize commands only within the current guild.
+    /sync *             # Synchronize commands globally across all guilds.
+    /sync ^             # Clear local guild commands and sync global commands to current guild.
+    ```
+
+    This command facilitates the management and synchronization of commands, providing flexibility
+    for local guild-specific or global synchronization based on the specified option.
+    """
     try:
         if spec == "~":
             synced = await ctx.bot.tree.sync(guild=ctx.guild)
@@ -67,71 +98,99 @@ async def sync(ctx: commands.Context, spec: Optional[Literal["~", "*", "^"]] = N
             synced = await ctx.bot.tree.sync(guild=ctx.guild)
 
         await ctx.send(
-            f"Synced {len(synced)} command(s) {'globally' if spec=='*' else 'to the current guild.'}"
+            f"Synced {len(synced)} command(s) {'globally' if spec=='*' else 'to current guild.'}"
         )
 
         print(
-            f"Synced {len(synced)} command(s) {'globally' if spec=='*' else 'to the current guild.'}"
+            f"Synced {len(synced)} command(s) {'globally' if spec=='*' else 'to current guild.'}"
         )
 
     except Exception as e:
         print(e)
-        
+
     return
 
 
-@bot.tree.command(name="hello", description='First Hello Slash Command')
-async def hello(interaction: discord.Interaction):
-    await interaction.response.send_message(
-        f"Hey {interaction.user.mention}! This is a slash command!",
-        ephemeral=True
-    )
+# @bot.tree.command(name="hello", description='First Hello Slash Command')
+# async def hello(interaction: discord.Interaction):
+#     await interaction.response.send_message(
+#         f"Hey {interaction.user.mention}! This is a slash command!",
+#         ephemeral=True
+#     )
 
-@bot.tree.command(name="mymodal", description='Modal Command')
-async def mymodal(interaction: discord.Interaction):
-    await interaction.response.send_modal(my_modal())
+# @bot.tree.command(name="mymodal", description='Modal Command')
+# async def mymodal(interaction: discord.Interaction):
+#     await interaction.response.send_modal(my_modal())
 
 @bot.tree.command(name="schedevent", description='Schedule event using a form')
 async def schedevent(interaction: discord.Interaction):
+    """
+    Schedule an event using an interactive form.
+    
+    Parameters:
+    - interaction (discord.Interaction): The interaction triggering the scheduling command.
+
+    Returns:
+    - None
+
+    Example Usage:
+    ```
+    /schedevent
+    ```
+    """
     await interaction.response.send_modal(SchedModal())
 
-@bot.tree.command(name="say", description='Says something')
-@app_commands.describe(thing_to_say = 'What should I say?')
-async def say(interaction: discord.Interaction, thing_to_say: str):
-    await interaction.response.send_message(f"{interaction.user.name} said: \"{thing_to_say}\"")
+# @bot.tree.command(name="say", description='Says something')
+# @app_commands.describe(thing_to_say = 'What should I say?')
+# async def say(interaction: discord.Interaction, thing_to_say: str):
+#     await interaction.response.send_message(f"{interaction.user.name} said: \"{thing_to_say}\"")
 
-@bot.tree.command(name="choosecolor", description='Chooses a color')
-@app_commands.describe(color = 'Colors to choose')
-@app_commands.choices(color=[
-    app_commands.Choice(name='Red', value=1),
-    app_commands.Choice(name='Blu', value=2),
-    app_commands.Choice(name='Grn', value=3),
-])
-async def color(interaction: discord.Interaction, color: app_commands.Choice[int]):
-    await interaction.response.send_message(f"Chose color: `{color.name}`")
+# @bot.tree.command(name="choosecolor", description='Chooses a color')
+# @app_commands.describe(color = 'Colors to choose')
+# @app_commands.choices(color=[
+#     app_commands.Choice(name='Red', value=1),
+#     app_commands.Choice(name='Blu', value=2),
+#     app_commands.Choice(name='Grn', value=3),
+# ])
+# async def color(interaction: discord.Interaction, color: app_commands.Choice[int]):
+#     await interaction.response.send_message(f"Chose color: `{color.name}`")
 
-@bot.tree.command(name="choosedate", description='Chooses a Date')
-@app_commands.describe(year = 'Year', month = 'Month', day = 'Day')
-@app_commands.choices(
-    month=[app_commands.Choice(name=str(i), value=i) for i in range(1,13)],
-    day=[app_commands.Choice(name=str(i), value=i) for i in range(1,20)]
-)
-async def date(interaction: discord.Interaction, year: int, month: app_commands.Choice[int], day: app_commands.Choice[int]):
-    await interaction.response.send_message(f"Chosen date: `{year}`-`{month.value}`-`{day.value}`")
+# @bot.tree.command(name="choosedate", description='Chooses a Date')
+# @app_commands.describe(year = 'Year', month = 'Month', day = 'Day')
+# @app_commands.choices(
+#     month=[app_commands.Choice(name=str(i), value=i) for i in range(1,13)],
+#     day=[app_commands.Choice(name=str(i), value=i) for i in range(1,20)]
+# )
+# async def date(interaction: discord.Interaction, year: int, month: app_commands.Choice[int], day: app_commands.Choice[int]):
+#     await interaction.response.send_message(f"Chosen date: `{year}`-`{month.value}`-`{day.value}`")
+
 
 class helpDropdown(discord.ui.View):
+    '''
+    A Discord UI view for a dropdown menu providing help pages.
+
+    Parameters:
+        - user (discord.User): The user for whom the help dropdown is created.
+
+    Usage Example:
+        ```python
+        help_dropdown = helpDropdown(user)
+        await ctx.send("Select a help page:", view=help_dropdown)
+        ```
+    '''
     def __init__(self, user):
         super().__init__()
         self.user = user
-
 
     @discord.ui.select(
         placeholder="Choose your help page", min_values=1, max_values=1,
         options=[
             discord.SelectOption(label='Event', description='Events help'),
             discord.SelectOption(label='View', description='View events'),
-            discord.SelectOption(label='Event type', description='Event types help'),
-            discord.SelectOption(label='Others', description='Help on other commands'),
+            discord.SelectOption(label='Event type',
+                                 description='Event types help'),
+            discord.SelectOption(
+                label='Others', description='Help on other commands'),
         ]
     )
     async def help_callback(self, interaction: discord.Interaction, select):
@@ -143,65 +202,86 @@ class helpDropdown(discord.ui.View):
             )
             return await interaction.response.send_message(embed=em, ephemeral=True)
         select.placeholder = f"{select.values[0]} Help Page"
-        
+
         if select.values[0] == "Event":
             embed = discord.Embed(
-                title=f"Event Commands:",
-                description=f"List of commands for working with events.",
+                title="Event Commands:",
+                description="List of commands for working with events.",
             )
-            embed.add_field(name="schedule", value="Creates an event", inline=False)
+            embed.add_field(name="schedule",
+                            value="Creates an event", inline=False)
             embed.add_field(
               name="quickschedule",
               value="Finds and schedules the first available time slot within the next 24 hours for the specified event type.\n"
                   "Usage: `/quickschedule <event_type>`",
               inline=False
             )
-            embed.add_field(name="deleteevent", value = "Deletes selected event",inline = False)
+            embed.add_field(name="deleteevent",
+                            value="Deletes selected event", inline=False)
             await interaction.response.edit_message(embed=embed, view=self)
-        
+
         if select.values[0] == "View":
             embed = discord.Embed(
-                title=f"View Commands:",
-                description=f"List of commands for viewing events",
+                title="View Commands:",
+                description="List of commands for viewing events",
             )
-            embed.add_field(name="summary", value="Get todays summary", inline=False)
-            embed.add_field(name="day",value=
-                            "Shows everything on your schedule for a specific date\n"
+            embed.add_field(
+                name="summary", value="Get todays summary", inline=False)
+            embed.add_field(name="day", value="Shows everything on your schedule for a specific date\n"
                             "Here is the format you should follow:\n"
-                            f"{dcprefix}day today\\tomorrow\\yesterday\n"
-                            f"{dcprefix}day 3 (3 days from now)\n"
-                            f"{dcprefix}day -3 (3 days ago)\n"
-                            f"{dcprefix}day 4/20/22 (On Apr 20, 2022)",
-                            
+                            f"{DCPREFIX}day today\\tomorrow\\yesterday\n"
+                            f"{DCPREFIX}day 3 (3 days from now)\n"
+                            f"{DCPREFIX}day -3 (3 days ago)\n"
+                            f"{DCPREFIX}day 4/20/22 (On Apr 20, 2022)",
+
                             inline=False)
-            embed.add_field(name="freetime", value="Displays when you are available today", inline=False)
+            embed.add_field(
+                name="freetime", value="Displays when you are available today", inline=False)
+            embed.add_field(
+                name="searchEvent",
+                value="Search for an event by name in the event table.\n"
+                "Example Usage:"
+                "```"
+                '/searchEvent "Birthday Party"'
+                "```"
+                "This command checks if an event with the specified name exists in the event table."
+                "If the event is found, a message is sent confirming its existence."
+                "If the event is not found, a message is sent encouraging the user to add the event.",
+                inline=False)
             await interaction.response.edit_message(embed=embed, view=self)
 
         if select.values[0] == "Event type":
             embed = discord.Embed(
-                title=f"Event Type Commands:",
-                description=f"List of commands for working with event types.",
+                title="Event Type Commands:",
+                description="List of commands for working with event types.",
             )
-            embed.add_field(name="typecreate", value="Creates a new event type", inline=False)
-            embed.add_field(name="typedelete", value="Deletes an event type", inline=False)
-            embed.add_field(name="typeedit", value = "Edits an event type",inline=False)
+            embed.add_field(name="typecreate",
+                            value="Creates a new event type", inline=False)
+            embed.add_field(name="typedelete",
+                            value="Deletes an event type", inline=False)
+            embed.add_field(name="typeedit",
+                            value="Edits an event type", inline=False)
             await interaction.response.edit_message(embed=embed, view=self)
 
         if select.values[0] == "Others":
             embed = discord.Embed(
-                title=f"Other Commands:",
-                description=f"List of other bot commands.",
+                title="Other Commands:",
+                description="List of other bot commands.",
             )
-            embed.add_field(name="ConnectGoogle", value="Connect to Google Calendar", inline=False)
-            embed.add_field(name="GoogleEvents", value="Import next 10 events from Google Calendar", inline=False)
-            embed.add_field(name="importfile", value="Import events from a CSV or ICS file", inline=False)
-            embed.add_field(name="exportfile", value="Exports a CSV file of your events", inline=False)
+            embed.add_field(name="ConnectGoogle",
+                            value="Connect to Google Calendar", inline=False)
+            embed.add_field(
+                name="GoogleEvents", value="Import next 10 events from Google Calendar", inline=False)
+            embed.add_field(
+                name="importfile", value="Import events from a CSV or ICS file", inline=False)
+            embed.add_field(
+                name="exportfile", value="Exports a CSV file of your events", inline=False)
             embed.add_field(name="stop", value="ExitBot", inline=False)
             await interaction.response.edit_message(embed=embed, view=self)
 
 
-@bot.group(invoke_without_command=True)
-async def help(ctx: commands.Context):
+@bot.group(name='help', invoke_without_command=True)
+async def bot_help(ctx: commands.Context):
     """
     Function:
         help
@@ -212,33 +292,47 @@ async def help(ctx: commands.Context):
     Output:
         An embed window sent to the context with all commands/descriptions
     """
-    
+
     view = helpDropdown(ctx.author)
-    em = discord.Embed(
+    embed = discord.Embed(
         title="ScheduleBot Commands",
-        description=f"Here are all the commands to use ScheduleBot\nAll events are prefaced by an '{dcprefix}'",
+        description=f"Here are all the commands to use ScheduleBot\n \
+                      All events are prefaced by an '{DCPREFIX}'",
     )
-    em.add_field(name="help", value="Displays all commands and their descriptions", inline=False)
-    em.add_field(name="schedule", value="Creates an event", inline=False)
-    em.add_field(
+    embed.add_field(
+        name="help", value="Displays all commands and their descriptions", inline=False)
+    embed.add_field(name="schedule", value="Creates an event", inline=False)
+    embed.add_field(
         name="quickschedule",
         value="Schedule the first available time slot within the next 24 hrs",
         inline=False
     )
-    em.add_field(name="deleteevent", value = "Deletes selected event",inline = False)
-    em.add_field(name="summary", value="Get todays summary", inline=False)
-    em.add_field(name="day", value="Shows everything on your schedule for a specific date", inline=False)
-    em.add_field(name="freetime", value="Displays when you are available today", inline=False)
-    em.add_field(name="typecreate", value="Creates a new event type", inline=False)
-    em.add_field(name="typedelete", value="Deletes an event type", inline=False)
-    em.add_field(name="typeedit", value = "Edits an event type",inline=False)
-    em.add_field(name="ConnectGoogle", value="Connect to Google Calendar", inline=False)
-    em.add_field(name="GoogleEvents", value="Import next 10 events from Google Calendar", inline=False)
-    em.add_field(name="importfile", value="Import events from a CSV or ICS file", inline=False)
-    em.add_field(name="exportfile", value="Exports a CSV file of your events", inline=False)
-    em.add_field(name="stop", value="ExitBot", inline=False)
-    
-    await ctx.send(embed=em, view=view)
+    embed.add_field(name="deleteevent",
+                 value="Deletes selected event", inline=False)
+    embed.add_field(name="summary", value="Get todays summary", inline=False)
+    embed.add_field(
+        name="day", value="Shows everything on your schedule for a specific date", inline=False)
+    embed.add_field(name="freetime",
+                 value="Displays when you are available today", inline=False)
+    embed.add_field(
+                name="searchEvent", value="Search for an event by name in the event table.",
+                inline=False)
+    embed.add_field(name="typecreate",
+                 value="Creates a new event type", inline=False)
+    embed.add_field(name="typedelete",
+                 value="Deletes an event type", inline=False)
+    embed.add_field(name="typeedit", value="Edits an event type", inline=False)
+    embed.add_field(name="ConnectGoogle",
+                 value="Connect to Google Calendar", inline=False)
+    embed.add_field(name="GoogleEvents",
+                 value="Import next 10 events from Google Calendar", inline=False)
+    embed.add_field(name="importfile",
+                 value="Import events from a CSV or ICS file", inline=False)
+    embed.add_field(name="exportfile",
+                 value="Exports a CSV file of your events", inline=False)
+    embed.add_field(name="stop", value="ExitBot", inline=False)
+
+    await ctx.send(embed=embed, view=view)
 
 
 @bot.event
@@ -255,8 +349,9 @@ async def on_ready():
         The welcome message sent to the ScheduleBot server
     """
     # Outputs bot name to console once bot is started
-    print("We have logged in as {0.user}".format(bot))
-    channels = bot.get_all_channels()  # Gets the channels the bot is currently watching
+    print(f"We have logged in as {bot.user}")
+    # Gets the channels the bot is currently watching
+    channels = bot.get_all_channels()
 
     text_channel_count = 0
     for channel in channels:
@@ -273,7 +368,7 @@ async def on_ready():
 
         await msg.add_reaction("⏰")
     print("Sent Welcome Message to", text_channel_count, "Channel(s)")
-   
+
 
 @bot.event
 async def on_reaction_add(reaction: discord.Reaction, user):
@@ -290,7 +385,8 @@ async def on_reaction_add(reaction: discord.Reaction, user):
     """
     emoji = reaction.emoji
     author = reaction.message.author
-    if emoji == "⏰" and not user.bot and author==bot.user:  # if user is not a bot and the message author is the bot itself
+    # if user is not a bot and the message author is the bot itself
+    if emoji == "⏰" and not user.bot and author == bot.user:
         try:
             await user.send(
                 "Nice to meet you "
@@ -298,12 +394,13 @@ async def on_reaction_add(reaction: discord.Reaction, user):
                 + "! I am ScheduleBot and I am here to make managing your schedule easier!"
             )
             await help(user)
-        except:
-            print(user.name + " (" + user.id + ") does not have DM permissions set correctly")
-            pass
-        
-# @bot.command()
-@tasks.loop(seconds=5)
+        except Exception:
+            print(user.name + " (" + user.id +
+                  ") does not have DM permissions set correctly")
+
+
+@bot.command()
+# @tasks.loop(seconds=5)
 async def summary(ctx):
     """
     Function:
@@ -318,6 +415,7 @@ async def summary(ctx):
     """
     print("executed now")
     await get_highlight(ctx, "today")
+
 
 @bot.command()
 async def schedule(ctx):
@@ -335,6 +433,7 @@ async def schedule(ctx):
     print(type(ctx))
     # await ctx.interaction.response.send_modal(my_modal())
     await add_event(ctx, bot)
+
 
 @bot.command()
 async def GoogleEvents(ctx):
@@ -354,6 +453,26 @@ async def GoogleEvents(ctx):
 
 @bot.command()
 async def searchEvent(ctx, event_name):
+    """
+    Search for an event by name in the event table.
+
+    Parameters:
+    - ctx (commands.Context): The context of the command invocation.
+    - event_name (str): The name of the event to search for.
+
+    Returns:
+    - None
+
+    Example Usage:
+    ```
+    /searchEvent "Birthday Party"
+    ```
+
+    This command checks if an event with the specified name exists in the event table.
+    If the event is found, a message is sent confirming its existence.
+    If the event is not found, a message is sent encouraging the user to add the event.
+
+    """
     event_exists = await search_event_by_name(ctx, event_name)
 
     if event_exists:
@@ -429,6 +548,25 @@ async def importfile(ctx):
 # creating new event type
 @bot.command()
 async def typecreate(ctx):
+    """
+    Initiates the process of creating a new event type through direct messages.
+
+    Parameters:
+    - ctx (commands.Context): The context of the command invocation.
+
+    Returns:
+    - None
+
+    Example Usage:
+    ```
+    /typecreate
+    ```
+
+    This command guides the user through creating a new event type via direct messages.
+    The bot asks the user to provide the type of the event, waits for the user's input,
+    and then proceeds to create the event type.
+
+    """
     channel = await ctx.author.create_dm()
 
     # print(ctx.author.id)
@@ -436,26 +574,77 @@ async def typecreate(ctx):
         return m.content is not None and m.channel == channel and m.author == ctx.author
 
     await channel.send("First give me the type of your event:")
-    event_msg = await bot.wait_for("message", check=check)  # Waits for user input
+    # Waits for user input
+    event_msg = await bot.wait_for("message", check=check)
     event_msg = event_msg.content  # Strips message to just the text the user entered
 
     await create_event_type(ctx, bot, event_msg)
 
 # editing event type
+
+
 @bot.command()
 async def typeedit(ctx):
+    """
+    Edit an existing event type.
+
+    Parameters:
+    - ctx (commands.Context): The context of the command invocation.
+
+    Returns:
+    - None
+
+    Example Usage:
+    ```
+    !typeedit
+    ```
+
+    This command initiates the process of editing an existing event type.
+    """
     await edit_event_type(ctx, bot)
 
-#delete event 
+
 @bot.command()
 async def deleteEvent(ctx):
+    """
+    Delete a specific event.
+
+    Parameters:
+    - ctx (commands.Context): The context of the command invocation.
+
+    Returns:
+    - None
+
+    Example Usage:
+    ```
+    !deleteEvent
+    ```
+
+    This command deletes a specific event based on user input.
+    """
     await delete_event(ctx, bot)
 
 
-# deleting event type
 @bot.command()
 async def typedelete(ctx):
+    """
+    Delete an existing event type.
+
+    Parameters:
+    - ctx (commands.Context): The context of the command invocation.
+
+    Returns:
+    - None
+
+    Example Usage:
+    ```
+    !typedelete
+    ```
+
+    This command initiates the process of deleting an existing event type.
+    """
     await delete_event_type(ctx, bot)
+
 
 
 # connecting to google
@@ -473,7 +662,8 @@ async def ConnectGoogle(ctx):
     None.
 
     '''
-    gflag=await connect_google(ctx)
+    gflag = await connect_google(ctx)
+
 
 @bot.command()
 @commands.is_owner()
@@ -511,6 +701,7 @@ async def freetime(ctx):
     """
     await get_free_time(ctx, bot)
 
+
 @bot.command()
 async def quickschedule(ctx, event_type: str):
     """
@@ -528,11 +719,10 @@ async def quickschedule(ctx, event_type: str):
     await quick_schedule(ctx, event_type)
 
 
-
 # Runs the bot (local machine)
 if __name__ == "__main__":
-    
+
     bot.run(TOKEN)
-    
+
 
 # client.run(os.environ['TOKEN'])  # Runs the bot (repl.it)
