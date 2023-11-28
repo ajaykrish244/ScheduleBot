@@ -54,7 +54,7 @@ https://user-images.githubusercontent.com/34405372/139776326-722e8526-4977-4ffd-
 To get a list of commands, DM the bot the command:
 
 ```
-/help
+!help
 ```
 
 The bot will reply back you with the list of available commands.
@@ -69,7 +69,7 @@ ScheduleBot's unit of work is the **event**. When you use ScheduleBot to organiz
 To schedule a new event, just DM the bot:
 
 ```
-/schedule
+!schedule
 ```
 
 The bot will ask you the details of your new event.
@@ -81,15 +81,15 @@ The bot will ask you the details of your new event.
 You can take a look at your events scheduled for a specfic date with the command:
 
 ```
-/day today(or tomorrow\yesterday)
+!day today(or tomorrow\yesterday)
 ```
 
 ```
-/day 3 (3 days from now)
+!day 3 (3 days from now)
 ```
 
 ```
-/day -3 (3 days ago)
+!day -3 (3 days ago)
 ```
 
 ```
@@ -98,14 +98,14 @@ You can take a look at your events scheduled for a specfic date with the command
 
 The bot will show you what you have scheduled for the date. This includes events that start before, or end after this date.
 
-/[Day](docs/img/!day.gif)
+![Day](docs/img/!day.gif)
 
 ### **I don't really want to work at 3 a.m.**
 
 You can create custom event types to further organize your schedule. You can define your preferred times by creating a new event type:
 
 ```
-/typecreate
+!typecreate
 ```
 
 The bot will ask you for the name of the type and your preferred times.
@@ -117,30 +117,30 @@ The bot will ask you for the name of the type and your preferred times.
 You can import or export their calendar events as a CSV file through the bot. You can also import ICS files downloaded from Google Calendar.
 
 ```
-/exportfile
+!exportfile
 ```
-/[Export file](docs/img/!export.gif)
+![Export file](docs/img/!export.gif)
 
 ```
-/importfile
+!importfile
 ```
 Then drag the file to the Schedulebot.
 
-/[Import file](docs/img/!import.gif)
+![Import file](docs/img/!import.gif)
 
 ### Looking for the spare time?
 
 ScheduleBot will help you find your free times. Just write:
 
 ```
-/freetime
+!freetime
 ```
-/[Freetime](docs/img/!freetime.gif)
+![Freetime](docs/img/!freetime.gif)
 
 ### Find available times for a type of event
 When you look for available times, you now can use `!find` to find only the available times in your preferred hours. 
 
-/[Find Available times](docs/img/find.gif)
+![Find Available times](docs/img/find.gif)
 
 :thought_balloon: For Developers
 ---
