@@ -54,7 +54,7 @@ https://user-images.githubusercontent.com/34405372/139776326-722e8526-4977-4ffd-
 To get a list of commands, DM the bot the command:
 
 ```
-!help
+/help
 ```
 
 The bot will reply back you with the list of available commands.
@@ -69,7 +69,7 @@ ScheduleBot's unit of work is the **event**. When you use ScheduleBot to organiz
 To schedule a new event, just DM the bot:
 
 ```
-!schedule
+/schedule
 ```
 
 The bot will ask you the details of your new event.
