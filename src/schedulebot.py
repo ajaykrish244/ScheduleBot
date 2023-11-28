@@ -111,17 +111,6 @@ async def sync(ctx: commands.Context, spec: Optional[Literal["~", "*", "^"]] = N
     return
 
 
-# @bot.tree.command(name="hello", description='First Hello Slash Command')
-# async def hello(interaction: discord.Interaction):
-#     await interaction.response.send_message(
-#         f"Hey {interaction.user.mention}! This is a slash command!",
-#         ephemeral=True
-#     )
-
-# @bot.tree.command(name="mymodal", description='Modal Command')
-# async def mymodal(interaction: discord.Interaction):
-#     await interaction.response.send_modal(my_modal())
-
 @bot.tree.command(name="schedevent", description='Schedule event using a form')
 async def schedevent(interaction: discord.Interaction):
     """
@@ -140,10 +129,48 @@ async def schedevent(interaction: discord.Interaction):
     """
     await interaction.response.send_modal(SchedModal())
 
+
+# @bot.tree.command(name="schedule", description='Schedule an event')
+# async def schedule(interaction: discord.Interaction):
+#     await interaction.response.send_message(
+#         f"Hey {interaction.user.mention}! This is a slash command!",
+#         ephemeral=True
+#     )
+
+
+# @bot.tree.command(name="deleteevent", description='Delete an event')
+# async def devent(interaction: discord.Interaction):
+#     await interaction.response.send_message(
+#         f"Hey {interaction.user.mention}! This is a slash command!",
+#         ephemeral=True
+#     )
+
+# @bot.tree.command(name="summary", description='Get todays summary')
+# async def summ(interaction: discord.Interaction):
+#     await interaction.response.send_message(
+#         f"Hey {interaction.user.mention}! This is a slash command!",
+#         ephemeral=True
+#     )
+
+# @bot.tree.command(name="day", description='Shows everything on your schedule for a specific date')
+# @app_commands.describe(when = 'Schedule for?')
+# async def daydesc(interaction: discord.Interaction, when: str):
+#     await interaction.response.send_message(
+#         f"Hey {interaction.user.mention}! This is a slash command!",
+#         ephemeral=True
+#     )
+
+
+# @bot.tree.command(name="mymodal", description='Modal Command')
+# async def mymodal(interaction: discord.Interaction):
+#     await interaction.response.send_modal(my_modal())
+
+
 # @bot.tree.command(name="say", description='Says something')
 # @app_commands.describe(thing_to_say = 'What should I say?')
 # async def say(interaction: discord.Interaction, thing_to_say: str):
 #     await interaction.response.send_message(f"{interaction.user.name} said: \"{thing_to_say}\"")
+
 
 # @bot.tree.command(name="choosecolor", description='Chooses a color')
 # @app_commands.describe(color = 'Colors to choose')
@@ -155,14 +182,15 @@ async def schedevent(interaction: discord.Interaction):
 # async def color(interaction: discord.Interaction, color: app_commands.Choice[int]):
 #     await interaction.response.send_message(f"Chose color: `{color.name}`")
 
-# @bot.tree.command(name="choosedate", description='Chooses a Date')
-# @app_commands.describe(year = 'Year', month = 'Month', day = 'Day')
-# @app_commands.choices(
-#     month=[app_commands.Choice(name=str(i), value=i) for i in range(1,13)],
-#     day=[app_commands.Choice(name=str(i), value=i) for i in range(1,20)]
-# )
-# async def date(interaction: discord.Interaction, year: int, month: app_commands.Choice[int], day: app_commands.Choice[int]):
-#     await interaction.response.send_message(f"Chosen date: `{year}`-`{month.value}`-`{day.value}`")
+
+@bot.tree.command(name="choosedate", description='Chooses a Date')
+@app_commands.describe(year = 'Year', month = 'Month', day = 'Day')
+@app_commands.choices(
+    month=[app_commands.Choice(name=str(i), value=i) for i in range(1,13)],
+    day=[app_commands.Choice(name=str(i), value=i) for i in range(1,20)]
+)
+async def date(interaction: discord.Interaction, year: int, month: app_commands.Choice[int], day: app_commands.Choice[int]):
+    await interaction.response.send_message(f"Chosen date: `{year}`-`{month.value}`-`{day.value}`")
 
 
 class helpDropdown(discord.ui.View):
@@ -701,9 +729,9 @@ async def freetime(ctx):
     """
     await get_free_time(ctx, bot)
 
-
-@bot.command()
-async def quickschedule(ctx, event_type: str):
+@bot.tree.command(name="quickschedule", description='Schedule the first available time slot within the next 24 hrs')
+@app_commands.describe(event_type = 'Event type')
+async def qsched(interaction: discord.Interaction, event_type: str):
     """
     Function:
         schedulefind
@@ -716,7 +744,8 @@ async def quickschedule(ctx, event_type: str):
     Output:
         - Schedules the event and notifies the user
     """
-    await quick_schedule(ctx, event_type)
+    
+    await quick_schedule(interaction, event_type)
 
 
 # Runs the bot (local machine)
