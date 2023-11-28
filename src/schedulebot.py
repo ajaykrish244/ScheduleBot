@@ -27,6 +27,8 @@ from functionality.Google import connect_google
 from functionality.GoogleEvent import get_events
 from functionality.Delete_Event import delete_event
 from functionality.edit_event_type import edit_event_type
+from functionality.quick_schedule import quick_schedule
+from functionality.search_event import search_event_by_name
 from functionality.schedule import SchedModal
 
 load_dotenv()
@@ -271,7 +273,7 @@ async def on_ready():
 
         await msg.add_reaction("⏰")
     print("Sent Welcome Message to", text_channel_count, "Channel(s)")
-    
+   
 
 @bot.event
 async def on_reaction_add(reaction: discord.Reaction, user):
@@ -349,6 +351,15 @@ async def GoogleEvents(ctx):
 
     '''
     await get_events(ctx, bot)
+
+@bot.command()
+async def searchEvent(ctx, event_name):
+    event_exists = await search_event_by_name(ctx, event_name)
+
+    if event_exists:
+        await ctx.send(f"The event '{event_name}' exists in the table.")
+    else:
+        await ctx.send(f"The event '{event_name}' doesn't exist. You can go ahead and add the event.")
 
 
 @bot.command()
