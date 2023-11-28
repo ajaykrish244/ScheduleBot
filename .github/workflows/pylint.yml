@@ -20,4 +20,4 @@ jobs:
         pip install pylint
     - name: Analysing the code with pylint
       run: |
-        pylint --rcfile=pylint.yml `ls -R|grep .py$|xargs`
+        pylint --rcfile=pylint.yml $(find . -name "*.py" | xargs)
