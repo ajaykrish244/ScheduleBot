@@ -153,7 +153,7 @@ class helpDropdown(discord.ui.View):
             embed.add_field(
               name="quickschedule",
               value="Finds and schedules the first available time slot within the next 24 hours for the specified event type.\n"
-                  "Usage: `!quickschedule <event_type>`",
+                  "Usage: `/quickschedule <event_type>`",
               inline=False
             )
             embed.add_field(name="deleteevent", value = "Deletes selected event",inline = False)
@@ -260,7 +260,7 @@ async def on_ready():
 
     text_channel_count = 0
     for channel in channels:
-        break
+        # break
         if str(channel.type) != 'text':
             continue
 

@@ -74,7 +74,7 @@ ScheduleBot's unit of work is the **event**. When you use ScheduleBot to organiz
 To schedule a new event, just DM the bot:
 
 ```
-!schedule
+/schedule
 ```
 
 The bot will ask you the details of your new event.
@@ -86,19 +86,19 @@ The bot will ask you the details of your new event.
 You can take a look at your events scheduled for a specfic date with the command:
 
 ```
-!day today(or tomorrow\yesterday)
+/day today(or tomorrow\yesterday)
 ```
 
 ```
-!day 3 (3 days from now)
+/day 3 (3 days from now)
 ```
 
 ```
-!day -3 (3 days ago)
+/day -3 (3 days ago)
 ```
 
 ```
-!day 4/20/22 (On Apr 20, 2022)
+/day 4/20/22 (On Apr 20, 2022)
 ```
 
 The bot will show you what you have scheduled for the date. This includes events that start before, or end after this date.
@@ -110,7 +110,7 @@ The bot will show you what you have scheduled for the date. This includes events
 You can create custom event types to further organize your schedule. You can define your preferred times by creating a new event type:
 
 ```
-!typecreate
+/typecreate
 ```
 
 The bot will ask you for the name of the type and your preferred times.
@@ -122,12 +122,12 @@ The bot will ask you for the name of the type and your preferred times.
 You can import or export their calendar events as a CSV file through the bot. You can also import ICS files downloaded from Google Calendar.
 
 ```
-!exportfile
+/exportfile
 ```
 ![Export file](docs/img/!export.gif)
 
 ```
-!importfile
+/importfile
 ```
 Then drag the file to the Schedulebot.
 
@@ -138,7 +138,7 @@ Then drag the file to the Schedulebot.
 ScheduleBot will help you find your free times. Just write:
 
 ```
-!freetime
+/freetime
 ```
 ![Freetime](docs/img/!freetime.gif)
 
@@ -336,7 +336,7 @@ These are example features that could be added to ScheduleBot in the future.
 You can quickly create a new event with the command
 
 ```
-!schedulefind type X
+/schedulefind type X
 ```
 
 It will find and schedule the first available X contiguous hours, on your preferred hours of the specified type which is a advanced version of ```/quickschedule```.
@@ -351,7 +351,7 @@ ScheduleBot should say there is no time, but can suggest replacing event 1 as it
 You can edit the event you created:
 
 ```
-!eventedit
+/eventedit
 ```
 
 ### Merge Discord events with Google Calendar
