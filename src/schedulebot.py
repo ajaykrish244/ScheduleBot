@@ -167,6 +167,16 @@ async def schedevent(interaction: discord.Interaction):
 
 class helpDropdown(discord.ui.View):
     '''
+    A Discord UI view for a dropdown menu providing help pages.
+
+    Parameters:
+        - user (discord.User): The user for whom the help dropdown is created.
+
+    Usage Example:
+        ```python
+        help_dropdown = helpDropdown(user)
+        await ctx.send("Select a help page:", view=help_dropdown)
+        ```
     '''
     def __init__(self, user):
         super().__init__()
