@@ -315,7 +315,7 @@ As an upgrade we have added a group scheduling feature. Previously, the bot was 
 
 Previously, the events and all other data were stored in a file-folder hierarchy and in csv files. Now, all the data gets stored efficiently in a mySQL database. Schedules are now read, written and updated on the configured database.
 
-:muscle: What's new in V5:
+:sparkles: What's new in V5:
 ---
 1. ```/typeedit``` - This feature enables users to modify existing event types, allowing them to edit the event type name, start time, and end time according to their preferences.
 
