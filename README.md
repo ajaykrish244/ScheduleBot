@@ -35,7 +35,7 @@
 This bot can be configured and used by any individual who wants to organize his/her schedule using an automated service
 
 ### Version 5 Submission Video
-Click [here]() to view the demo of news features in version 5
+Click [here](https://youtu.be/UWgI0r7PB54) to view the demo of news features in version 5
 
 ### Version 4 Submission Video
 
