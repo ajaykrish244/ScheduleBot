@@ -27,6 +27,8 @@
   <a href="#muscle-whats-new-in-v3">What's new in V3</a>
   ::
   <a href="#muscle-whats-new-in-v4">What's new in V4</a>
+  ::
+  <a href="#muscle-whats-new-in-v5">What's new in V5</a>
 </p>
 
 ### Target Audience ###
@@ -199,6 +201,7 @@ Once you install the MySQL server, add following details to `.env` file :
 -   [v2.0](https://github.com/qchen59/ScheduleBot/releases/tag/v2.0.0): First version 2 release with import/export events function, find available time feature, also supports 24 hour time format and event priority.
 -   [v2.1](https://github.com/qchen59/ScheduleBot/releases/tag/v2.1.0): Finalized version 2, check what's new in V2
 -   [v3.0](https://github.com/SEProjGrp5/ScheduleBot/releases) Finalized version 3, check out what's new in V3
+-   [v4.0](https://github.com/SE-Fall23-Group9/ScheduleBot/releases/tag/v4.0)Finalized version 4, check what's new in V4
 
 :dizzy: Features in V2:
 ---
@@ -303,8 +306,20 @@ https://user-images.githubusercontent.com/89954066/144730470-7700507e-b2e9-4175-
 
 As an upgrade we have added a group scheduling feature. Previously, the bot was able to schedule events and event types for a single user in DMs. However, now ,one can mention the users of the channel and for each mentioned user, the schedule gets created.
 
-Previously, the events and all other data were stored in a file-folder hierarchy and in csv files. Now, all the data gets stored efficiently in a mySQL database. Schedules are now read, written and updated on the configured database. 
+Previously, the events and all other data were stored in a file-folder hierarchy and in csv files. Now, all the data gets stored efficiently in a mySQL database. Schedules are now read, written and updated on the configured database.
 
+:muscle: What's new in V5:
+---
+1. ```/typeedit``` - This feature enables users to modify existing event types, allowing them to edit the event type name, start time, and end time according to their preferences.
+
+2. ```/quickschedule <event_type>```- This functionality enables users to schedule an event based on the specified event type within the next 24 hours, provided that time slot is available.
+
+3. ```/searchEvent``` - This feature enables users to verify if a specific event has already been scheduled, preventing the inadvertent rescheduling of the same event.
+
+4. Improved UI:<br/>
+   1. A dropdown box that allows users to view commands categorized by specific categories, avoiding the clutter of having all commands in a single message.<br/>
+   2. A ```/slash``` command that enables users to select a command instead of requiring them to manually type it out each time.
+   3. When the user chooses ```/schedule```, a form will appear, allowing them to provide all the necessary details in a single instance.
 
 ## Future features
 These are example features that could be added to ScheduleBot in the future.
@@ -346,8 +361,8 @@ Help user understand the process of adding the Discord bot to their server.
 
 ### Support:
 
-For support regarding V4 updates, errors or configurations, feel free to contact:
-@ktelapr@ncsu.edu
-@rrajpur@ncsu.edu
-@araveen@ncsu.edu
+For support regarding V4 updates, errors or configurations, feel free to contact:</br>
+@ktelapr@ncsu.edu</br>
+Rahul Raj Purohit - @rrajpur@ncsu.edu</br>
+Ajay Krishna Raveendar - @araveen@ncsu.edu</br>
 
