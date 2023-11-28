@@ -34,6 +34,9 @@
 ### Target Audience ###
 This bot can be configured and used by any individual who wants to organize his/her schedule using an automated service
 
+### Version 5 Submission Video
+Click [here]() to view the demo of news features in version 5
+
 ### Version 4 Submission Video
 
 Watch the demonstration of ScheduleBot with new feature here: https://www.youtube.com/watch?v=dpqK9mt-y28
@@ -170,6 +173,9 @@ Once you install the MySQL server, add following details to `.env` file :
   DB_NAME = "schedulebot"
 ```
 
+### New User Database Setup
+To setup the database, including the EVENT and event_types tables, the user needs to execute each query specified in the initialize_database.sql file.
+
 
 ### Intall required packages
   ```
@@ -202,6 +208,7 @@ Once you install the MySQL server, add following details to `.env` file :
 -   [v2.1](https://github.com/qchen59/ScheduleBot/releases/tag/v2.1.0): Finalized version 2, check what's new in V2
 -   [v3.0](https://github.com/SEProjGrp5/ScheduleBot/releases) Finalized version 3, check out what's new in V3
 -   [v4.0](https://github.com/SE-Fall23-Group9/ScheduleBot/releases/tag/v4.0)Finalized version 4, check what's new in V4
+
 
 :dizzy: Features in V2:
 ---
@@ -332,7 +339,7 @@ You can quickly create a new event with the command
 !schedulefind type X
 ```
 
-It will find and schedule the first available X contiguous hours, on your preferred hours of the specified `type`.
+It will find and schedule the first available X contiguous hours, on your preferred hours of the specified type which is a advanced version of ```/quickschedule```.
 
 ### Suggest event removals
 When Your entire day is scheduled
@@ -361,8 +368,8 @@ Help user understand the process of adding the Discord bot to their server.
 
 ### Support:
 
-For support regarding V4 updates, errors or configurations, feel free to contact:</br>
-@ktelapr@ncsu.edu</br>
+For support regarding V5 updates, errors or configurations, feel free to contact:</br>
+Keerthana Telaprolu - @ktelapr@ncsu.edu</br>
 Rahul Raj Purohit - @rrajpur@ncsu.edu</br>
 Ajay Krishna Raveendar - @araveen@ncsu.edu</br>
 
