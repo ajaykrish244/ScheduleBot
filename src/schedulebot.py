@@ -3,6 +3,8 @@ import discord
 from discord.components import SelectOption  # type: ignore
 from discord.ext import commands, tasks  # type: ignore
 import os
+import sys
+import pathlib
 import json
 from discord.utils import MISSING
 from dotenv import load_dotenv
@@ -10,6 +12,8 @@ from dotenv import load_dotenv
 from discord.ext.commands.help import MinimalHelpCommand
 from discord import ui, app_commands
 # drom datetime import datetime
+
+sys.path.insert(0, str(pathlib.Path(__file__).parent))
 
 from functionality.AddEvent import add_event  # type: ignore
 from functionality.highlights import get_highlight
@@ -25,6 +29,7 @@ from functionality.Delete_Event import delete_event
 from functionality.edit_event_type import edit_event_type
 from functionality.quick_schedule import quick_schedule
 from functionality.search_event import search_event_by_name
+from functionality.schedule import SchedModal
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -85,6 +90,10 @@ async def hello(interaction: discord.Interaction):
 @bot.tree.command(name="mymodal", description='Modal Command')
 async def mymodal(interaction: discord.Interaction):
     await interaction.response.send_modal(my_modal())
+
+@bot.tree.command(name="schedevent", description='Schedule event using a form')
+async def schedevent(interaction: discord.Interaction):
+    await interaction.response.send_modal(SchedModal())
 
 @bot.tree.command(name="say", description='Says something')
 @app_commands.describe(thing_to_say = 'What should I say?')
