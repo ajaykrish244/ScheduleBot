@@ -1,0 +1,812 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>src.functionality.FindAvailableTime API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>src.functionality.FindAvailableTime</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from datetime import datetime
+import os
+import csv
+import re
+
+from src.Event import Event
+from src.functionality.create_event_type import create_event_type
+from src.functionality.shared_functions import load_key, encrypt_file, decrypt_file
+
+
+async def find_avaialbleTime(ctx, client):
+    &#34;&#34;&#34;
+    Function:
+        find_avaialbleTime
+    Description:
+        Lets the user know about entered time range for event_type
+    Input:
+        ctx - Discord context window
+        client - Discord bot user
+    Output:
+        - A new event type is added to the users event_type file
+        - Provides users with the time range for the given event
+    &#34;&#34;&#34;
+    channel = await ctx.author.create_dm()
+
+    # print(ctx.author.id)
+
+    def check(m):
+        return m.content is not None and m.channel == channel and m.author == ctx.author
+
+    await channel.send(&#34;Let&#39;s find time for your event. Enter the Event Type :-&#34;)
+    event_msg = await client.wait_for(&#34;message&#34;, check=check)  # Waits for user input
+    event = event_msg.content  # Strips message to just the text the user entered
+
+    try:
+
+        key = load_key(str(ctx.author.id))
+        decrypt_file(key, os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Type/&#34; + str(
+            ctx.author.id) + &#34;event_types&#34; + &#34;.csv&#34;)
+        de_type = True
+        # Open the calendar file for user
+        with open(
+                os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Type/&#34; + str(ctx.author.id) + &#34;event_types&#34; + &#34;.csv&#34;,
+                &#34;r&#34;) as event_file:
+            # Read the calendar file
+            csv_reader = csv.reader(event_file, delimiter=&#39;,&#39;)
+            # For every row in calendar file
+            flag = False
+            range1 = &#39;&#39;
+            range2 = &#39;&#39;
+            for row in csv_reader:
+                # Get event details
+                if row[0] == event:
+                    flag = True
+                    range1 = row[1]
+                    range2 = row[2]
+                    await channel.send(
+                        &#34;You have a time range from &#34; + row[1] + &#39; to &#39; + row[2] + &#39; for events of type &#39; + row[0])
+                    break
+
+        encrypt_file(key, os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Type/&#34; + str(
+            ctx.author.id) + &#34;event_types&#34; + &#34;.csv&#34;)
+        de_type = False
+        event_created = False
+        if flag == False:
+            await channel.send(&#34;Looks like you currently don&#39;t have this event type.&#34; +
+                               &#34;Would you like to specify a time range for it (y/n)\n&#34;)
+            event_msg1 = await client.wait_for(&#34;message&#34;, check=check)  # Waits for user input
+            event_msg1 = event_msg1.content  # Strips message to just the text the user entered
+            if event_msg1 == &#39;y&#39;:
+                event_created = await create_event_type(ctx, client, event)
+            elif event_msg1 == &#39;n&#39;:
+                await channel.send(&#34;Event type creation is canceled&#34;)
+
+            if event_created:
+                decrypt_file(key, os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Type/&#34; + str(
+                    ctx.author.id) + &#34;event_types&#34; + &#34;.csv&#34;)
+                de_type = True
+                with open(os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Type/&#34; + str(
+                        ctx.author.id) + &#34;event_types&#34; + &#34;.csv&#34;, &#34;r&#34;) as event_file:
+                    # Read the calendar file
+                    csv_reader = csv.reader(event_file, delimiter=&#39;,&#39;)
+
+                    for row in csv_reader:
+                        # Get event details
+                        if row[0] == event:
+                            range1 = row[1]
+                            range2 = row[2]
+                            flag = True
+                            await channel.send(
+                                &#34;You have a time range from &#34; + row[1] + &#39; to &#39; + row[2] + &#39; for events of type &#39; + row[
+                                    0])
+
+                            de_type = False
+                            break
+                encrypt_file(key, os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Type/&#34; + str(
+                    ctx.author.id) + &#34;event_types&#34; + &#34;.csv&#34;)
+
+        # matchedrows = getEventsOnDate(ctx,event.start_date)
+
+    except FileNotFoundError as err:
+        await channel.send(
+            &#34;Looks like I cannot find your event types. Try adding event types using the &#39;!typecreate&#39; command!&#34;)
+        if de_type:
+            encrypt_file(key, os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Type/&#34; + str(
+                ctx.author.id) + &#34;event_types&#34; + &#34;.csv&#34;)
+
+    # Ask for the date
+    await channel.send(
+        &#34;Now give me the date for you event. &#34;
+        + &#34;Here is the format you should follow:\n&#34;
+        + &#34;mm/dd/yy&#34;
+    )
+
+    event_date = False
+    date = &#39;&#39;
+    # A loop that keeps running until a user enters correct start and end dates for their event following the required format
+    while not event_date:
+        msg_content = &#34;&#34;
+        if ctx.message.author != client.user:
+            # Waits for user input
+            date_msg = await client.wait_for(&#34;message&#34;, check=check)
+            # Strips message to just the text the user entered
+            msg_content = date_msg.content
+
+        try:
+            date_ms = msg_content
+            date = datetime.strptime(date_ms, &#34;%m/%d/%y&#34;)
+        except Exception as e:
+            await channel.send(
+                &#34;Looks like &#34;
+                + str(e)
+                + &#34;. Please re-enter your dates.\n&#34;
+                + &#34;Here is the format you should follow:\n&#34;
+                + &#34;mm/dd/yy&#34;
+            )
+            event_date = False
+            continue
+
+        event_date = True
+
+    if date_ms != &#39;&#39;:
+        date_str = date.strftime(&#34;%Y-%m-%d&#34;)
+        events = getEventsOnDate(ctx, date_str)
+        msg = &#39;&#39;
+        inte = findIntersection(date_ms, datetime.strptime(date_ms + &#34; &#34; + range1, &#34;%m/%d/%y %I:%M %p&#34;),
+                                datetime.strptime(date_ms + &#34; &#34; + range2, &#34;%m/%d/%y %I:%M %p&#34;), events)
+        avai_msg = &#34;&#34;
+        if len(inte) == 0:
+            avai_msg += &#34;There is no available time for the event.&#34;
+        else:
+            avai_msg += &#34;There are some available time slots for your event: \n&#34;
+            for t in inte:
+                avai_msg += t.get(&#39;start&#39;).strftime(&#34;%Y-%m-%d %H:%M:%S&#34;) + &#34; - &#34; + t.get(&#39;end&#39;).strftime(
+                    &#34;%Y-%m-%d %H:%M:%S&#34;) + &#34;\n&#34;
+        for e in events:
+            msg += e.name + &#34;, from &#34; + e.start_date + &#34; to &#34; + e.end_date + &#34;\n&#34;
+        await channel.send(
+            &#34;On &#34; + date_str + &#34;, you have scheduled: \n&#34;
+            + msg
+            + &#34;\n&#34;
+            + avai_msg
+        )
+
+
+def findIntersection(date, range1, range2, events):
+    &#34;&#34;&#34;
+    Function:
+        findIntersection
+    Description:
+        Find the intersection of the preferred time of event type and the scheduled events
+    Input:
+        date - String of date, the date that user is looking for available time
+        range1 - The start time of the preferred time of event type
+        range2 - The end time of the preferred time of event type
+        events - A list of events which scheduled on the date
+    Output:
+        - A list of available time for the date
+    &#34;&#34;&#34;
+    etime = []
+    event_atime = []
+    available_time = []
+    for e in events:
+        start_date = re.split(&#34;\s&#34;, e.start_date)
+        end_date = re.split(&#34;\s&#34;, e.end_date)
+        start = datetime.strptime(date + &#34; &#34; + start_date[1], &#34;%m/%d/%y %H:%M:%S&#34;)
+        end = &#39;&#39;
+        if datetime.strptime(end_date[0], &#34;%Y-%m-%d&#34;) &gt; datetime.strptime(date, &#34;%m/%d/%y&#34;):
+            end = datetime.strptime(date + &#34; 24:00:00&#34;, &#34;%m/%d/%y %H:%M:%S&#34;)
+        else:
+            end = datetime.strptime(date + &#34; &#34; + end_date[1], &#34;%m/%d/%y %H:%M:%S&#34;)
+        etime.append({&#39;start&#39;: start, &#39;end&#39;: end})
+    print(etime)
+    # Find available time
+    a_time = []
+    if len(etime) == 0:
+        pass
+    else:
+        for t in etime:
+            aetime = []
+            # If no intersection between event and favored time
+            if range1 &gt;= t.get(&#39;end&#39;):
+                free_start = range1
+                free_end = range2
+                aetime.append({&#39;start&#39;: free_start, &#39;end&#39;: free_end})
+            if range2 &lt;= t.get(&#39;start&#39;):
+                free_start = range1
+                free_end = range2
+                aetime.append({&#39;start&#39;: free_start, &#39;end&#39;: free_end})
+
+            # If favored time in between the event
+            if t.get(&#39;start&#39;) &lt;= range1 &lt; range2 &lt;= t.get(&#39;end&#39;):
+                # do nothing
+                pass
+
+            # If favored time overlap the event
+            if t.get(&#39;start&#39;) &lt; range1 &lt; t.get(&#39;end&#39;) &lt; range2:
+                free_start = t.get(&#39;end&#39;)
+                free_end = range2
+                aetime.append({&#39;start&#39;: free_start, &#39;end&#39;: free_end})
+            if range1 &lt; t.get(&#39;start&#39;) &lt; range2 &lt; t.get(&#39;end&#39;):
+                free_start = range1
+                free_end = t.get(&#39;start&#39;)
+                aetime.append({&#39;start&#39;: free_start, &#39;end&#39;: free_end})
+
+            # If event in between the favored time
+            if range1 &lt;= t.get(&#39;start&#39;) &lt; t.get(&#39;end&#39;) &lt;= range2:
+                free_start = range1
+                free_end = t.get(&#39;start&#39;)
+                aetime.append({&#39;start&#39;: free_start, &#39;end&#39;: free_end})
+                free_start = t.get(&#39;end&#39;)
+                free_end = range2
+                aetime.append({&#39;start&#39;: free_start, &#39;end&#39;: free_end})
+
+            event_atime.append(aetime)
+        print(event_atime)
+        if len(event_atime) == 1:
+            available_time = event_atime[0]
+        if len(event_atime) &gt; 1:
+            # Find intersection, if no intersection, then no available time
+            next_event = event_atime[1]
+            available_time = findInter(next_event, event_atime, 0, len(event_atime) - 1)
+
+    return available_time
+
+
+def findInter(next_event, event_atime, idx, end):
+    &#34;&#34;&#34;
+    Function:
+        findInter
+    Description:
+        The helper iterator function to find the intersection
+    Input:
+        next_event - available time based on the next event
+        event_atime - a list of available time based on events on date
+        idx - index of the current available time in the list
+        end - lenght of the list
+    Output:
+        - A list of available time for the date
+    &#34;&#34;&#34;
+    if idx == end:
+        return next_event
+    available_time = []
+    for at in event_atime[idx]:
+        for nt in next_event:
+            # If no intersection between event and favored time
+            if at.get(&#39;start&#39;) &gt;= nt.get(&#39;end&#39;):
+                pass
+            if at.get(&#39;end&#39;) &lt;= nt.get(&#39;start&#39;):
+                pass
+
+            # If in between
+            if nt.get(&#39;start&#39;) &lt;= at.get(&#39;start&#39;) &lt; at.get(&#39;end&#39;) &lt;= nt.get(&#39;end&#39;):
+                free_start = at.get(&#39;start&#39;)
+                free_end = at.get(&#39;end&#39;)
+                f_time = {&#39;start&#39;: free_start, &#39;end&#39;: free_end}
+                if f_time not in available_time:
+                    available_time.append({&#39;start&#39;: free_start, &#39;end&#39;: free_end})
+
+            if at.get(&#39;start&#39;) &lt; nt.get(&#39;start&#39;) &lt; nt.get(&#39;end&#39;) &lt; at.get(&#39;end&#39;):
+                free_start = nt.get(&#39;start&#39;)
+                free_end = nt.get(&#39;end&#39;)
+                f_time = {&#39;start&#39;: free_start, &#39;end&#39;: free_end}
+                if f_time not in available_time:
+                    available_time.append({&#39;start&#39;: free_start, &#39;end&#39;: free_end})
+
+            # If overlap
+            if nt.get(&#39;start&#39;) &lt;= at.get(&#39;start&#39;) &lt; nt.get(&#39;end&#39;) &lt;= at.get(&#39;end&#39;):
+                free_start = at.get(&#39;start&#39;)
+                free_end = nt.get(&#39;end&#39;)
+                f_time = {&#39;start&#39;: free_start, &#39;end&#39;: free_end}
+                if f_time not in available_time:
+                    available_time.append({&#39;start&#39;: free_start, &#39;end&#39;: free_end})
+            if at.get(&#39;start&#39;) &lt;= nt.get(&#39;start&#39;) &lt; at.get(&#39;end&#39;) &lt;= nt.get(&#39;end&#39;):
+                free_start = nt.get(&#39;start&#39;)
+                free_end = at.get(&#39;end&#39;)
+                f_time = {&#39;start&#39;: free_start, &#39;end&#39;: free_end}
+                if f_time not in available_time:
+                    available_time.append({&#39;start&#39;: free_start, &#39;end&#39;: free_end})
+    return findInter(available_time, event_atime, idx + 1, end)
+
+
+def getEventsOnDate(ctx, stdate):
+    &#34;&#34;&#34;
+    Function:
+        getEventsOnDate
+    Description:
+        Fetches the events on a particular day
+    Input:
+        ctx - Discord context window
+        yourdate - Date for which events to be pulled
+    Output:
+        - Provides a list of events associated with that day
+    &#34;&#34;&#34;
+    key = load_key(str(ctx.author.id))
+    decrypt_file(key, os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Event/&#34; + str(ctx.author.id) + &#34;.csv&#34;)
+    with open(os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Event/&#34; + str(ctx.author.id) + &#34;.csv&#34;,
+              &#34;r&#34;) as calendar_lines:
+        calendar_lines = csv.reader(calendar_lines, delimiter=&#34;,&#34;)
+        fields = next(calendar_lines)  # The column headers will always be the first line of the csv file
+        rows = []
+        line = []
+        line_number = 0
+        for line in calendar_lines:
+            if len(line) &gt; 0:
+                temp = re.split(&#34;\s&#34;, line[2])
+                if str(temp[0]).__contains__(str(stdate)):
+                    rows.append(line)
+
+        Events = []
+        for line in rows:
+            eve = Event(line[1], line[2], line[3], line[4], line[5], line[6])
+            Events.append(eve)
+    encrypt_file(key, os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Event/&#34; + str(ctx.author.id) + &#34;.csv&#34;)
+    return Events</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="src.functionality.FindAvailableTime.findInter"><code class="name flex">
+<span>def <span class="ident">findInter</span></span>(<span>next_event, event_atime, idx, end)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="function">Function</h2>
+<p>findInter</p>
+<h2 id="description">Description</h2>
+<p>The helper iterator function to find the intersection</p>
+<h2 id="input">Input</h2>
+<p>next_event - available time based on the next event
+event_atime - a list of available time based on events on date
+idx - index of the current available time in the list
+end - lenght of the list</p>
+<h2 id="output">Output</h2>
+<ul>
+<li>A list of available time for the date</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def findInter(next_event, event_atime, idx, end):
+    &#34;&#34;&#34;
+    Function:
+        findInter
+    Description:
+        The helper iterator function to find the intersection
+    Input:
+        next_event - available time based on the next event
+        event_atime - a list of available time based on events on date
+        idx - index of the current available time in the list
+        end - lenght of the list
+    Output:
+        - A list of available time for the date
+    &#34;&#34;&#34;
+    if idx == end:
+        return next_event
+    available_time = []
+    for at in event_atime[idx]:
+        for nt in next_event:
+            # If no intersection between event and favored time
+            if at.get(&#39;start&#39;) &gt;= nt.get(&#39;end&#39;):
+                pass
+            if at.get(&#39;end&#39;) &lt;= nt.get(&#39;start&#39;):
+                pass
+
+            # If in between
+            if nt.get(&#39;start&#39;) &lt;= at.get(&#39;start&#39;) &lt; at.get(&#39;end&#39;) &lt;= nt.get(&#39;end&#39;):
+                free_start = at.get(&#39;start&#39;)
+                free_end = at.get(&#39;end&#39;)
+                f_time = {&#39;start&#39;: free_start, &#39;end&#39;: free_end}
+                if f_time not in available_time:
+                    available_time.append({&#39;start&#39;: free_start, &#39;end&#39;: free_end})
+
+            if at.get(&#39;start&#39;) &lt; nt.get(&#39;start&#39;) &lt; nt.get(&#39;end&#39;) &lt; at.get(&#39;end&#39;):
+                free_start = nt.get(&#39;start&#39;)
+                free_end = nt.get(&#39;end&#39;)
+                f_time = {&#39;start&#39;: free_start, &#39;end&#39;: free_end}
+                if f_time not in available_time:
+                    available_time.append({&#39;start&#39;: free_start, &#39;end&#39;: free_end})
+
+            # If overlap
+            if nt.get(&#39;start&#39;) &lt;= at.get(&#39;start&#39;) &lt; nt.get(&#39;end&#39;) &lt;= at.get(&#39;end&#39;):
+                free_start = at.get(&#39;start&#39;)
+                free_end = nt.get(&#39;end&#39;)
+                f_time = {&#39;start&#39;: free_start, &#39;end&#39;: free_end}
+                if f_time not in available_time:
+                    available_time.append({&#39;start&#39;: free_start, &#39;end&#39;: free_end})
+            if at.get(&#39;start&#39;) &lt;= nt.get(&#39;start&#39;) &lt; at.get(&#39;end&#39;) &lt;= nt.get(&#39;end&#39;):
+                free_start = nt.get(&#39;start&#39;)
+                free_end = at.get(&#39;end&#39;)
+                f_time = {&#39;start&#39;: free_start, &#39;end&#39;: free_end}
+                if f_time not in available_time:
+                    available_time.append({&#39;start&#39;: free_start, &#39;end&#39;: free_end})
+    return findInter(available_time, event_atime, idx + 1, end)</code></pre>
+</details>
+</dd>
+<dt id="src.functionality.FindAvailableTime.findIntersection"><code class="name flex">
+<span>def <span class="ident">findIntersection</span></span>(<span>date, range1, range2, events)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="function">Function</h2>
+<p>findIntersection</p>
+<h2 id="description">Description</h2>
+<p>Find the intersection of the preferred time of event type and the scheduled events</p>
+<h2 id="input">Input</h2>
+<p>date - String of date, the date that user is looking for available time
+range1 - The start time of the preferred time of event type
+range2 - The end time of the preferred time of event type
+events - A list of events which scheduled on the date</p>
+<h2 id="output">Output</h2>
+<ul>
+<li>A list of available time for the date</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def findIntersection(date, range1, range2, events):
+    &#34;&#34;&#34;
+    Function:
+        findIntersection
+    Description:
+        Find the intersection of the preferred time of event type and the scheduled events
+    Input:
+        date - String of date, the date that user is looking for available time
+        range1 - The start time of the preferred time of event type
+        range2 - The end time of the preferred time of event type
+        events - A list of events which scheduled on the date
+    Output:
+        - A list of available time for the date
+    &#34;&#34;&#34;
+    etime = []
+    event_atime = []
+    available_time = []
+    for e in events:
+        start_date = re.split(&#34;\s&#34;, e.start_date)
+        end_date = re.split(&#34;\s&#34;, e.end_date)
+        start = datetime.strptime(date + &#34; &#34; + start_date[1], &#34;%m/%d/%y %H:%M:%S&#34;)
+        end = &#39;&#39;
+        if datetime.strptime(end_date[0], &#34;%Y-%m-%d&#34;) &gt; datetime.strptime(date, &#34;%m/%d/%y&#34;):
+            end = datetime.strptime(date + &#34; 24:00:00&#34;, &#34;%m/%d/%y %H:%M:%S&#34;)
+        else:
+            end = datetime.strptime(date + &#34; &#34; + end_date[1], &#34;%m/%d/%y %H:%M:%S&#34;)
+        etime.append({&#39;start&#39;: start, &#39;end&#39;: end})
+    print(etime)
+    # Find available time
+    a_time = []
+    if len(etime) == 0:
+        pass
+    else:
+        for t in etime:
+            aetime = []
+            # If no intersection between event and favored time
+            if range1 &gt;= t.get(&#39;end&#39;):
+                free_start = range1
+                free_end = range2
+                aetime.append({&#39;start&#39;: free_start, &#39;end&#39;: free_end})
+            if range2 &lt;= t.get(&#39;start&#39;):
+                free_start = range1
+                free_end = range2
+                aetime.append({&#39;start&#39;: free_start, &#39;end&#39;: free_end})
+
+            # If favored time in between the event
+            if t.get(&#39;start&#39;) &lt;= range1 &lt; range2 &lt;= t.get(&#39;end&#39;):
+                # do nothing
+                pass
+
+            # If favored time overlap the event
+            if t.get(&#39;start&#39;) &lt; range1 &lt; t.get(&#39;end&#39;) &lt; range2:
+                free_start = t.get(&#39;end&#39;)
+                free_end = range2
+                aetime.append({&#39;start&#39;: free_start, &#39;end&#39;: free_end})
+            if range1 &lt; t.get(&#39;start&#39;) &lt; range2 &lt; t.get(&#39;end&#39;):
+                free_start = range1
+                free_end = t.get(&#39;start&#39;)
+                aetime.append({&#39;start&#39;: free_start, &#39;end&#39;: free_end})
+
+            # If event in between the favored time
+            if range1 &lt;= t.get(&#39;start&#39;) &lt; t.get(&#39;end&#39;) &lt;= range2:
+                free_start = range1
+                free_end = t.get(&#39;start&#39;)
+                aetime.append({&#39;start&#39;: free_start, &#39;end&#39;: free_end})
+                free_start = t.get(&#39;end&#39;)
+                free_end = range2
+                aetime.append({&#39;start&#39;: free_start, &#39;end&#39;: free_end})
+
+            event_atime.append(aetime)
+        print(event_atime)
+        if len(event_atime) == 1:
+            available_time = event_atime[0]
+        if len(event_atime) &gt; 1:
+            # Find intersection, if no intersection, then no available time
+            next_event = event_atime[1]
+            available_time = findInter(next_event, event_atime, 0, len(event_atime) - 1)
+
+    return available_time</code></pre>
+</details>
+</dd>
+<dt id="src.functionality.FindAvailableTime.find_avaialbleTime"><code class="name flex">
+<span>async def <span class="ident">find_avaialbleTime</span></span>(<span>ctx, client)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="function">Function</h2>
+<p>find_avaialbleTime</p>
+<h2 id="description">Description</h2>
+<p>Lets the user know about entered time range for event_type</p>
+<h2 id="input">Input</h2>
+<p>ctx - Discord context window
+client - Discord bot user</p>
+<h2 id="output">Output</h2>
+<ul>
+<li>A new event type is added to the users event_type file</li>
+<li>Provides users with the time range for the given event</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def find_avaialbleTime(ctx, client):
+    &#34;&#34;&#34;
+    Function:
+        find_avaialbleTime
+    Description:
+        Lets the user know about entered time range for event_type
+    Input:
+        ctx - Discord context window
+        client - Discord bot user
+    Output:
+        - A new event type is added to the users event_type file
+        - Provides users with the time range for the given event
+    &#34;&#34;&#34;
+    channel = await ctx.author.create_dm()
+
+    # print(ctx.author.id)
+
+    def check(m):
+        return m.content is not None and m.channel == channel and m.author == ctx.author
+
+    await channel.send(&#34;Let&#39;s find time for your event. Enter the Event Type :-&#34;)
+    event_msg = await client.wait_for(&#34;message&#34;, check=check)  # Waits for user input
+    event = event_msg.content  # Strips message to just the text the user entered
+
+    try:
+
+        key = load_key(str(ctx.author.id))
+        decrypt_file(key, os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Type/&#34; + str(
+            ctx.author.id) + &#34;event_types&#34; + &#34;.csv&#34;)
+        de_type = True
+        # Open the calendar file for user
+        with open(
+                os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Type/&#34; + str(ctx.author.id) + &#34;event_types&#34; + &#34;.csv&#34;,
+                &#34;r&#34;) as event_file:
+            # Read the calendar file
+            csv_reader = csv.reader(event_file, delimiter=&#39;,&#39;)
+            # For every row in calendar file
+            flag = False
+            range1 = &#39;&#39;
+            range2 = &#39;&#39;
+            for row in csv_reader:
+                # Get event details
+                if row[0] == event:
+                    flag = True
+                    range1 = row[1]
+                    range2 = row[2]
+                    await channel.send(
+                        &#34;You have a time range from &#34; + row[1] + &#39; to &#39; + row[2] + &#39; for events of type &#39; + row[0])
+                    break
+
+        encrypt_file(key, os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Type/&#34; + str(
+            ctx.author.id) + &#34;event_types&#34; + &#34;.csv&#34;)
+        de_type = False
+        event_created = False
+        if flag == False:
+            await channel.send(&#34;Looks like you currently don&#39;t have this event type.&#34; +
+                               &#34;Would you like to specify a time range for it (y/n)\n&#34;)
+            event_msg1 = await client.wait_for(&#34;message&#34;, check=check)  # Waits for user input
+            event_msg1 = event_msg1.content  # Strips message to just the text the user entered
+            if event_msg1 == &#39;y&#39;:
+                event_created = await create_event_type(ctx, client, event)
+            elif event_msg1 == &#39;n&#39;:
+                await channel.send(&#34;Event type creation is canceled&#34;)
+
+            if event_created:
+                decrypt_file(key, os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Type/&#34; + str(
+                    ctx.author.id) + &#34;event_types&#34; + &#34;.csv&#34;)
+                de_type = True
+                with open(os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Type/&#34; + str(
+                        ctx.author.id) + &#34;event_types&#34; + &#34;.csv&#34;, &#34;r&#34;) as event_file:
+                    # Read the calendar file
+                    csv_reader = csv.reader(event_file, delimiter=&#39;,&#39;)
+
+                    for row in csv_reader:
+                        # Get event details
+                        if row[0] == event:
+                            range1 = row[1]
+                            range2 = row[2]
+                            flag = True
+                            await channel.send(
+                                &#34;You have a time range from &#34; + row[1] + &#39; to &#39; + row[2] + &#39; for events of type &#39; + row[
+                                    0])
+
+                            de_type = False
+                            break
+                encrypt_file(key, os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Type/&#34; + str(
+                    ctx.author.id) + &#34;event_types&#34; + &#34;.csv&#34;)
+
+        # matchedrows = getEventsOnDate(ctx,event.start_date)
+
+    except FileNotFoundError as err:
+        await channel.send(
+            &#34;Looks like I cannot find your event types. Try adding event types using the &#39;!typecreate&#39; command!&#34;)
+        if de_type:
+            encrypt_file(key, os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Type/&#34; + str(
+                ctx.author.id) + &#34;event_types&#34; + &#34;.csv&#34;)
+
+    # Ask for the date
+    await channel.send(
+        &#34;Now give me the date for you event. &#34;
+        + &#34;Here is the format you should follow:\n&#34;
+        + &#34;mm/dd/yy&#34;
+    )
+
+    event_date = False
+    date = &#39;&#39;
+    # A loop that keeps running until a user enters correct start and end dates for their event following the required format
+    while not event_date:
+        msg_content = &#34;&#34;
+        if ctx.message.author != client.user:
+            # Waits for user input
+            date_msg = await client.wait_for(&#34;message&#34;, check=check)
+            # Strips message to just the text the user entered
+            msg_content = date_msg.content
+
+        try:
+            date_ms = msg_content
+            date = datetime.strptime(date_ms, &#34;%m/%d/%y&#34;)
+        except Exception as e:
+            await channel.send(
+                &#34;Looks like &#34;
+                + str(e)
+                + &#34;. Please re-enter your dates.\n&#34;
+                + &#34;Here is the format you should follow:\n&#34;
+                + &#34;mm/dd/yy&#34;
+            )
+            event_date = False
+            continue
+
+        event_date = True
+
+    if date_ms != &#39;&#39;:
+        date_str = date.strftime(&#34;%Y-%m-%d&#34;)
+        events = getEventsOnDate(ctx, date_str)
+        msg = &#39;&#39;
+        inte = findIntersection(date_ms, datetime.strptime(date_ms + &#34; &#34; + range1, &#34;%m/%d/%y %I:%M %p&#34;),
+                                datetime.strptime(date_ms + &#34; &#34; + range2, &#34;%m/%d/%y %I:%M %p&#34;), events)
+        avai_msg = &#34;&#34;
+        if len(inte) == 0:
+            avai_msg += &#34;There is no available time for the event.&#34;
+        else:
+            avai_msg += &#34;There are some available time slots for your event: \n&#34;
+            for t in inte:
+                avai_msg += t.get(&#39;start&#39;).strftime(&#34;%Y-%m-%d %H:%M:%S&#34;) + &#34; - &#34; + t.get(&#39;end&#39;).strftime(
+                    &#34;%Y-%m-%d %H:%M:%S&#34;) + &#34;\n&#34;
+        for e in events:
+            msg += e.name + &#34;, from &#34; + e.start_date + &#34; to &#34; + e.end_date + &#34;\n&#34;
+        await channel.send(
+            &#34;On &#34; + date_str + &#34;, you have scheduled: \n&#34;
+            + msg
+            + &#34;\n&#34;
+            + avai_msg
+        )</code></pre>
+</details>
+</dd>
+<dt id="src.functionality.FindAvailableTime.getEventsOnDate"><code class="name flex">
+<span>def <span class="ident">getEventsOnDate</span></span>(<span>ctx, stdate)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="function">Function</h2>
+<p>getEventsOnDate</p>
+<h2 id="description">Description</h2>
+<p>Fetches the events on a particular day</p>
+<h2 id="input">Input</h2>
+<p>ctx - Discord context window
+yourdate - Date for which events to be pulled</p>
+<h2 id="output">Output</h2>
+<ul>
+<li>Provides a list of events associated with that day</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getEventsOnDate(ctx, stdate):
+    &#34;&#34;&#34;
+    Function:
+        getEventsOnDate
+    Description:
+        Fetches the events on a particular day
+    Input:
+        ctx - Discord context window
+        yourdate - Date for which events to be pulled
+    Output:
+        - Provides a list of events associated with that day
+    &#34;&#34;&#34;
+    key = load_key(str(ctx.author.id))
+    decrypt_file(key, os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Event/&#34; + str(ctx.author.id) + &#34;.csv&#34;)
+    with open(os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Event/&#34; + str(ctx.author.id) + &#34;.csv&#34;,
+              &#34;r&#34;) as calendar_lines:
+        calendar_lines = csv.reader(calendar_lines, delimiter=&#34;,&#34;)
+        fields = next(calendar_lines)  # The column headers will always be the first line of the csv file
+        rows = []
+        line = []
+        line_number = 0
+        for line in calendar_lines:
+            if len(line) &gt; 0:
+                temp = re.split(&#34;\s&#34;, line[2])
+                if str(temp[0]).__contains__(str(stdate)):
+                    rows.append(line)
+
+        Events = []
+        for line in rows:
+            eve = Event(line[1], line[2], line[3], line[4], line[5], line[6])
+            Events.append(eve)
+    encrypt_file(key, os.path.expanduser(&#34;~/Documents&#34;) + &#34;/ScheduleBot/Event/&#34; + str(ctx.author.id) + &#34;.csv&#34;)
+    return Events</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="src.functionality" href="index.html">src.functionality</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="src.functionality.FindAvailableTime.findInter" href="#src.functionality.FindAvailableTime.findInter">findInter</a></code></li>
+<li><code><a title="src.functionality.FindAvailableTime.findIntersection" href="#src.functionality.FindAvailableTime.findIntersection">findIntersection</a></code></li>
+<li><code><a title="src.functionality.FindAvailableTime.find_avaialbleTime" href="#src.functionality.FindAvailableTime.find_avaialbleTime">find_avaialbleTime</a></code></li>
+<li><code><a title="src.functionality.FindAvailableTime.getEventsOnDate" href="#src.functionality.FindAvailableTime.getEventsOnDate">getEventsOnDate</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

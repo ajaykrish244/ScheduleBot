@@ -1,0 +1,1968 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>src.schedulebot API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>src.schedulebot</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import os
+import sys
+import pathlib
+from dotenv import load_dotenv
+from typing import Literal, Optional
+
+import discord
+from discord.components import SelectOption  # type: ignore
+from discord.ext import commands  # type: ignore
+from discord import ui, app_commands
+
+from src.functionality.schedule import SchedModal
+from src.functionality.edit_event_type import edit_event_type
+from src.functionality.Delete_Event import delete_event
+from src.functionality.GoogleEvent import get_events
+from src.functionality.Google import connect_google
+from src.functionality.import_file import import_file
+from src.functionality.export_file import export_file
+from src.functionality.DisplayFreeTime import get_free_time
+from src.functionality.delete_event_type import delete_event_type
+from src.functionality.FindAvailableTime import find_avaialbleTime
+from src.functionality.delete_event_type import delete_event_type
+from src.functionality.DisplayFreeTime import get_free_time
+from src.functionality.export_file import export_file
+from src.functionality.import_file import import_file
+from src.functionality.Google import connect_google
+from src.functionality.GoogleEvent import get_events
+from src.functionality.Delete_Event import delete_event
+from src.functionality.edit_event_type import edit_event_type
+from src.functionality.quick_schedule import quick_schedule
+from src.functionality.search_event import search_event_by_name
+from src.functionality.schedule import SchedModal
+
+load_dotenv()
+TOKEN = os.getenv(&#39;DISCORD_TOKEN&#39;)
+print(TOKEN)
+
+DCPREFIX = &#39;/&#39;
+intents = discord.Intents.all()
+# Creates the bot with a command prefix of &#39;/&#39;
+bot = commands.Bot(command_prefix=DCPREFIX, intents=intents, )
+# Removes the help command, so it can be created using Discord embed pages later
+bot.remove_command(&#34;help&#34;)
+
+
+# class my_modal(ui.Modal, title=&#34;Bot modal&#34;):
+#     answer=ui.TextInput(label=&#34;enter something&#34;, style=discord.TextStyle.short, placeholder=&#34;Yes&#34;)
+#     async def on_submit(self, interaction: discord.Interaction):
+#         await interaction.response.send_message(&#34;hello world&#34;)
+
+
+# https://gist.github.com/AbstractUmbra/a9c188797ae194e592efe05fa129c57f#file-03-syncing_gotchas_and_tricks-md
+
+async def sync(ctx: commands.Context, spec: Optional[Literal[&#34;~&#34;, &#34;*&#34;, &#34;^&#34;]] = None) -&gt; None:
+    &#34;&#34;&#34;
+    Description:
+        Synchronize commands between the global command tree and the current guild&#39;s command tree.
+        This command facilitates the management and synchronization of commands, providing flexibility
+        for local guild-specific or global synchronization based on the specified option.
+
+    Input:
+        - ctx (commands.Context): The context of the command invocation.
+        - spec (Optional[Literal[&#34;~&#34;, &#34;*&#34;, &#34;^&#34;]]): Optional specifier for synchronization:
+            - &#34;~&#34;: Synchronize commands only within the current guild.
+            - &#34;*&#34;: Synchronize commands globally across all guilds.
+            - &#34;^&#34;: Clear all local guild commands before synchronization.
+                This option is followed by a synchronization of global commands to the current guild.
+            - Default (None): Synchronize local guild commands with the global command tree.
+
+    Returns:
+        - None
+
+    Raises:
+        - Exception: Any unexpected exception that may occur during synchronization.
+
+    Example Usage:
+        ```
+        /sync               # Synchronize local guild commands with the global command tree.
+        /sync ~             # Synchronize commands only within the current guild.
+        /sync *             # Synchronize commands globally across all guilds.
+        /sync ^             # Clear local guild commands and sync global commands to current guild.
+        ```
+    &#34;&#34;&#34;
+    try:
+        if spec == &#34;~&#34;:
+            synced = await ctx.bot.tree.sync(guild=ctx.guild)
+        elif spec == &#34;*&#34;:
+            print(&#39;Global...&#39;)
+            synced = await ctx.bot.tree.sync()
+        elif spec == &#34;^&#34;:
+            print(&#39;Clearing...&#39;)
+            ctx.bot.tree.clear_commands(guild=ctx.guild)
+            await ctx.bot.tree.sync(guild=ctx.guild)
+            synced = []
+        else:
+            print(&#39;Local...&#39;)
+            ctx.bot.tree.copy_global_to(guild=ctx.guild)
+            synced = await ctx.bot.tree.sync(guild=ctx.guild)
+
+        await ctx.send(
+            f&#34;Synced {len(synced)} command(s) {&#39;globally&#39; if spec==&#39;*&#39; else &#39;to current guild.&#39;}&#34;
+        )
+
+        print(
+            f&#34;Synced {len(synced)} command(s) {&#39;globally&#39; if spec==&#39;*&#39; else &#39;to current guild.&#39;}&#34;
+        )
+
+    except Exception as e:
+        print(e)
+
+    return
+
+
+# @bot.tree.command(name=&#34;hello&#34;, description=&#39;First Hello Slash Command&#39;)
+# async def hello(interaction: discord.Interaction):
+#     await interaction.response.send_message(
+#         f&#34;Hey {interaction.user.mention}! This is a slash command!&#34;,
+#         ephemeral=True
+#     )
+
+# @bot.tree.command(name=&#34;mymodal&#34;, description=&#39;Modal Command&#39;)
+# async def mymodal(interaction: discord.Interaction):
+#     await interaction.response.send_modal(my_modal())
+
+
+async def schedevent(interaction: discord.Interaction):
+    &#34;&#34;&#34;
+    Description:
+    Schedule an event using an interactive form.
+    
+    Parameters:
+    - interaction (discord.Interaction): The interaction triggering the scheduling command.
+
+    Returns:
+    - None
+
+    Example Usage:
+    ```
+    /schedevent
+    ```
+    &#34;&#34;&#34;
+    await interaction.response.send_modal(SchedModal())
+
+# @bot.tree.command(name=&#34;say&#34;, description=&#39;Says something&#39;)
+# @app_commands.describe(thing_to_say = &#39;What should I say?&#39;)
+# async def say(interaction: discord.Interaction, thing_to_say: str):
+#     await interaction.response.send_message(f&#34;{interaction.user.name} said: \&#34;{thing_to_say}\&#34;&#34;)
+
+# @bot.tree.command(name=&#34;choosecolor&#34;, description=&#39;Chooses a color&#39;)
+# @app_commands.describe(color = &#39;Colors to choose&#39;)
+# @app_commands.choices(color=[
+#     app_commands.Choice(name=&#39;Red&#39;, value=1),
+#     app_commands.Choice(name=&#39;Blu&#39;, value=2),
+#     app_commands.Choice(name=&#39;Grn&#39;, value=3),
+# ])
+# async def color(interaction: discord.Interaction, color: app_commands.Choice[int]):
+#     await interaction.response.send_message(f&#34;Chose color: `{color.name}`&#34;)
+
+# @bot.tree.command(name=&#34;choosedate&#34;, description=&#39;Chooses a Date&#39;)
+# @app_commands.describe(year = &#39;Year&#39;, month = &#39;Month&#39;, day = &#39;Day&#39;)
+# @app_commands.choices(
+#     month=[app_commands.Choice(name=str(i), value=i) for i in range(1,13)],
+#     day=[app_commands.Choice(name=str(i), value=i) for i in range(1,20)]
+# )
+# async def date(interaction: discord.Interaction, year: int, month: app_commands.Choice[int], day: app_commands.Choice[int]):
+#     await interaction.response.send_message(f&#34;Chosen date: `{year}`-`{month.value}`-`{day.value}`&#34;)
+
+
+class helpDropdown(discord.ui.View):
+    &#34;&#34;&#34;
+    Description:
+        The bot sends a message to the user when reacting to the server startup message
+        and runs the &#39;help&#39; command
+    Input:
+        - reaction - The emoji the user reacted to the message with
+        - user - The user who reacted to the post
+    Output:
+        - A welcome message received as a direct message from the bot
+        - The &#39;help&#39; command is automatically run
+    &#34;&#34;&#34;
+    def __init__(self, user):
+        super().__init__()
+        self.user = user
+
+    @discord.ui.select(
+        placeholder=&#34;Choose your help page&#34;, min_values=1, max_values=1,
+        options=[
+            discord.SelectOption(label=&#39;Event&#39;, description=&#39;Events help&#39;),
+            discord.SelectOption(label=&#39;View&#39;, description=&#39;View events&#39;),
+            discord.SelectOption(label=&#39;Event type&#39;,
+                                 description=&#39;Event types help&#39;),
+            discord.SelectOption(
+                label=&#39;Others&#39;, description=&#39;Help on other commands&#39;),
+        ]
+    )
+    async def help_callback(self, interaction: discord.Interaction, select):
+        if interaction.user.id != self.user.id:
+            em = discord.Embed(
+                title=&#34;No U&#34;,
+                description=&#34;This is not for you!&#34;,
+                color=discord.Color.red(),
+            )
+            return await interaction.response.send_message(embed=em, ephemeral=True)
+        select.placeholder = f&#34;{select.values[0]} Help Page&#34;
+
+        if select.values[0] == &#34;Event&#34;:
+            embed = discord.Embed(
+                title=&#34;Event Commands:&#34;,
+                description=&#34;List of commands for working with events.&#34;,
+            )
+            embed.add_field(name=&#34;schedule&#34;,
+                            value=&#34;Creates an event&#34;, inline=False)
+            embed.add_field(
+                name=&#34;quickschedule&#34;,
+                value=&#34;Finds and schedules the first available time slot within the next 24 hours for the specified event type.\n&#34;
+                &#34;Usage: `!quickschedule &lt;event_type&gt;`&#34;,
+                inline=False
+            )
+            embed.add_field(name=&#34;deleteevent&#34;,
+                            value=&#34;Deletes selected event&#34;, inline=False)
+            await interaction.response.edit_message(embed=embed, view=self)
+
+        if select.values[0] == &#34;View&#34;:
+            embed = discord.Embed(
+                title=&#34;View Commands:&#34;,
+                description=&#34;List of commands for viewing events&#34;,
+            )
+            embed.add_field(
+                name=&#34;summary&#34;, value=&#34;Get todays summary&#34;, inline=False)
+            embed.add_field(name=&#34;day&#34;, value=&#34;Shows everything on your schedule for a specific date\n&#34;
+                            &#34;Here is the format you should follow:\n&#34;
+                            f&#34;{DCPREFIX}day today\\tomorrow\\yesterday\n&#34;
+                            f&#34;{DCPREFIX}day 3 (3 days from now)\n&#34;
+                            f&#34;{DCPREFIX}day -3 (3 days ago)\n&#34;
+                            f&#34;{DCPREFIX}day 4/20/22 (On Apr 20, 2022)&#34;,
+
+                            inline=False)
+            embed.add_field(
+                name=&#34;freetime&#34;, value=&#34;Displays when you are available today&#34;, inline=False)
+            embed.add_field(
+                name=&#34;searchEvent&#34;,
+                value=&#34;Search for an event by name in the event table.\n&#34;
+                &#34;Example Usage:&#34;
+                &#34;```&#34;
+                &#39;/searchEvent &#34;Birthday Party&#34;&#39;
+                &#34;```&#34;
+                &#34;This command checks if an event with the specified name exists in the event table.&#34;
+                &#34;If the event is found, a message is sent confirming its existence.&#34;
+                &#34;If the event is not found, a message is sent encouraging the user to add the event.&#34;,
+                inline=False)
+            await interaction.response.edit_message(embed=embed, view=self)
+
+        if select.values[0] == &#34;Event type&#34;:
+            embed = discord.Embed(
+                title=&#34;Event Type Commands:&#34;,
+                description=&#34;List of commands for working with event types.&#34;,
+            )
+            embed.add_field(name=&#34;typecreate&#34;,
+                            value=&#34;Creates a new event type&#34;, inline=False)
+            embed.add_field(name=&#34;typedelete&#34;,
+                            value=&#34;Deletes an event type&#34;, inline=False)
+            embed.add_field(name=&#34;typeedit&#34;,
+                            value=&#34;Edits an event type&#34;, inline=False)
+            await interaction.response.edit_message(embed=embed, view=self)
+
+        if select.values[0] == &#34;Others&#34;:
+            embed = discord.Embed(
+                title=&#34;Other Commands:&#34;,
+                description=&#34;List of other bot commands.&#34;,
+            )
+            embed.add_field(name=&#34;ConnectGoogle&#34;,
+                            value=&#34;Connect to Google Calendar&#34;, inline=False)
+            embed.add_field(
+                name=&#34;GoogleEvents&#34;, value=&#34;Import next 10 events from Google Calendar&#34;, inline=False)
+            embed.add_field(
+                name=&#34;importfile&#34;, value=&#34;Import events from a CSV or ICS file&#34;, inline=False)
+            embed.add_field(
+                name=&#34;exportfile&#34;, value=&#34;Exports a CSV file of your events&#34;, inline=False)
+            embed.add_field(name=&#34;stop&#34;, value=&#34;ExitBot&#34;, inline=False)
+            await interaction.response.edit_message(embed=embed, view=self)
+
+
+
+async def bot_help(ctx: commands.Context):
+    &#34;&#34;&#34;
+    Function:
+        help
+    Description:
+        A command that allows the user to see all usable commands and their descriptions
+    Input:
+        ctx - Discord context window
+    Output:
+        An embed window sent to the context with all commands/descriptions
+    &#34;&#34;&#34;
+
+    view = helpDropdown(ctx.author)
+    embed = discord.Embed(
+        title=&#34;ScheduleBot Commands&#34;,
+        description=f&#34;Here are all the commands to use ScheduleBot\n \
+                      All events are prefaced by an &#39;{DCPREFIX}&#39;&#34;,
+    )
+    embed.add_field(
+        name=&#34;help&#34;, value=&#34;Displays all commands and their descriptions&#34;, inline=False)
+    embed.add_field(name=&#34;schedule&#34;, value=&#34;Creates an event&#34;, inline=False)
+    embed.add_field(
+        name=&#34;quickschedule&#34;,
+        value=&#34;Schedule the first available time slot within the next 24 hrs&#34;,
+        inline=False
+    )
+    embed.add_field(name=&#34;deleteevent&#34;,
+                 value=&#34;Deletes selected event&#34;, inline=False)
+    embed.add_field(name=&#34;summary&#34;, value=&#34;Get todays summary&#34;, inline=False)
+    embed.add_field(
+        name=&#34;day&#34;, value=&#34;Shows everything on your schedule for a specific date&#34;, inline=False)
+    embed.add_field(name=&#34;freetime&#34;,
+                 value=&#34;Displays when you are available today&#34;, inline=False)
+    embed.add_field(
+                name=&#34;searchEvent&#34;, value=&#34;Search for an event by name in the event table.&#34;,
+                inline=False)
+    embed.add_field(name=&#34;typecreate&#34;,
+                 value=&#34;Creates a new event type&#34;, inline=False)
+    embed.add_field(name=&#34;typedelete&#34;,
+                 value=&#34;Deletes an event type&#34;, inline=False)
+    embed.add_field(name=&#34;typeedit&#34;, value=&#34;Edits an event type&#34;, inline=False)
+    embed.add_field(name=&#34;ConnectGoogle&#34;,
+                 value=&#34;Connect to Google Calendar&#34;, inline=False)
+    embed.add_field(name=&#34;GoogleEvents&#34;,
+                 value=&#34;Import next 10 events from Google Calendar&#34;, inline=False)
+    embed.add_field(name=&#34;importfile&#34;,
+                 value=&#34;Import events from a CSV or ICS file&#34;, inline=False)
+    embed.add_field(name=&#34;exportfile&#34;,
+                 value=&#34;Exports a CSV file of your events&#34;, inline=False)
+    embed.add_field(name=&#34;stop&#34;, value=&#34;ExitBot&#34;, inline=False)
+
+    await ctx.send(embed=embed, view=view)
+
+
+
+async def on_ready():
+    &#34;&#34;&#34;
+    Function:
+        on_ready
+    Description:
+        Displays a welcome message to the ScheduleBot server and allows user to receive
+    a direct message from the bot by reacting to the welcome message with an alarm_clock reaction
+    Input:
+        None
+    Output:
+        The welcome message sent to the ScheduleBot server
+    &#34;&#34;&#34;
+    # Outputs bot name to console once bot is started
+    print(f&#34;We have logged in as {bot.user}&#34;)
+    # Gets the channels the bot is currently watching
+    channels = bot.get_all_channels()
+
+    text_channel_count = 0
+    for channel in channels:
+        # break
+        if str(channel.type) != &#39;text&#39;:
+            continue
+
+        text_channel_count += 1
+        msg = await channel.send(
+            &#34;Hello! My name is Schedule Bot and I am here to help you plan your schedule!\n\n&#34;
+            + &#34;React to this message with a &#39;⏰&#39; (\:alarm_clock\:) reaction so I can direct message you!&#34;
+            + &#34;Make sure you have allowed non-friends to direct message you or I can&#39;t help you.&#34;
+        )
+
+        await msg.add_reaction(&#34;⏰&#34;)
+    print(&#34;Sent Welcome Message to&#34;, text_channel_count, &#34;Channel(s)&#34;)
+
+
+
+async def on_reaction_add(reaction: discord.Reaction, user):
+    &#34;&#34;&#34;
+    Function:
+        on_reaction_add
+    Description:
+        The bot sends a message to the user when reacting to the server startup message
+        and runs the &#39;help&#39; command
+    Input:
+        - reaction - The emoji the user reacted to the message with
+        - user - The user who reacted to the post
+    Output:
+        - A welcome message received as a direct message from the bot
+        - The &#39;help&#39; command is automatically run
+    &#34;&#34;&#34;
+    emoji = reaction.emoji
+    author = reaction.message.author
+    # if user is not a bot and the message author is the bot itself
+    if emoji == &#34;⏰&#34; and not user.bot and author == bot.user:
+        try:
+            await user.send(
+                &#34;Nice to meet you &#34;
+                + user.name
+                + &#34;! I am ScheduleBot and I am here to make managing your schedule easier!&#34;
+            )
+            await help(user)
+        except Exception:
+            print(user.name + &#34; (&#34; + user.id +
+                  &#34;) does not have DM permissions set correctly&#34;)
+
+
+
+# @tasks.loop(seconds=5)
+async def summary(ctx):
+    &#34;&#34;&#34;
+    Function:
+        get_highlight
+    Description:
+        Shows the events planned for the day by the user
+    Input:
+        ctx - Discord context window
+        arg - User input argument
+    Output:
+        - A message sent to the context with all the events that start and/or end today
+    &#34;&#34;&#34;
+    print(&#34;executed now&#34;)
+    await get_highlight(ctx, &#34;today&#34;)
+
+
+
+async def schedule(ctx):
+    &#34;&#34;&#34;
+    Function:
+        schedule
+    Description:
+        Calls the add_event function to walk a user through the event creation process
+    Input:
+        ctx - Discord context window
+    Output:
+        - A new event added to the user&#39;s calendar file
+        - A message sent to the context saying an event was successfully created
+    &#34;&#34;&#34;
+    print(type(ctx))
+    # await ctx.interaction.response.send_modal(my_modal())
+    await add_event(ctx, bot)
+
+
+
+async def GoogleEvents(ctx):
+    &#39;&#39;&#39;
+    extract next 10 events in google calendar
+
+    Parameters
+    ----------
+    ctx :  Discord Context Window.
+
+    Returns
+    -------
+    None.
+
+    &#39;&#39;&#39;
+    await get_events(ctx, bot)
+
+
+async def searchEvent(ctx, event_name):
+    &#34;&#34;&#34;
+    Search for an event by name in the event table.
+
+    Parameters:
+    - ctx (commands.Context): The context of the command invocation.
+    - event_name (str): The name of the event to search for.
+
+    Returns:
+    - None
+
+    Example Usage:
+    ```
+    /searchEvent &#34;Birthday Party&#34;
+    ```
+
+    This command checks if an event with the specified name exists in the event table.
+    If the event is found, a message is sent confirming its existence.
+    If the event is not found, a message is sent encouraging the user to add the event.
+
+    &#34;&#34;&#34;
+    event_exists = await search_event_by_name(ctx, event_name)
+
+    if event_exists:
+        await ctx.send(f&#34;The event &#39;{event_name}&#39; exists in the table.&#34;)
+    else:
+        await ctx.send(f&#34;The event &#39;{event_name}&#39; doesn&#39;t exist. You can go ahead and add the event.&#34;)
+
+
+
+async def find(ctx):
+    &#34;&#34;&#34;
+    Function:
+        find
+    Description:
+        Calls the find_avaialbleTime function to walk a user through the range associated with the given event
+    Input:
+        ctx - Discord context window
+    Output:
+        - A new event type is added to the users event_type file
+        - Provides users with the time range for the given event
+    &#34;&#34;&#34;
+    await find_avaialbleTime(ctx, bot)
+
+
+
+async def day(ctx, arg):
+    &#34;&#34;&#34;
+    Function:
+        get_highlight
+    Description:
+        Shows the events planned for the day by the user
+    Input:
+        ctx - Discord context window
+        arg - User input argument
+    Output:
+        - A message sent to the context with all the events that start and/or end today
+    &#34;&#34;&#34;
+    await get_highlight(ctx, arg)
+
+
+
+async def exportfile(ctx):
+    &#34;&#34;&#34;
+    Function:
+        exportfile
+    Description:
+        Sends the user a CSV file containing their scheduled events.
+    Input:
+        ctx - Discord context window
+    Output:
+        - A CSV file sent to the context that contains a user&#39;s scheduled events.
+    &#34;&#34;&#34;
+
+    await export_file(ctx)
+
+
+
+async def importfile(ctx):
+    &#34;&#34;&#34;
+    Function:
+        importfile
+    Description:
+        Reads a CSV or ICS file containing events submitted by the user, and adds those events
+    Input:
+        ctx - Discord context window
+    Output:
+        - Events are added to a users profile.
+    &#34;&#34;&#34;
+
+    await import_file(ctx, bot)
+
+
+# creating new event type
+
+async def typecreate(ctx):
+    &#34;&#34;&#34;
+    Initiates the process of creating a new event type through direct messages.
+
+    Parameters:
+    - ctx (commands.Context): The context of the command invocation.
+
+    Returns:
+    - None
+
+    Example Usage:
+    ```
+    /typecreate
+    ```
+
+    This command guides the user through creating a new event type via direct messages.
+    The bot asks the user to provide the type of the event, waits for the user&#39;s input,
+    and then proceeds to create the event type.
+
+    &#34;&#34;&#34;
+    channel = await ctx.author.create_dm()
+
+    # print(ctx.author.id)
+    def check(m):
+        return m.content is not None and m.channel == channel and m.author == ctx.author
+
+    await channel.send(&#34;First give me the type of your event:&#34;)
+    # Waits for user input
+    event_msg = await bot.wait_for(&#34;message&#34;, check=check)
+    event_msg = event_msg.content  # Strips message to just the text the user entered
+
+    await create_event_type(ctx, bot, event_msg)
+
+# editing event type
+
+
+
+async def typeedit(ctx):
+    &#34;&#34;&#34;
+    Edit an existing event type.
+
+    Parameters:
+    - ctx (commands.Context): The context of the command invocation.
+
+    Returns:
+    - None
+
+    Example Usage:
+    ```
+    !typeedit
+    ```
+
+    This command initiates the process of editing an existing event type.
+    &#34;&#34;&#34;
+    await edit_event_type(ctx, bot)
+
+
+
+async def deleteEvent(ctx):
+    &#34;&#34;&#34;
+    Delete a specific event.
+
+    Parameters:
+    - ctx (commands.Context): The context of the command invocation.
+
+    Returns:
+    - None
+
+    Example Usage:
+    ```
+    !deleteEvent
+    ```
+
+    This command deletes a specific event based on user input.
+    &#34;&#34;&#34;
+    await delete_event(ctx, bot)
+
+
+
+async def typedelete(ctx):
+    &#34;&#34;&#34;
+    Delete an existing event type.
+
+    Parameters:
+    - ctx (commands.Context): The context of the command invocation.
+
+    Returns:
+    - None
+
+    Example Usage:
+    ```
+    !typedelete
+    ```
+
+    This command initiates the process of deleting an existing event type.
+    &#34;&#34;&#34;
+    await delete_event_type(ctx, bot)
+
+
+
+# connecting to google
+
+async def ConnectGoogle(ctx):
+    &#39;&#39;&#39;
+    Connect to google
+
+    Parameters
+    ----------
+    ctx : Discord Context Window.
+
+    Returns
+    -------
+    None.
+
+    &#39;&#39;&#39;
+    gflag = await connect_google(ctx)
+
+
+
+
+async def stop(ctx):
+    &#39;&#39;&#39;
+    Function to stop bot
+
+    Parameters
+    ----------
+    ctx :  Discord Context Window.
+
+    Returns
+    -------
+    None.
+
+    &#39;&#39;&#39;
+    channel = await ctx.author.create_dm()
+    await channel.send(
+        &#34;Thank you for using ScheduleBot. See you again!&#34;
+
+    )
+    await ctx.bot.logout()
+
+
+
+async def freetime(ctx):
+    &#34;&#34;&#34;
+    Function: freetime
+    Description: shows the user their free time today according to the registered events
+    Input:
+        ctx - Discord context window
+        bot - Discord bot user
+    Output:
+        - A message sent to the user channel stating every free time slot that is available today
+    &#34;&#34;&#34;
+    await get_free_time(ctx, bot)
+
+
+
+async def quickschedule(ctx, event_type: str):
+    &#34;&#34;&#34;
+    Function:
+        schedulefind
+    Description:
+        Finds and schedules the first available X contiguous hours, on your preferred hours of the specified type.
+    Input:
+        ctx - Discord context window
+        event_type - Type of event to find
+        contiguous_hours - Number of contiguous hours to find
+    Output:
+        - Schedules the event and notifies the user
+    &#34;&#34;&#34;
+    await quick_schedule(ctx, event_type)
+
+
+# Runs the bot (local machine)
+if __name__ == &#34;__main__&#34;:
+
+    bot.run(TOKEN)
+
+
+# client.run(os.environ[&#39;TOKEN&#39;])  # Runs the bot (repl.it)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="src.schedulebot.ConnectGoogle"><code class="name flex">
+<span>async def <span class="ident">ConnectGoogle</span></span>(<span>ctx)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Connect to google</p>
+<h2 id="parameters">Parameters</h2>
+<p>ctx : Discord Context Window.</p>
+<h2 id="returns">Returns</h2>
+<p>None.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def ConnectGoogle(ctx):
+    &#39;&#39;&#39;
+    Connect to google
+
+    Parameters
+    ----------
+    ctx : Discord Context Window.
+
+    Returns
+    -------
+    None.
+
+    &#39;&#39;&#39;
+    gflag = await connect_google(ctx)</code></pre>
+</details>
+</dd>
+<dt id="src.schedulebot.GoogleEvents"><code class="name flex">
+<span>async def <span class="ident">GoogleEvents</span></span>(<span>ctx)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>extract next 10 events in google calendar</p>
+<h2 id="parameters">Parameters</h2>
+<p>ctx :
+Discord Context Window.</p>
+<h2 id="returns">Returns</h2>
+<p>None.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def GoogleEvents(ctx):
+    &#39;&#39;&#39;
+    extract next 10 events in google calendar
+
+    Parameters
+    ----------
+    ctx :  Discord Context Window.
+
+    Returns
+    -------
+    None.
+
+    &#39;&#39;&#39;
+    await get_events(ctx, bot)</code></pre>
+</details>
+</dd>
+<dt id="src.schedulebot.bot_help"><code class="name flex">
+<span>async def <span class="ident">bot_help</span></span>(<span>ctx: discord.ext.commands.context.Context)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="function">Function</h2>
+<p>help</p>
+<h2 id="description">Description</h2>
+<p>A command that allows the user to see all usable commands and their descriptions</p>
+<h2 id="input">Input</h2>
+<p>ctx - Discord context window</p>
+<h2 id="output">Output</h2>
+<p>An embed window sent to the context with all commands/descriptions</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def bot_help(ctx: commands.Context):
+    &#34;&#34;&#34;
+    Function:
+        help
+    Description:
+        A command that allows the user to see all usable commands and their descriptions
+    Input:
+        ctx - Discord context window
+    Output:
+        An embed window sent to the context with all commands/descriptions
+    &#34;&#34;&#34;
+
+    view = helpDropdown(ctx.author)
+    embed = discord.Embed(
+        title=&#34;ScheduleBot Commands&#34;,
+        description=f&#34;Here are all the commands to use ScheduleBot\n \
+                      All events are prefaced by an &#39;{DCPREFIX}&#39;&#34;,
+    )
+    embed.add_field(
+        name=&#34;help&#34;, value=&#34;Displays all commands and their descriptions&#34;, inline=False)
+    embed.add_field(name=&#34;schedule&#34;, value=&#34;Creates an event&#34;, inline=False)
+    embed.add_field(
+        name=&#34;quickschedule&#34;,
+        value=&#34;Schedule the first available time slot within the next 24 hrs&#34;,
+        inline=False
+    )
+    embed.add_field(name=&#34;deleteevent&#34;,
+                 value=&#34;Deletes selected event&#34;, inline=False)
+    embed.add_field(name=&#34;summary&#34;, value=&#34;Get todays summary&#34;, inline=False)
+    embed.add_field(
+        name=&#34;day&#34;, value=&#34;Shows everything on your schedule for a specific date&#34;, inline=False)
+    embed.add_field(name=&#34;freetime&#34;,
+                 value=&#34;Displays when you are available today&#34;, inline=False)
+    embed.add_field(
+                name=&#34;searchEvent&#34;, value=&#34;Search for an event by name in the event table.&#34;,
+                inline=False)
+    embed.add_field(name=&#34;typecreate&#34;,
+                 value=&#34;Creates a new event type&#34;, inline=False)
+    embed.add_field(name=&#34;typedelete&#34;,
+                 value=&#34;Deletes an event type&#34;, inline=False)
+    embed.add_field(name=&#34;typeedit&#34;, value=&#34;Edits an event type&#34;, inline=False)
+    embed.add_field(name=&#34;ConnectGoogle&#34;,
+                 value=&#34;Connect to Google Calendar&#34;, inline=False)
+    embed.add_field(name=&#34;GoogleEvents&#34;,
+                 value=&#34;Import next 10 events from Google Calendar&#34;, inline=False)
+    embed.add_field(name=&#34;importfile&#34;,
+                 value=&#34;Import events from a CSV or ICS file&#34;, inline=False)
+    embed.add_field(name=&#34;exportfile&#34;,
+                 value=&#34;Exports a CSV file of your events&#34;, inline=False)
+    embed.add_field(name=&#34;stop&#34;, value=&#34;ExitBot&#34;, inline=False)
+
+    await ctx.send(embed=embed, view=view)</code></pre>
+</details>
+</dd>
+<dt id="src.schedulebot.day"><code class="name flex">
+<span>async def <span class="ident">day</span></span>(<span>ctx, arg)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="function">Function</h2>
+<p>get_highlight</p>
+<h2 id="description">Description</h2>
+<p>Shows the events planned for the day by the user</p>
+<h2 id="input">Input</h2>
+<p>ctx - Discord context window
+arg - User input argument</p>
+<h2 id="output">Output</h2>
+<ul>
+<li>A message sent to the context with all the events that start and/or end today</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def day(ctx, arg):
+    &#34;&#34;&#34;
+    Function:
+        get_highlight
+    Description:
+        Shows the events planned for the day by the user
+    Input:
+        ctx - Discord context window
+        arg - User input argument
+    Output:
+        - A message sent to the context with all the events that start and/or end today
+    &#34;&#34;&#34;
+    await get_highlight(ctx, arg)</code></pre>
+</details>
+</dd>
+<dt id="src.schedulebot.deleteEvent"><code class="name flex">
+<span>async def <span class="ident">deleteEvent</span></span>(<span>ctx)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Delete a specific event.</p>
+<p>Parameters:
+- ctx (commands.Context): The context of the command invocation.</p>
+<p>Returns:
+- None</p>
+<p>Example Usage:</p>
+<pre><code>!deleteEvent
+</code></pre>
+<p>This command deletes a specific event based on user input.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def deleteEvent(ctx):
+    &#34;&#34;&#34;
+    Delete a specific event.
+
+    Parameters:
+    - ctx (commands.Context): The context of the command invocation.
+
+    Returns:
+    - None
+
+    Example Usage:
+    ```
+    !deleteEvent
+    ```
+
+    This command deletes a specific event based on user input.
+    &#34;&#34;&#34;
+    await delete_event(ctx, bot)</code></pre>
+</details>
+</dd>
+<dt id="src.schedulebot.exportfile"><code class="name flex">
+<span>async def <span class="ident">exportfile</span></span>(<span>ctx)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="function">Function</h2>
+<p>exportfile</p>
+<h2 id="description">Description</h2>
+<p>Sends the user a CSV file containing their scheduled events.</p>
+<h2 id="input">Input</h2>
+<p>ctx - Discord context window</p>
+<h2 id="output">Output</h2>
+<ul>
+<li>A CSV file sent to the context that contains a user's scheduled events.</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def exportfile(ctx):
+    &#34;&#34;&#34;
+    Function:
+        exportfile
+    Description:
+        Sends the user a CSV file containing their scheduled events.
+    Input:
+        ctx - Discord context window
+    Output:
+        - A CSV file sent to the context that contains a user&#39;s scheduled events.
+    &#34;&#34;&#34;
+
+    await export_file(ctx)</code></pre>
+</details>
+</dd>
+<dt id="src.schedulebot.find"><code class="name flex">
+<span>async def <span class="ident">find</span></span>(<span>ctx)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="function">Function</h2>
+<p>find</p>
+<h2 id="description">Description</h2>
+<p>Calls the find_avaialbleTime function to walk a user through the range associated with the given event</p>
+<h2 id="input">Input</h2>
+<p>ctx - Discord context window</p>
+<h2 id="output">Output</h2>
+<ul>
+<li>A new event type is added to the users event_type file</li>
+<li>Provides users with the time range for the given event</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def find(ctx):
+    &#34;&#34;&#34;
+    Function:
+        find
+    Description:
+        Calls the find_avaialbleTime function to walk a user through the range associated with the given event
+    Input:
+        ctx - Discord context window
+    Output:
+        - A new event type is added to the users event_type file
+        - Provides users with the time range for the given event
+    &#34;&#34;&#34;
+    await find_avaialbleTime(ctx, bot)</code></pre>
+</details>
+</dd>
+<dt id="src.schedulebot.freetime"><code class="name flex">
+<span>async def <span class="ident">freetime</span></span>(<span>ctx)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Function: freetime
+Description: shows the user their free time today according to the registered events</p>
+<h2 id="input">Input</h2>
+<p>ctx - Discord context window
+bot - Discord bot user</p>
+<h2 id="output">Output</h2>
+<ul>
+<li>A message sent to the user channel stating every free time slot that is available today</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def freetime(ctx):
+    &#34;&#34;&#34;
+    Function: freetime
+    Description: shows the user their free time today according to the registered events
+    Input:
+        ctx - Discord context window
+        bot - Discord bot user
+    Output:
+        - A message sent to the user channel stating every free time slot that is available today
+    &#34;&#34;&#34;
+    await get_free_time(ctx, bot)</code></pre>
+</details>
+</dd>
+<dt id="src.schedulebot.importfile"><code class="name flex">
+<span>async def <span class="ident">importfile</span></span>(<span>ctx)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="function">Function</h2>
+<p>importfile</p>
+<h2 id="description">Description</h2>
+<p>Reads a CSV or ICS file containing events submitted by the user, and adds those events</p>
+<h2 id="input">Input</h2>
+<p>ctx - Discord context window</p>
+<h2 id="output">Output</h2>
+<ul>
+<li>Events are added to a users profile.</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def importfile(ctx):
+    &#34;&#34;&#34;
+    Function:
+        importfile
+    Description:
+        Reads a CSV or ICS file containing events submitted by the user, and adds those events
+    Input:
+        ctx - Discord context window
+    Output:
+        - Events are added to a users profile.
+    &#34;&#34;&#34;
+
+    await import_file(ctx, bot)</code></pre>
+</details>
+</dd>
+<dt id="src.schedulebot.on_reaction_add"><code class="name flex">
+<span>async def <span class="ident">on_reaction_add</span></span>(<span>reaction: discord.reaction.Reaction, user)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="function">Function</h2>
+<p>on_reaction_add</p>
+<h2 id="description">Description</h2>
+<p>The bot sends a message to the user when reacting to the server startup message
+and runs the 'help' command</p>
+<h2 id="input">Input</h2>
+<ul>
+<li>reaction - The emoji the user reacted to the message with</li>
+<li>user - The user who reacted to the post</li>
+</ul>
+<h2 id="output">Output</h2>
+<ul>
+<li>A welcome message received as a direct message from the bot</li>
+<li>The 'help' command is automatically run</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def on_reaction_add(reaction: discord.Reaction, user):
+    &#34;&#34;&#34;
+    Function:
+        on_reaction_add
+    Description:
+        The bot sends a message to the user when reacting to the server startup message
+        and runs the &#39;help&#39; command
+    Input:
+        - reaction - The emoji the user reacted to the message with
+        - user - The user who reacted to the post
+    Output:
+        - A welcome message received as a direct message from the bot
+        - The &#39;help&#39; command is automatically run
+    &#34;&#34;&#34;
+    emoji = reaction.emoji
+    author = reaction.message.author
+    # if user is not a bot and the message author is the bot itself
+    if emoji == &#34;⏰&#34; and not user.bot and author == bot.user:
+        try:
+            await user.send(
+                &#34;Nice to meet you &#34;
+                + user.name
+                + &#34;! I am ScheduleBot and I am here to make managing your schedule easier!&#34;
+            )
+            await help(user)
+        except Exception:
+            print(user.name + &#34; (&#34; + user.id +
+                  &#34;) does not have DM permissions set correctly&#34;)</code></pre>
+</details>
+</dd>
+<dt id="src.schedulebot.on_ready"><code class="name flex">
+<span>async def <span class="ident">on_ready</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="function">Function</h2>
+<p>on_ready</p>
+<h2 id="description">Description</h2>
+<p>Displays a welcome message to the ScheduleBot server and allows user to receive
+a direct message from the bot by reacting to the welcome message with an alarm_clock reaction</p>
+<h2 id="input">Input</h2>
+<p>None</p>
+<h2 id="output">Output</h2>
+<p>The welcome message sent to the ScheduleBot server</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def on_ready():
+    &#34;&#34;&#34;
+    Function:
+        on_ready
+    Description:
+        Displays a welcome message to the ScheduleBot server and allows user to receive
+    a direct message from the bot by reacting to the welcome message with an alarm_clock reaction
+    Input:
+        None
+    Output:
+        The welcome message sent to the ScheduleBot server
+    &#34;&#34;&#34;
+    # Outputs bot name to console once bot is started
+    print(f&#34;We have logged in as {bot.user}&#34;)
+    # Gets the channels the bot is currently watching
+    channels = bot.get_all_channels()
+
+    text_channel_count = 0
+    for channel in channels:
+        # break
+        if str(channel.type) != &#39;text&#39;:
+            continue
+
+        text_channel_count += 1
+        msg = await channel.send(
+            &#34;Hello! My name is Schedule Bot and I am here to help you plan your schedule!\n\n&#34;
+            + &#34;React to this message with a &#39;⏰&#39; (\:alarm_clock\:) reaction so I can direct message you!&#34;
+            + &#34;Make sure you have allowed non-friends to direct message you or I can&#39;t help you.&#34;
+        )
+
+        await msg.add_reaction(&#34;⏰&#34;)
+    print(&#34;Sent Welcome Message to&#34;, text_channel_count, &#34;Channel(s)&#34;)</code></pre>
+</details>
+</dd>
+<dt id="src.schedulebot.quickschedule"><code class="name flex">
+<span>async def <span class="ident">quickschedule</span></span>(<span>ctx, event_type: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="function">Function</h2>
+<p>schedulefind</p>
+<h2 id="description">Description</h2>
+<p>Finds and schedules the first available X contiguous hours, on your preferred hours of the specified type.</p>
+<h2 id="input">Input</h2>
+<p>ctx - Discord context window
+event_type - Type of event to find
+contiguous_hours - Number of contiguous hours to find</p>
+<h2 id="output">Output</h2>
+<ul>
+<li>Schedules the event and notifies the user</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def quickschedule(ctx, event_type: str):
+    &#34;&#34;&#34;
+    Function:
+        schedulefind
+    Description:
+        Finds and schedules the first available X contiguous hours, on your preferred hours of the specified type.
+    Input:
+        ctx - Discord context window
+        event_type - Type of event to find
+        contiguous_hours - Number of contiguous hours to find
+    Output:
+        - Schedules the event and notifies the user
+    &#34;&#34;&#34;
+    await quick_schedule(ctx, event_type)</code></pre>
+</details>
+</dd>
+<dt id="src.schedulebot.schedevent"><code class="name flex">
+<span>async def <span class="ident">schedevent</span></span>(<span>interaction: discord.interactions.Interaction)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Description:
+Schedule an event using an interactive form.</p>
+<p>Parameters:
+- interaction (discord.Interaction): The interaction triggering the scheduling command.</p>
+<p>Returns:
+- None</p>
+<p>Example Usage:</p>
+<pre><code>/schedevent
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def schedevent(interaction: discord.Interaction):
+    &#34;&#34;&#34;
+    Description:
+    Schedule an event using an interactive form.
+    
+    Parameters:
+    - interaction (discord.Interaction): The interaction triggering the scheduling command.
+
+    Returns:
+    - None
+
+    Example Usage:
+    ```
+    /schedevent
+    ```
+    &#34;&#34;&#34;
+    await interaction.response.send_modal(SchedModal())</code></pre>
+</details>
+</dd>
+<dt id="src.schedulebot.schedule"><code class="name flex">
+<span>async def <span class="ident">schedule</span></span>(<span>ctx)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="function">Function</h2>
+<p>schedule</p>
+<h2 id="description">Description</h2>
+<p>Calls the add_event function to walk a user through the event creation process</p>
+<h2 id="input">Input</h2>
+<p>ctx - Discord context window</p>
+<h2 id="output">Output</h2>
+<ul>
+<li>A new event added to the user's calendar file</li>
+<li>A message sent to the context saying an event was successfully created</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def schedule(ctx):
+    &#34;&#34;&#34;
+    Function:
+        schedule
+    Description:
+        Calls the add_event function to walk a user through the event creation process
+    Input:
+        ctx - Discord context window
+    Output:
+        - A new event added to the user&#39;s calendar file
+        - A message sent to the context saying an event was successfully created
+    &#34;&#34;&#34;
+    print(type(ctx))
+    # await ctx.interaction.response.send_modal(my_modal())
+    await add_event(ctx, bot)</code></pre>
+</details>
+</dd>
+<dt id="src.schedulebot.searchEvent"><code class="name flex">
+<span>async def <span class="ident">searchEvent</span></span>(<span>ctx, event_name)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Search for an event by name in the event table.</p>
+<p>Parameters:
+- ctx (commands.Context): The context of the command invocation.
+- event_name (str): The name of the event to search for.</p>
+<p>Returns:
+- None</p>
+<p>Example Usage:</p>
+<pre><code>/searchEvent &quot;Birthday Party&quot;
+</code></pre>
+<p>This command checks if an event with the specified name exists in the event table.
+If the event is found, a message is sent confirming its existence.
+If the event is not found, a message is sent encouraging the user to add the event.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def searchEvent(ctx, event_name):
+    &#34;&#34;&#34;
+    Search for an event by name in the event table.
+
+    Parameters:
+    - ctx (commands.Context): The context of the command invocation.
+    - event_name (str): The name of the event to search for.
+
+    Returns:
+    - None
+
+    Example Usage:
+    ```
+    /searchEvent &#34;Birthday Party&#34;
+    ```
+
+    This command checks if an event with the specified name exists in the event table.
+    If the event is found, a message is sent confirming its existence.
+    If the event is not found, a message is sent encouraging the user to add the event.
+
+    &#34;&#34;&#34;
+    event_exists = await search_event_by_name(ctx, event_name)
+
+    if event_exists:
+        await ctx.send(f&#34;The event &#39;{event_name}&#39; exists in the table.&#34;)
+    else:
+        await ctx.send(f&#34;The event &#39;{event_name}&#39; doesn&#39;t exist. You can go ahead and add the event.&#34;)</code></pre>
+</details>
+</dd>
+<dt id="src.schedulebot.stop"><code class="name flex">
+<span>async def <span class="ident">stop</span></span>(<span>ctx)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Function to stop bot</p>
+<h2 id="parameters">Parameters</h2>
+<p>ctx :
+Discord Context Window.</p>
+<h2 id="returns">Returns</h2>
+<p>None.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def stop(ctx):
+    &#39;&#39;&#39;
+    Function to stop bot
+
+    Parameters
+    ----------
+    ctx :  Discord Context Window.
+
+    Returns
+    -------
+    None.
+
+    &#39;&#39;&#39;
+    channel = await ctx.author.create_dm()
+    await channel.send(
+        &#34;Thank you for using ScheduleBot. See you again!&#34;
+
+    )
+    await ctx.bot.logout()</code></pre>
+</details>
+</dd>
+<dt id="src.schedulebot.summary"><code class="name flex">
+<span>async def <span class="ident">summary</span></span>(<span>ctx)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="function">Function</h2>
+<p>get_highlight</p>
+<h2 id="description">Description</h2>
+<p>Shows the events planned for the day by the user</p>
+<h2 id="input">Input</h2>
+<p>ctx - Discord context window
+arg - User input argument</p>
+<h2 id="output">Output</h2>
+<ul>
+<li>A message sent to the context with all the events that start and/or end today</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def summary(ctx):
+    &#34;&#34;&#34;
+    Function:
+        get_highlight
+    Description:
+        Shows the events planned for the day by the user
+    Input:
+        ctx - Discord context window
+        arg - User input argument
+    Output:
+        - A message sent to the context with all the events that start and/or end today
+    &#34;&#34;&#34;
+    print(&#34;executed now&#34;)
+    await get_highlight(ctx, &#34;today&#34;)</code></pre>
+</details>
+</dd>
+<dt id="src.schedulebot.sync"><code class="name flex">
+<span>async def <span class="ident">sync</span></span>(<span>ctx: discord.ext.commands.context.Context, spec: Optional[Literal['~', '*', '^']] = None) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="description">Description</h2>
+<p>Synchronize commands between the global command tree and the current guild's command tree.
+This command facilitates the management and synchronization of commands, providing flexibility
+for local guild-specific or global synchronization based on the specified option.</p>
+<h2 id="input">Input</h2>
+<ul>
+<li>ctx (commands.Context): The context of the command invocation.</li>
+<li>spec (Optional[Literal["~", "*", "^"]]): Optional specifier for synchronization:<ul>
+<li>"~": Synchronize commands only within the current guild.</li>
+<li>"*": Synchronize commands globally across all guilds.</li>
+<li>"^": Clear all local guild commands before synchronization.
+This option is followed by a synchronization of global commands to the current guild.</li>
+<li>Default (None): Synchronize local guild commands with the global command tree.</li>
+</ul>
+</li>
+</ul>
+<h2 id="returns">Returns</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="raises">Raises</h2>
+<ul>
+<li>Exception: Any unexpected exception that may occur during synchronization.
+Example Usage:
+<code>/sync
+# Synchronize local guild commands with the global command tree.
+/sync ~
+# Synchronize commands only within the current guild.
+/sync *
+# Synchronize commands globally across all guilds.
+/sync ^
+# Clear local guild commands and sync global commands to current guild.</code></li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def sync(ctx: commands.Context, spec: Optional[Literal[&#34;~&#34;, &#34;*&#34;, &#34;^&#34;]] = None) -&gt; None:
+    &#34;&#34;&#34;
+    Description:
+        Synchronize commands between the global command tree and the current guild&#39;s command tree.
+        This command facilitates the management and synchronization of commands, providing flexibility
+        for local guild-specific or global synchronization based on the specified option.
+
+    Input:
+        - ctx (commands.Context): The context of the command invocation.
+        - spec (Optional[Literal[&#34;~&#34;, &#34;*&#34;, &#34;^&#34;]]): Optional specifier for synchronization:
+            - &#34;~&#34;: Synchronize commands only within the current guild.
+            - &#34;*&#34;: Synchronize commands globally across all guilds.
+            - &#34;^&#34;: Clear all local guild commands before synchronization.
+                This option is followed by a synchronization of global commands to the current guild.
+            - Default (None): Synchronize local guild commands with the global command tree.
+
+    Returns:
+        - None
+
+    Raises:
+        - Exception: Any unexpected exception that may occur during synchronization.
+
+    Example Usage:
+        ```
+        /sync               # Synchronize local guild commands with the global command tree.
+        /sync ~             # Synchronize commands only within the current guild.
+        /sync *             # Synchronize commands globally across all guilds.
+        /sync ^             # Clear local guild commands and sync global commands to current guild.
+        ```
+    &#34;&#34;&#34;
+    try:
+        if spec == &#34;~&#34;:
+            synced = await ctx.bot.tree.sync(guild=ctx.guild)
+        elif spec == &#34;*&#34;:
+            print(&#39;Global...&#39;)
+            synced = await ctx.bot.tree.sync()
+        elif spec == &#34;^&#34;:
+            print(&#39;Clearing...&#39;)
+            ctx.bot.tree.clear_commands(guild=ctx.guild)
+            await ctx.bot.tree.sync(guild=ctx.guild)
+            synced = []
+        else:
+            print(&#39;Local...&#39;)
+            ctx.bot.tree.copy_global_to(guild=ctx.guild)
+            synced = await ctx.bot.tree.sync(guild=ctx.guild)
+
+        await ctx.send(
+            f&#34;Synced {len(synced)} command(s) {&#39;globally&#39; if spec==&#39;*&#39; else &#39;to current guild.&#39;}&#34;
+        )
+
+        print(
+            f&#34;Synced {len(synced)} command(s) {&#39;globally&#39; if spec==&#39;*&#39; else &#39;to current guild.&#39;}&#34;
+        )
+
+    except Exception as e:
+        print(e)
+
+    return</code></pre>
+</details>
+</dd>
+<dt id="src.schedulebot.typecreate"><code class="name flex">
+<span>async def <span class="ident">typecreate</span></span>(<span>ctx)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Initiates the process of creating a new event type through direct messages.</p>
+<p>Parameters:
+- ctx (commands.Context): The context of the command invocation.</p>
+<p>Returns:
+- None</p>
+<p>Example Usage:</p>
+<pre><code>/typecreate
+</code></pre>
+<p>This command guides the user through creating a new event type via direct messages.
+The bot asks the user to provide the type of the event, waits for the user's input,
+and then proceeds to create the event type.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def typecreate(ctx):
+    &#34;&#34;&#34;
+    Initiates the process of creating a new event type through direct messages.
+
+    Parameters:
+    - ctx (commands.Context): The context of the command invocation.
+
+    Returns:
+    - None
+
+    Example Usage:
+    ```
+    /typecreate
+    ```
+
+    This command guides the user through creating a new event type via direct messages.
+    The bot asks the user to provide the type of the event, waits for the user&#39;s input,
+    and then proceeds to create the event type.
+
+    &#34;&#34;&#34;
+    channel = await ctx.author.create_dm()
+
+    # print(ctx.author.id)
+    def check(m):
+        return m.content is not None and m.channel == channel and m.author == ctx.author
+
+    await channel.send(&#34;First give me the type of your event:&#34;)
+    # Waits for user input
+    event_msg = await bot.wait_for(&#34;message&#34;, check=check)
+    event_msg = event_msg.content  # Strips message to just the text the user entered
+
+    await create_event_type(ctx, bot, event_msg)</code></pre>
+</details>
+</dd>
+<dt id="src.schedulebot.typedelete"><code class="name flex">
+<span>async def <span class="ident">typedelete</span></span>(<span>ctx)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Delete an existing event type.</p>
+<p>Parameters:
+- ctx (commands.Context): The context of the command invocation.</p>
+<p>Returns:
+- None</p>
+<p>Example Usage:</p>
+<pre><code>!typedelete
+</code></pre>
+<p>This command initiates the process of deleting an existing event type.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def typedelete(ctx):
+    &#34;&#34;&#34;
+    Delete an existing event type.
+
+    Parameters:
+    - ctx (commands.Context): The context of the command invocation.
+
+    Returns:
+    - None
+
+    Example Usage:
+    ```
+    !typedelete
+    ```
+
+    This command initiates the process of deleting an existing event type.
+    &#34;&#34;&#34;
+    await delete_event_type(ctx, bot)</code></pre>
+</details>
+</dd>
+<dt id="src.schedulebot.typeedit"><code class="name flex">
+<span>async def <span class="ident">typeedit</span></span>(<span>ctx)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Edit an existing event type.</p>
+<p>Parameters:
+- ctx (commands.Context): The context of the command invocation.</p>
+<p>Returns:
+- None</p>
+<p>Example Usage:</p>
+<pre><code>!typeedit
+</code></pre>
+<p>This command initiates the process of editing an existing event type.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def typeedit(ctx):
+    &#34;&#34;&#34;
+    Edit an existing event type.
+
+    Parameters:
+    - ctx (commands.Context): The context of the command invocation.
+
+    Returns:
+    - None
+
+    Example Usage:
+    ```
+    !typeedit
+    ```
+
+    This command initiates the process of editing an existing event type.
+    &#34;&#34;&#34;
+    await edit_event_type(ctx, bot)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="src.schedulebot.helpDropdown"><code class="flex name class">
+<span>class <span class="ident">helpDropdown</span></span>
+<span>(</span><span>user)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="description">Description</h2>
+<p>The bot sends a message to the user when reacting to the server startup message
+and runs the 'help' command</p>
+<h2 id="input">Input</h2>
+<ul>
+<li>reaction - The emoji the user reacted to the message with</li>
+<li>user - The user who reacted to the post</li>
+</ul>
+<h2 id="output">Output</h2>
+<ul>
+<li>A welcome message received as a direct message from the bot</li>
+<li>The 'help' command is automatically run</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class helpDropdown(discord.ui.View):
+    &#34;&#34;&#34;
+    Description:
+        The bot sends a message to the user when reacting to the server startup message
+        and runs the &#39;help&#39; command
+    Input:
+        - reaction - The emoji the user reacted to the message with
+        - user - The user who reacted to the post
+    Output:
+        - A welcome message received as a direct message from the bot
+        - The &#39;help&#39; command is automatically run
+    &#34;&#34;&#34;
+    def __init__(self, user):
+        super().__init__()
+        self.user = user
+
+    @discord.ui.select(
+        placeholder=&#34;Choose your help page&#34;, min_values=1, max_values=1,
+        options=[
+            discord.SelectOption(label=&#39;Event&#39;, description=&#39;Events help&#39;),
+            discord.SelectOption(label=&#39;View&#39;, description=&#39;View events&#39;),
+            discord.SelectOption(label=&#39;Event type&#39;,
+                                 description=&#39;Event types help&#39;),
+            discord.SelectOption(
+                label=&#39;Others&#39;, description=&#39;Help on other commands&#39;),
+        ]
+    )
+    async def help_callback(self, interaction: discord.Interaction, select):
+        if interaction.user.id != self.user.id:
+            em = discord.Embed(
+                title=&#34;No U&#34;,
+                description=&#34;This is not for you!&#34;,
+                color=discord.Color.red(),
+            )
+            return await interaction.response.send_message(embed=em, ephemeral=True)
+        select.placeholder = f&#34;{select.values[0]} Help Page&#34;
+
+        if select.values[0] == &#34;Event&#34;:
+            embed = discord.Embed(
+                title=&#34;Event Commands:&#34;,
+                description=&#34;List of commands for working with events.&#34;,
+            )
+            embed.add_field(name=&#34;schedule&#34;,
+                            value=&#34;Creates an event&#34;, inline=False)
+            embed.add_field(
+                name=&#34;quickschedule&#34;,
+                value=&#34;Finds and schedules the first available time slot within the next 24 hours for the specified event type.\n&#34;
+                &#34;Usage: `!quickschedule &lt;event_type&gt;`&#34;,
+                inline=False
+            )
+            embed.add_field(name=&#34;deleteevent&#34;,
+                            value=&#34;Deletes selected event&#34;, inline=False)
+            await interaction.response.edit_message(embed=embed, view=self)
+
+        if select.values[0] == &#34;View&#34;:
+            embed = discord.Embed(
+                title=&#34;View Commands:&#34;,
+                description=&#34;List of commands for viewing events&#34;,
+            )
+            embed.add_field(
+                name=&#34;summary&#34;, value=&#34;Get todays summary&#34;, inline=False)
+            embed.add_field(name=&#34;day&#34;, value=&#34;Shows everything on your schedule for a specific date\n&#34;
+                            &#34;Here is the format you should follow:\n&#34;
+                            f&#34;{DCPREFIX}day today\\tomorrow\\yesterday\n&#34;
+                            f&#34;{DCPREFIX}day 3 (3 days from now)\n&#34;
+                            f&#34;{DCPREFIX}day -3 (3 days ago)\n&#34;
+                            f&#34;{DCPREFIX}day 4/20/22 (On Apr 20, 2022)&#34;,
+
+                            inline=False)
+            embed.add_field(
+                name=&#34;freetime&#34;, value=&#34;Displays when you are available today&#34;, inline=False)
+            embed.add_field(
+                name=&#34;searchEvent&#34;,
+                value=&#34;Search for an event by name in the event table.\n&#34;
+                &#34;Example Usage:&#34;
+                &#34;```&#34;
+                &#39;/searchEvent &#34;Birthday Party&#34;&#39;
+                &#34;```&#34;
+                &#34;This command checks if an event with the specified name exists in the event table.&#34;
+                &#34;If the event is found, a message is sent confirming its existence.&#34;
+                &#34;If the event is not found, a message is sent encouraging the user to add the event.&#34;,
+                inline=False)
+            await interaction.response.edit_message(embed=embed, view=self)
+
+        if select.values[0] == &#34;Event type&#34;:
+            embed = discord.Embed(
+                title=&#34;Event Type Commands:&#34;,
+                description=&#34;List of commands for working with event types.&#34;,
+            )
+            embed.add_field(name=&#34;typecreate&#34;,
+                            value=&#34;Creates a new event type&#34;, inline=False)
+            embed.add_field(name=&#34;typedelete&#34;,
+                            value=&#34;Deletes an event type&#34;, inline=False)
+            embed.add_field(name=&#34;typeedit&#34;,
+                            value=&#34;Edits an event type&#34;, inline=False)
+            await interaction.response.edit_message(embed=embed, view=self)
+
+        if select.values[0] == &#34;Others&#34;:
+            embed = discord.Embed(
+                title=&#34;Other Commands:&#34;,
+                description=&#34;List of other bot commands.&#34;,
+            )
+            embed.add_field(name=&#34;ConnectGoogle&#34;,
+                            value=&#34;Connect to Google Calendar&#34;, inline=False)
+            embed.add_field(
+                name=&#34;GoogleEvents&#34;, value=&#34;Import next 10 events from Google Calendar&#34;, inline=False)
+            embed.add_field(
+                name=&#34;importfile&#34;, value=&#34;Import events from a CSV or ICS file&#34;, inline=False)
+            embed.add_field(
+                name=&#34;exportfile&#34;, value=&#34;Exports a CSV file of your events&#34;, inline=False)
+            embed.add_field(name=&#34;stop&#34;, value=&#34;ExitBot&#34;, inline=False)
+            await interaction.response.edit_message(embed=embed, view=self)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>discord.ui.view.View</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="src.schedulebot.helpDropdown.help_callback"><code class="name flex">
+<span>async def <span class="ident">help_callback</span></span>(<span>self, interaction: discord.interactions.Interaction, select)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@discord.ui.select(
+    placeholder=&#34;Choose your help page&#34;, min_values=1, max_values=1,
+    options=[
+        discord.SelectOption(label=&#39;Event&#39;, description=&#39;Events help&#39;),
+        discord.SelectOption(label=&#39;View&#39;, description=&#39;View events&#39;),
+        discord.SelectOption(label=&#39;Event type&#39;,
+                             description=&#39;Event types help&#39;),
+        discord.SelectOption(
+            label=&#39;Others&#39;, description=&#39;Help on other commands&#39;),
+    ]
+)
+async def help_callback(self, interaction: discord.Interaction, select):
+    if interaction.user.id != self.user.id:
+        em = discord.Embed(
+            title=&#34;No U&#34;,
+            description=&#34;This is not for you!&#34;,
+            color=discord.Color.red(),
+        )
+        return await interaction.response.send_message(embed=em, ephemeral=True)
+    select.placeholder = f&#34;{select.values[0]} Help Page&#34;
+
+    if select.values[0] == &#34;Event&#34;:
+        embed = discord.Embed(
+            title=&#34;Event Commands:&#34;,
+            description=&#34;List of commands for working with events.&#34;,
+        )
+        embed.add_field(name=&#34;schedule&#34;,
+                        value=&#34;Creates an event&#34;, inline=False)
+        embed.add_field(
+            name=&#34;quickschedule&#34;,
+            value=&#34;Finds and schedules the first available time slot within the next 24 hours for the specified event type.\n&#34;
+            &#34;Usage: `!quickschedule &lt;event_type&gt;`&#34;,
+            inline=False
+        )
+        embed.add_field(name=&#34;deleteevent&#34;,
+                        value=&#34;Deletes selected event&#34;, inline=False)
+        await interaction.response.edit_message(embed=embed, view=self)
+
+    if select.values[0] == &#34;View&#34;:
+        embed = discord.Embed(
+            title=&#34;View Commands:&#34;,
+            description=&#34;List of commands for viewing events&#34;,
+        )
+        embed.add_field(
+            name=&#34;summary&#34;, value=&#34;Get todays summary&#34;, inline=False)
+        embed.add_field(name=&#34;day&#34;, value=&#34;Shows everything on your schedule for a specific date\n&#34;
+                        &#34;Here is the format you should follow:\n&#34;
+                        f&#34;{DCPREFIX}day today\\tomorrow\\yesterday\n&#34;
+                        f&#34;{DCPREFIX}day 3 (3 days from now)\n&#34;
+                        f&#34;{DCPREFIX}day -3 (3 days ago)\n&#34;
+                        f&#34;{DCPREFIX}day 4/20/22 (On Apr 20, 2022)&#34;,
+
+                        inline=False)
+        embed.add_field(
+            name=&#34;freetime&#34;, value=&#34;Displays when you are available today&#34;, inline=False)
+        embed.add_field(
+            name=&#34;searchEvent&#34;,
+            value=&#34;Search for an event by name in the event table.\n&#34;
+            &#34;Example Usage:&#34;
+            &#34;```&#34;
+            &#39;/searchEvent &#34;Birthday Party&#34;&#39;
+            &#34;```&#34;
+            &#34;This command checks if an event with the specified name exists in the event table.&#34;
+            &#34;If the event is found, a message is sent confirming its existence.&#34;
+            &#34;If the event is not found, a message is sent encouraging the user to add the event.&#34;,
+            inline=False)
+        await interaction.response.edit_message(embed=embed, view=self)
+
+    if select.values[0] == &#34;Event type&#34;:
+        embed = discord.Embed(
+            title=&#34;Event Type Commands:&#34;,
+            description=&#34;List of commands for working with event types.&#34;,
+        )
+        embed.add_field(name=&#34;typecreate&#34;,
+                        value=&#34;Creates a new event type&#34;, inline=False)
+        embed.add_field(name=&#34;typedelete&#34;,
+                        value=&#34;Deletes an event type&#34;, inline=False)
+        embed.add_field(name=&#34;typeedit&#34;,
+                        value=&#34;Edits an event type&#34;, inline=False)
+        await interaction.response.edit_message(embed=embed, view=self)
+
+    if select.values[0] == &#34;Others&#34;:
+        embed = discord.Embed(
+            title=&#34;Other Commands:&#34;,
+            description=&#34;List of other bot commands.&#34;,
+        )
+        embed.add_field(name=&#34;ConnectGoogle&#34;,
+                        value=&#34;Connect to Google Calendar&#34;, inline=False)
+        embed.add_field(
+            name=&#34;GoogleEvents&#34;, value=&#34;Import next 10 events from Google Calendar&#34;, inline=False)
+        embed.add_field(
+            name=&#34;importfile&#34;, value=&#34;Import events from a CSV or ICS file&#34;, inline=False)
+        embed.add_field(
+            name=&#34;exportfile&#34;, value=&#34;Exports a CSV file of your events&#34;, inline=False)
+        embed.add_field(name=&#34;stop&#34;, value=&#34;ExitBot&#34;, inline=False)
+        await interaction.response.edit_message(embed=embed, view=self)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="src" href="index.html">src</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="src.schedulebot.ConnectGoogle" href="#src.schedulebot.ConnectGoogle">ConnectGoogle</a></code></li>
+<li><code><a title="src.schedulebot.GoogleEvents" href="#src.schedulebot.GoogleEvents">GoogleEvents</a></code></li>
+<li><code><a title="src.schedulebot.bot_help" href="#src.schedulebot.bot_help">bot_help</a></code></li>
+<li><code><a title="src.schedulebot.day" href="#src.schedulebot.day">day</a></code></li>
+<li><code><a title="src.schedulebot.deleteEvent" href="#src.schedulebot.deleteEvent">deleteEvent</a></code></li>
+<li><code><a title="src.schedulebot.exportfile" href="#src.schedulebot.exportfile">exportfile</a></code></li>
+<li><code><a title="src.schedulebot.find" href="#src.schedulebot.find">find</a></code></li>
+<li><code><a title="src.schedulebot.freetime" href="#src.schedulebot.freetime">freetime</a></code></li>
+<li><code><a title="src.schedulebot.importfile" href="#src.schedulebot.importfile">importfile</a></code></li>
+<li><code><a title="src.schedulebot.on_reaction_add" href="#src.schedulebot.on_reaction_add">on_reaction_add</a></code></li>
+<li><code><a title="src.schedulebot.on_ready" href="#src.schedulebot.on_ready">on_ready</a></code></li>
+<li><code><a title="src.schedulebot.quickschedule" href="#src.schedulebot.quickschedule">quickschedule</a></code></li>
+<li><code><a title="src.schedulebot.schedevent" href="#src.schedulebot.schedevent">schedevent</a></code></li>
+<li><code><a title="src.schedulebot.schedule" href="#src.schedulebot.schedule">schedule</a></code></li>
+<li><code><a title="src.schedulebot.searchEvent" href="#src.schedulebot.searchEvent">searchEvent</a></code></li>
+<li><code><a title="src.schedulebot.stop" href="#src.schedulebot.stop">stop</a></code></li>
+<li><code><a title="src.schedulebot.summary" href="#src.schedulebot.summary">summary</a></code></li>
+<li><code><a title="src.schedulebot.sync" href="#src.schedulebot.sync">sync</a></code></li>
+<li><code><a title="src.schedulebot.typecreate" href="#src.schedulebot.typecreate">typecreate</a></code></li>
+<li><code><a title="src.schedulebot.typedelete" href="#src.schedulebot.typedelete">typedelete</a></code></li>
+<li><code><a title="src.schedulebot.typeedit" href="#src.schedulebot.typeedit">typeedit</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="src.schedulebot.helpDropdown" href="#src.schedulebot.helpDropdown">helpDropdown</a></code></h4>
+<ul class="">
+<li><code><a title="src.schedulebot.helpDropdown.help_callback" href="#src.schedulebot.helpDropdown.help_callback">help_callback</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
